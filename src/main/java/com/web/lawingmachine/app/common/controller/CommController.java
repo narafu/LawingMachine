@@ -9,6 +9,7 @@ public class CommController {
     @GetMapping(value = {"/", "index.do"})
     public String index() {
         return "view/common/index";
+//        return "view/training/exam";
     }
 
 
