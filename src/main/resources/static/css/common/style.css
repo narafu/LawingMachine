@@ -152,10 +152,13 @@ i {
 	color: white !important;
 }
 
-#sidebar a:hover:not(.bg-secondary) {
+#
+a:hover:not(.bg-secondary) {
 	color: #086972 !important;
 }
 
 #sidebar .bg-secondary a:hover {
 	color: white !important;
 }
+
+/*******************************************************************/

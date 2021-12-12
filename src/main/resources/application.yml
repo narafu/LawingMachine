@@ -8,12 +8,12 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.lawingMachine.**.vo
+  type-aliases-package: com.web.lawingMachine.app.**.vo
   configuration:
     mapUnderscoreToCamelCase: true
 
 server:
-  port: 8080
+  port: 8090
 
 
 logging:
@@ -30,8 +30,7 @@ logging:
 #    total-size-cap: 1MB
   level:
     root: INFO
-    com:
-      lawingMachine: DEBUG
+    com.web.lawingmachine: DEBUG
 
 ---
 
