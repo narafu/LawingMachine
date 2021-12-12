@@ -64,7 +64,10 @@ a {
 	text-decoration: none;
 }
 
-a:hover, button:hover, i:hover {
+a:hover
+, button:hover
+, i:hover
+, input[type=checkbox]:hover {
 	cursor: pointer !important;
 }
 
@@ -152,8 +155,7 @@ i {
 	color: white !important;
 }
 
-#
-a:hover:not(.bg-secondary) {
+#sidebar a:hover:not(.bg-secondary) {
 	color: #086972 !important;
 }
 
@@ -162,3 +164,8 @@ a:hover:not(.bg-secondary) {
 }
 
 /*******************************************************************/
+
+#quizAnswerNavListDiv .sideNavDiv:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}

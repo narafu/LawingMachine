@@ -59,21 +59,21 @@ public class QuizServiceImpl implements QuizService {
         return quizMstrInfoVO;
     }
 
-//
-//    @Override
-//    public int updateUserAnswer(QuizMstrInfoVO param) {
-//        int resultCnt = 0;
-//        int quizUserAnsSeq = param.getQuizUserAnsSeq();
-//        resultCnt = quizUserAnsMapper.updateUserAnswer(param);
-//        if (resultCnt > 0) {
-//            List<QuizDtlInfoVO> quizDtlInfoList = param.getQuizDtlInfoList();
-//            for (QuizDtlInfoVO quizDtlInfoVO : quizDtlInfoList) {
-//                quizDtlInfoVO.setQuizUserAnsSeq(quizUserAnsSeq);
-//                quizUserAnsDtlMapper.mergeUserAnswerDtl(quizDtlInfoVO);
-//            }
-//        }
-//        return resultCnt;
-//    }
+    @Override
+    public int saveUserAnswer(QuizMstrInfoVO param) {
+
+        int resultCnt = quizUserAnsMapper.mergeUserAnswer(param);
+
+        if (resultCnt > 0) {
+            List<QuizDtlInfoVO> quizDtlList = param.getQuizDtlList();
+            for (QuizDtlInfoVO quizDtlInfoVO : quizDtlList) {
+                quizDtlInfoVO.setQuizUserAnsSeq(param.getQuizUserAnsSeq());
+                quizUserAnsDtlMapper.mergeUserAnswerDtl(quizDtlInfoVO);
+            }
+        }
+        return resultCnt;
+    }
+
 
 //
 //    @Override

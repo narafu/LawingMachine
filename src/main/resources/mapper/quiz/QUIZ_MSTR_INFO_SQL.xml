@@ -48,6 +48,7 @@
           AND A.EXAM_NO = #{examNo}
           AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
           AND B.USER_ID = #{userId}
+          AND (B.USER_ANSWER IS NULL OR B.USER_ANSWER != '')
     </select>
 
     <select id="getQuizTotalCnt" resultType="int">

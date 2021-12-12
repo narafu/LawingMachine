@@ -14,9 +14,9 @@ public interface QuizService {
 
     QuizMstrInfoVO getAjaxQuizMstrInfo(QuizMstrInfoVO param);
 
+    int saveUserAnswer(QuizMstrInfoVO param);
+
 //    List<QuizMstrInfoVO> getQuizCntList(QuizMstrInfoVO param);
-//
-//    int updateUserAnswer(QuizMstrInfoVO param);
 //
 //    int mergeSelectQuizAll(UserInfoVO userInfoVO);
 //
