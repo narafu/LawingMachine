@@ -165,7 +165,6 @@ i {
 
 /*******************************************************************/
 
-#quizAnswerNavListDiv .sideNavDiv:hover {
-	opacity: 0.5;
+.sideNavDiv:hover, .quizNavTltDiv:hover {
 	cursor: pointer;
 }

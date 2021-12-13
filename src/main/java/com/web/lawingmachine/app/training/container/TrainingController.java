@@ -8,18 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/training")
 public class TrainingController {
 
     @Autowired
     private QuizService quizService;
 
-    @GetMapping("/training/exam")
+    @GetMapping("/exam")
     public String exam(ModelMap model) {
 
         // 시험 조회(임시)
@@ -30,10 +32,14 @@ public class TrainingController {
         quizMstrInfoVO.setSubjectTypeCd("10");
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
+        // 네비 리스트 (과목)
+        List<Map<String, String>> quizSubjectNaviList = quizService.selectQuizSubjectList();
+        model.addAttribute("quizSubjectNaviList", quizSubjectNaviList);
+
         return "view/training/exam";
     }
 
-    @GetMapping("/training/exam/ajax/quizMstrInfo")
+    @GetMapping("/exam/ajax/quizMstrInfo")
     public String getAjaxQuizMstrInfo(QuizMstrInfoVO param, ModelMap model) {
 
         // (임시)
@@ -54,7 +60,7 @@ public class TrainingController {
         return "view/training/exam :: #quizMstrInfoDiv";
     }
 
-    @PostMapping("/training/exam/userAnswer")
+    @PostMapping("/exam/userAnswer")
     @ResponseBody
     public ResultMessageVO saveUserAnswer(QuizMstrInfoVO param, ModelMap model) {
 

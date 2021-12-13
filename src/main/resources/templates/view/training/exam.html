@@ -21,100 +21,109 @@
             <input type="hidden" th:field="${quizMstrInfoVO.quizUserAnsSeq}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.userAnswer}"/>
 
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
-                    <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
-                    <h2 class="mx-2" th:text="${quizMstrInfoVO.examGrpNm}"></h2>
-                    <h2 class="mx-2" th:text="${quizMstrInfoVO.subjectTypeNm}"></h2>
-                </div>
-                <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                    <h1 class="text-center" id="count-down-timer"></h1>
-                </div>
-            </div>
+            <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
+                <h1>주의사항</h1>
+                <p class="fs-4 mt-5">시험은 실제 시험과 같은 조건으로 진행됩니다.</p>
+                <p class="fs-4">정확한 데이터를 위해 <strong>시험은 <span class="text-danger">한 번만</span> 응시할 수 있습니다.</strong></p>
+                <p class="fs-4"><strong>중간에 시험을 중단하면, <span class="text-danger">재응시할 수 없습니다.</span></strong></p>
+                <p class="fs-4">시험을 마친 경우만, 빌보드 데이터에 등록됩니다.</p>
+                <p class="fs-4">오른쪽 메뉴에서 응시할 과목을 선택해주세요.</p>
+            </th:block>
 
-            <div class="progress my-5">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="progress-bar"
-                     role="progressbar" style="width: 75%;"
-                     th:text="|${quizMstrInfoVO.quizEndCnt}/${quizMstrInfoVO.quizTotalCnt}|"></div>
-            </div>
-
-            <div style="font-family: 'Gowun Batang', serif;">
-                <div>
-                    <div class="d-flex justify-content-between">
-
-                        <div class="fs-5 fw-bold">
-                            <th:block th:each="quiz:${quizAnswerNavList}"
-                                      th:if="${quiz.quizMstrInfoSeq == quizMstrInfoVO.quizMstrInfoSeq}">
-                                <span th:text="|문 ${#strings.length(quiz.rno) == 1 ? '0' + quiz.rno : quiz.rno}.|"></span>
-                            </th:block>
-                        </div>
-
-                        <div class="d-flex" style="font-family: 'GongGothicMedium';">
-                            <div class="form-check mx-3">
-                                <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"
-                                       id="userChkImprt"
-                                       th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">
-                                <label class="form-check-label" for="userChkImprt">중요</label>
-                            </div>
-                            <div class="form-check mx-3">
-                                <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd"
-                                       id="userChkCnfsd"
-                                       th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">
-                                <label class="form-check-label" for="userChkCnfsd">헷갈림</label>
-                            </div>
-                        </div>
+            <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
+                        <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
+                        <h2 class="mx-2" th:text="${quizMstrInfoVO.examGrpNm}"></h2>
+                        <h2 class="mx-2" th:text="${quizMstrInfoVO.subjectTypeNm}"></h2>
                     </div>
-                    <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}">
+                    <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                        <h1 class="text-center" id="count-down-timer"></h1>
                     </div>
                 </div>
-
-                <div class="d-flex justify-content-between" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                    <button type="button" class="btn btn-primary my-3" onclick="goQuiz('prev')">이전문제</button>
-                    <button type="button" class="btn btn-primary my-3" onclick="goQuiz('next')">다음문제</button>
+                <div class="progress my-5">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="progress-bar"
+                         role="progressbar" style="width: 75%;"
+                         th:text="|${quizMstrInfoVO.quizEndCnt}/${quizMstrInfoVO.quizTotalCnt}|"></div>
                 </div>
 
-                <div class="d-grid gap-3">
-                    <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
-                        <div class="my-3 exDiv d-flex text-start">
-                            <i class="fas fa-eraser" onclick="eraser(this);"></i>
-                            <a class="list-group-item list-group-item-action mx-3"
-                               th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
-                               onclick="chkAnswer(this);">
-                                <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 1}">&#9312;</span>
-                                <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 2}">&#9313;</span>
-                                <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 3}">&#9314;</span>
-                                <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 4}">&#9315;</span>
-                                <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 5}">&#9316;</span>
-                                <span class="exCntnt mx-1" th:text="${quizDtlInfo.content}"
-                                      th:classappend="${quizDtlInfo.eraseYn} == 'Y' ? text-decoration-line-through"></span>
-                            </a>
-                            <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizDtlInfoSeq|"
-                                   th:value="${quizDtlInfo.quizDtlInfoSeq}"/>
-                            <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|"
-                                   th:value="${quizDtlInfo.srtNo}" class="quizDtlSrtNo"/>
-                            <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].eraseYn|"
-                                   th:value="${quizDtlInfo.eraseYn}" class="eraseYn"/>
-                            <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizUserAnsDtlSeq|"
-                                   th:value="${quizDtlInfo.quizUserAnsDtlSeq}"/>
+                <div style="font-family: 'Gowun Batang', serif;">
+                    <div>
+                        <div class="d-flex justify-content-between">
+
+                            <div class="fs-5 fw-bold">
+                                <th:block th:each="quiz:${quizAnswerNavList}"
+                                          th:if="${quiz.quizMstrInfoSeq == quizMstrInfoVO.quizMstrInfoSeq}">
+                                    <span th:text="|문 ${#strings.length(quiz.rno) == 1 ? '0' + quiz.rno : quiz.rno}.|"></span>
+                                </th:block>
+                            </div>
+
+                            <div class="d-flex" style="font-family: 'GongGothicMedium';">
+                                <div class="form-check mx-3">
+                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"
+                                           id="userChkImprt"
+                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">
+                                    <label class="form-check-label" for="userChkImprt">중요</label>
+                                </div>
+                                <div class="form-check mx-3">
+                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd"
+                                           id="userChkCnfsd"
+                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">
+                                    <label class="form-check-label" for="userChkCnfsd">헷갈림</label>
+                                </div>
+                            </div>
                         </div>
-                    </th:block>
+                        <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                        <button type="button" class="btn btn-primary my-3" onclick="goQuiz('prev')">이전문제</button>
+                        <button type="button" class="btn btn-primary my-3" onclick="goQuiz('next')">다음문제</button>
+                    </div>
+
+                    <div class="d-grid gap-3">
+                        <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
+                            <div class="my-3 exDiv d-flex text-start">
+                                <i class="fas fa-eraser" onclick="eraser(this);"></i>
+                                <a class="list-group-item list-group-item-action mx-3"
+                                   th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
+                                   onclick="chkAnswer(this);">
+                                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 1}">&#9312;</span>
+                                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 2}">&#9313;</span>
+                                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 3}">&#9314;</span>
+                                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 4}">&#9315;</span>
+                                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 5}">&#9316;</span>
+                                    <span class="exCntnt mx-1" th:text="${quizDtlInfo.content}"
+                                          th:classappend="${quizDtlInfo.eraseYn} == 'Y' ? text-decoration-line-through"></span>
+                                </a>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizDtlInfoSeq|"
+                                       th:value="${quizDtlInfo.quizDtlInfoSeq}"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|"
+                                       th:value="${quizDtlInfo.srtNo}" class="quizDtlSrtNo"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].eraseYn|"
+                                       th:value="${quizDtlInfo.eraseYn}" class="eraseYn"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizUserAnsDtlSeq|"
+                                       th:value="${quizDtlInfo.quizUserAnsDtlSeq}"/>
+                            </div>
+                        </th:block>
+                    </div>
                 </div>
-            </div>
+            </th:block>
         </form>
-
     </div>
 
     <!-- sidebar -->
     <div class="col p-5">
-
         <div class="d-grid gap-5" id="quizAnswerNavListDiv">
             <!-- <h5 class="mx-3 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">공법</h5> -->
             <div>
                 <th:block th:each="subjectNavInfo:${quizSubjectNaviList}">
                     <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
                          style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                        <span th:text="${subjectNavInfo.grpDtlNm}"></span>
+                        <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
+                        <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
                         <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
                         <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
                     </div>
@@ -122,7 +131,7 @@
                         <div class="row row-cols-5">
                             <th:block th:each="quizNavInfo:${quizAnswerNavList}"
                                       th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
-                                <div class="col border sideNavDiv"
+                                <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
                                      th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
                                     <div>
                                         <div th:text="${quizNavInfo.rno}"></div>
@@ -146,7 +155,60 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
-        getAjaxQuizMstrInfo(); // quiz 조회
+        $(function () {
+
+            $('.quizNavTltDiv').hover(function () {
+                $(this).removeClass('text-primary');
+                $(this).addClass('bg-primary');
+                $(this).addClass('text-light');
+            }, function () {
+                $(this).addClass('text-primary');
+                $(this).removeClass('bg-primary');
+                $(this).removeClass('text-light');
+            })
+
+            $('.quizNavTltDiv').click(function () {
+                let subjectNm = $(this).find('.subjectNm').text();
+                let subjectCd = $(this).find('.subjectCd').text();
+
+                // let url = '/modal/confirm';
+                // let modalId = 'confirmTest';
+                // let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
+                // let modalFunc = getAjaxQuizMstrInfo();
+                // let actBtnText = '시작';
+
+                // let data = {
+                //     'modalId': modalId,
+                //     'modalText': modalText,
+                //     // 'modalFunc': modalFunc,
+                //     'actBtnText': actBtnText
+                // };
+
+                // $.get(url, data).done(function (modalHtml) {
+                //     $('#modalDiv').html(modalHtml);
+                //     let modal = new bootstrap.Modal(document.getElementById(modalId));
+                //     modal.show();
+                // })
+
+                if (confirm(subjectNm + '을 응시하시겠습니까? \n주의사항을 꼭 확인해주세요!')) {
+                    $('#subjectTypeCd').val(subjectCd);
+                    getAjaxQuizMstrInfo('');
+                }
+            })
+        })
+
+        $(document).on({
+            mouseenter: function () {
+                $(this).addClass('border-primary');
+                $(this).addClass('border-2');
+                $(this).addClass('fw-bold');
+            },
+            mouseleave: function () {
+                $(this).removeClass('border-primary');
+                $(this).removeClass('border-2');
+                $(this).removeClass('fw-bold');
+            }
+        }, '.sideNavDiv');
     </script>
 </th:block>
 

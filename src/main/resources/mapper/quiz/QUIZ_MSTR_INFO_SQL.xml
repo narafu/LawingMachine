@@ -18,12 +18,16 @@
           AND A.EXAM_GRP_CD = #{examGrpCd}
           AND A.EXAM_YEAR = #{examYear}
           AND A.EXAM_NO = #{examNo}
+        <if test="subjectTypeCd != null and subjectTypeCd != ''">
+            AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
+        </if>
         ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO
     </select>
 
     <select id="selectQuizSubjectList" resultType="HashMap">
         SELECT B.SUBJECT_TYPE_CD AS subjectTypeCd
              , A.GRP_DTL_NM      AS grpDtlNm
+             , A.GRP_DTL_CD      AS grpDtlCd
              , COUNT(*)          AS quizCnt
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B
