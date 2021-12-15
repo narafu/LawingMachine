@@ -5,23 +5,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class OAuth2Controller {
+
     @GetMapping({"", "/"})
     public String getAuthorizationMessage() {
-        return "home";
+        return "view/common/index";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "view/common/login";
     }
 
     @GetMapping({"/loginSuccess", "/hello"})
     public String loginSuccess() {
-        return "hello";
+        return "view/common/success";
     }
 
     @GetMapping("/loginFailure")
     public String loginFailure() {
-        return "loginFailure";
+        return "view/common/error";
     }
+
 }

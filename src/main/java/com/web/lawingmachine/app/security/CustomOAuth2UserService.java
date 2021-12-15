@@ -1,17 +1,29 @@
 package com.web.lawingmachine.app.security;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequestEntityConverter;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
-
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -71,4 +83,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
         }
         return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
-    } // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함 private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) { Map<String, Object> userAttributes = response.getBody(); if(userAttributes.containsKey("response")) { LinkedHashMap responseData = (LinkedHashMap)userAttributes.get("response"); userAttributes.putAll(responseData); userAttributes.remove("response"); } return userAttributes; } }
+    } // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
+
+    private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
+        Map<String, Object> userAttributes = response.getBody();
+        if (userAttributes.containsKey("response")) {
+            LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
+            userAttributes.putAll(responseData);
+            userAttributes.remove("response");
+        }
+        return userAttributes;
+    }
+}
