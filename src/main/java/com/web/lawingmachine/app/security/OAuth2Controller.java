@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class OAuth2Controller {
 
-    @GetMapping({"", "/"})
+    @GetMapping(value = {"/", "index.do"})
     public String getAuthorizationMessage() {
         return "view/common/index";
     }

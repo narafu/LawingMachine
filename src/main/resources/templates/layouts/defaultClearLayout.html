@@ -41,19 +41,11 @@
 
 <body class="w-100 h-100">
 
-    <!-- header -->
-    <header th:replace="fragments/header :: headerFragment"></header>
-
     <!-- content -->
-    <div>
-        <div layout:fragment="content"></div>
-    </div>
+    <div layout:fragment="content"></div>
 
     <!-- modal -->
     <div id="modalDiv"></div>
-
-    <!-- footer 영역 시작 -->
-    <footer th:replace="fragments/footer :: footerFragment"></footer>
 
     <!-- JS -->
     <th:block layout:fragment="script"></th:block>

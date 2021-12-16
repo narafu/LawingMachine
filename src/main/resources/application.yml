@@ -1,6 +1,8 @@
 # 공통
 
 spring:
+  main:
+    allow-circular-references: true
   profiles:
     active: local
   thymeleaf:
@@ -10,8 +12,8 @@ spring:
       client:
         registration:
           google:
-            client-id:
-            client-secret:
+            client-id: 225634132446-k44mneq5c4ivqf9v2vhsij7skns3h9o5.apps.googleusercontent.com
+            client-secret: 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
           facebook:
             client-id: 628464294973712
             client-secret: 75b9b5ba8d0a2a422384ecb8a7d553c9
