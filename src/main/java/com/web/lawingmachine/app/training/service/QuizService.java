@@ -1,5 +1,6 @@
 package com.web.lawingmachine.app.training.service;
 
+import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 
 import java.util.List;
@@ -16,18 +17,5 @@ public interface QuizService {
 
     int saveUserAnswer(QuizMstrInfoVO param);
 
-//    List<QuizMstrInfoVO> getQuizCntList(QuizMstrInfoVO param);
-//
-//    int mergeSelectQuizAll(UserInfoVO userInfoVO);
-//
-//    int regQuiz(QuizMstrInfoVO param);
-//
-//    int editQuiz(QuizMstrInfoVO param);
-//
-//    List<Map<String, String>> selectQuizNoList(QuizMstrInfoVO quizMstrInfoVO);
-//
-//    int delQuiz(QuizMstrInfoVO param);
-//
-//    QuizMstrInfoVO getQuizFormInfo(QuizMstrInfoVO quizMstrInfoVO);
-
+    List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param);
 }

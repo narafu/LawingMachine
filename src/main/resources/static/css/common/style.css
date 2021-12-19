@@ -67,7 +67,8 @@ a {
 a:hover
 , button:hover
 , i:hover
-, input[type=checkbox]:hover {
+, input[type=checkbox]:hover
+, .tui-grid-cell-content:hover {
 	cursor: pointer !important;
 }
 

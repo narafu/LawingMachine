@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+
+    <form id="boardForm">
+        <input type="hidden" name="offset" id="offset" th:value="${quizMstrInfoVO.offset}" />
+        <input type="hidden" name="quizMstrInfoSeq" id="quizMstrInfoSeq" value="" />
+    </form>
+
+    <div id="totalDiv"></div>
+    <div id="grid"></div>
+    <div id="pagingDiv" class="tui-pagination"></div>
+
+    <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="goBoardForm();">
+        <span>작성하기</span>
+        <i class="fas fa-pencil-alt text-light"></i>
+    </button>
+
+</div>
+<!-- [content] 영역 끝 -->
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/admin/adminFunc.js}"></script>
+    <script>
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            scrollX: false,
+            scrollY: false,
+            columns: [
+                { header: '과목명', name: 'subjectTypeNm', width: 120, align: 'center', sortable: true }
+                , { header: '시험구분', name: 'examGrpNm', width: 120, align: 'center', sortable: true }
+                , { header: '시험년도', name: 'examYear', width: 120, align: 'center', sortable: true }
+                , { header: '회차', name: 'examNo', width: 120, align: 'center', sortable: true }
+                , { header: '문제번호', name: 'rno', width: 120, align: 'center', sortable: true }
+                , { header: '문제', name: 'content', sortable: true}
+                , { header: '등록일자', name: 'regDt', width: 120, align: 'center', sortable: true }
+            ]
+        });
+
+        $(function() {
+
+            tui.Grid.applyTheme('clean', {
+                row: {
+                    hover: { background: '#eee' }
+                },
+                cell: {
+                    header: { background: '#086972', text: '#fbfbfb', showHorizontalBorder: 'true'  },
+                    normal: { background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true' }
+                }
+            });
+
+            grid.on('click', (obj) => {
+                if(!obj.rowKey) { return; }
+                let quizMstrInfoSeq = grid.getValue(obj.rowKey, 'quizMstrInfoSeq');
+                goBoardInfo(quizMstrInfoSeq);
+            })
+
+            pageMove(0);
+        })
+
+        function pageMove(offset) {
+
+            $('#offset').val(offset);
+
+            let url = '/admin/quiz/list/ajax/';
+            let data = $('#boardForm').serialize();
+
+            $.get(url, data, function (result) {
+
+                grid.resetData(result.list);
+
+                let options = {
+                    totalItems : result.total
+                    , itemsPerPage : result.pageSize
+                    , page : result.offset + 1
+                }
+
+                let pagination = new tui.Pagination('pagingDiv', options);
+
+                pagination.on('beforeMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+
+                pagination.on('afterMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+            });
+        }
+    </script>
+</th:block>
+
+</html>

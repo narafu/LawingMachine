@@ -37,7 +37,9 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<Map<String, String>> selectQuizSubjectList() {
-        return quizMstrInfoMapper.selectQuizSubjectList();
+        // 공통코드(과목코드)
+        String grpCd = "002";
+        return quizMstrInfoMapper.selectQuizSubjectList(grpCd);
     }
 
     @Override
@@ -72,6 +74,11 @@ public class QuizServiceImpl implements QuizService {
             }
         }
         return resultCnt;
+    }
+
+    @Override
+    public List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param) {
+        return quizDtlInfoMapper.selectQuizDtlList(param);
     }
 
 

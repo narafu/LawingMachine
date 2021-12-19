@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+
+    <form id="boardForm">
+        <input type="hidden" th:field="${boardVO.content}"/>
+        <input type="hidden" th:field="${boardVO.brdMstrInfoSeq}"/>
+
+        <div class="row g-3 w-75 align-items-center">
+            <div class="col">
+                <th:block th:text="${boardVO.brdTypeNm}" />
+            </div>
+            <div class="col">
+                <th:block th:text="${boardVO.subjectTypeNm}" />
+            </div>
+        </div>
+
+        <div class="my-3">
+            <div>
+                <th:block th:text="${boardVO.title}" />
+            </div>
+        </div>
+
+        <div id="boardCntnt"></div>
+    </form>
+
+    <div class="d-grid gap-2 d-flex justify-content-end">
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardForm()">수정</button>
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="">삭제</button>
+    </div>
+
+
+</div>
+<!-- [content] 영역 끝 -->
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/board/boardFunc.js}"></script>
+    <script>
+        let boardCntnt = toastui.Editor.factory({
+            el: document.querySelector('#boardCntnt'),
+            viewer: true,
+            height: '400px',
+            initialValue: $('#content').val(),
+        })
+    </script>
+</th:block>
+
+
+</html>

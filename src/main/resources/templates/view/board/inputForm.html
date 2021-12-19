@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+
+    <form id="boardForm">
+        <input type="hidden" th:field="${boardVO.content}"/>
+        <input type="hidden" th:field="${boardVO.brdMstrInfoSeq}"/>
+
+        <div class="mt-5">
+            <div class="row">
+                <div class="col">
+                    <select class="form-select rounded-pill px-4" name="brdTypeCd">
+                        <option value="">게시판 선택</option>
+                        <th:block th:each=cnmmCd:${brdTypeCdList}>
+                            <option th:value="${cnmmCd.cmmnDtlCd}" th:text="${cnmmCd.cmmnDtlNm}"
+                                    th:selected="${#strings.equals(cnmmCd.cmmnDtlCd, boardVO.brdTypeCd)}"/>
+                        </th:block>
+                    </select>
+                </div>
+                <div class="col">
+                    <select class="form-select rounded-pill px-4" name="subjectTypeCd">
+                        <option value="">과목 선택</option>
+                        <th:block th:each=cnmmCd:${subjectTypeCdList}>
+                            <option th:value="${cnmmCd.cmmnDtlCd}" th:text="${cnmmCd.cmmnDtlNm}"
+                                    th:selected="${#strings.equals(cnmmCd.cmmnDtlCd, boardVO.subjectTypeCd)}"/>
+                        </th:block>
+                    </select>
+                </div>
+            </div>
+
+            <div class="my-3">
+                <input type="text" class="form-control" name="title" th:value="${boardVO.title}"
+                       placeholder="제목을 입력해주세요.">
+            </div>
+
+            <div id="boardCntnt"></div>
+        </div>
+    </form>
+
+    <div class="d-grid gap-2 d-flex justify-content-end">
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="regBoardInfo()">등록</button>
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">취소</button>
+    </div>
+
+
+</div>
+<!-- [content] 영역 끝 -->
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/board/boardFunc.js}"></script>
+    <script>
+        let Editor = toastui.Editor;
+        let boardCntnt = new Editor({
+            el: document.querySelector('#boardCntnt'),
+            height: '400px',
+            initialValue: $('#content').val(),
+            initialEditType: 'wysiwyg'
+        })
+    </script>
+</th:block>
+
+
+</html>

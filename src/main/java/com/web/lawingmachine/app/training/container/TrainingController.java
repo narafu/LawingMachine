@@ -1,11 +1,10 @@
 package com.web.lawingmachine.app.training.container;
 
-import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class TrainingController {
     private QuizService quizService;
 
     @GetMapping("/exam")
-    public String exam(ModelMap model) {
+    public String exam(Model model) {
 
         // 시험 조회(임시)
         QuizMstrInfoVO quizMstrInfoVO = new QuizMstrInfoVO();
@@ -39,8 +38,8 @@ public class TrainingController {
         return "view/training/exam";
     }
 
-    @GetMapping("/exam/ajax/quizMstrInfo")
-    public String getAjaxQuizMstrInfo(QuizMstrInfoVO param, ModelMap model) {
+    @GetMapping("/exam/quizMstrInfo")
+    public String getQuizMstrInfo(QuizMstrInfoVO param, Model model) {
 
         // (임시)
         param.setUserId("narafu@kakao.com");
@@ -62,21 +61,10 @@ public class TrainingController {
 
     @PostMapping("/exam/userAnswer")
     @ResponseBody
-    public ResultMessageVO saveUserAnswer(QuizMstrInfoVO param, ModelMap model) {
-
+    public Integer saveUserAnswer(QuizMstrInfoVO param) {
         // (임시)
         param.setUserId("narafu@kakao.com");
-
-        ResultMessageVO result = new ResultMessageVO();
-        int resultCnt = quizService.saveUserAnswer(param);
-
-        if (resultCnt > 0) {
-            result.setMessage("저장되었습니다.");
-        } else {
-            result.setMessage("오류가 발생하였습니다.");
-        }
-
-        return result;
+        return quizService.saveUserAnswer(param);
     }
 
 }

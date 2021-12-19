@@ -39,7 +39,7 @@ function paddedFormat(num) {
 function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
 
-    let url = '/training/exam/ajax/quizMstrInfo';
+    let url = '/training/exam/quizMstrInfo';
     let data = $('#hiddenForm').serialize();
 
     $.get(url, data, function (result) {

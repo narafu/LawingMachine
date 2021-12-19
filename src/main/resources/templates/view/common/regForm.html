@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultClearLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container my-auto">
+
+    <div class="text-center mt-4">
+        <a href="/index" class="display-1 text-primary"
+           style="text-decoration: none; font-family: 'NEXON Lv1 Gothic OTF Bold';">로잉머신</a>
+        <p class=""><span>회원이신가요?</span><i class="far fa-hand-point-right mx-2"></i><a href="/login" class="text-primary">로그인</a></p>
+    </div>
+
+    <div class="mx-auto w-50">
+        <form class="d-flex flex-column align-items-center">
+            <div class="form-group my-2 w-75">
+                <label for="exampleInputEmail1" class="m-2 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">성명</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="성명을 입력해주세요.">
+            </div>
+            <div class="form-group my-2 w-75">
+                <label for="exampleInputEmail1" class="m-2 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">연락처</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="핸드폰번호를 입력해주세요.">
+            </div>
+            <div class="form-group my-2 w-75">
+                <label for="exampleInputEmail1" class="m-2 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">이메일</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="이메일을 입력해주세요.">
+            </div>
+            <div class="form-group my-2 w-75">
+                <label for="exampleInputPassword1" class="m-2 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">비밀번호</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호를 입력해주세요.">
+                <small id="emailHelp" class="form-text text-danger float-right" style="float: right;">* 비밀번호는 영문, 숫자 조합
+                    8자 이상 입력해 주세요.</small>
+            </div>
+            <div class="form-group my-2 w-75">
+                <label for="exampleInputPassword1" class="m-2 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">비밀번호 확인</label>
+                <input type="password" class="form-control" id="exampleInputPassword1"
+                       placeholder="비밀번호를 다시 한번 입력해주세요.">
+            </div>
+            <div class="my-4 w-75">
+                <button type="submit" class="w-100 btn btn-lg btn-primary py-2 rounded-pill">회원가입</button>
+            </div>
+            <small id="emailHelp" class="form-text text-muted">회원가입 버튼을 클릭하면 <a class="text-primary">약관</a>에
+                동의하여 쿠키 사용을 포함한 데이터 정책을 읽고<br>이해하신 것으로 간주됩니다.</small>
+        </form>
+    </div>
+</div>
+<!-- [content] 영역 끝 -->

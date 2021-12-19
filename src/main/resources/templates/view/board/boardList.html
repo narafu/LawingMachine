@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+
+    <form id="boardForm">
+        <input type="hidden" name="offset" id="offset" th:value="${boardVO.offset}" />
+        <input type="hidden" name="brdTypeCd" id="brdTypeCd" value="10" />
+        <input type="hidden" name="brdMstrInfoSeq" id="brdMstrInfoSeq" value="" />
+    </form>
+
+    <div id="totalDiv"></div>
+    <div id="grid"></div>
+    <div id="pagingDiv" class="tui-pagination"></div>
+
+    <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="goBoardForm();">
+        <span>작성하기</span>
+        <i class="fas fa-pencil-alt text-light"></i>
+    </button>
+
+</div>
+<!-- [content] 영역 끝 -->
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/board/boardFunc.js}"></script>
+    <script>
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            scrollX: false,
+            scrollY: false,
+            columns: [
+                { header: 'No', name: 'rno', width: 60, align: 'center', sortable: true }
+                , { header: '과목명', name: 'subjectTypeNm', width: 120, align: 'center', sortable: true }
+                , { header: '제목', name: 'title', sortable: true,
+                    formatter: function(obj) {
+                        let rtn = obj.value + ' [' + obj.row.cmntCnt + ']';
+                        return rtn;
+                    }
+                }
+                , { header: '등록자', name: 'registId', width: 120, align: 'center', sortable: true }
+                , { header: '등록일자', name: 'regDt', width: 120, align: 'center', sortable: true }
+                , { header: '공감수', name: 'likeTotalCnt', width: 100, align: 'center', sortable: true }
+                , { header: '조회수', name: 'viewCnt', width: 100, align: 'center', sortable: true }
+            ]
+        });
+
+        $(function() {
+
+            tui.Grid.applyTheme('clean', {
+                row: {
+                    hover: { background: '#eee' }
+                },
+                cell: {
+                    header: { background: '#086972', text: '#fbfbfb', showHorizontalBorder: 'true'  },
+                    normal: { background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true' }
+                }
+            });
+
+            grid.on('click', (obj) => {
+                if(!obj.rowKey) { return; }
+                let brdMstrInfoSeq = grid.getValue(obj.rowKey, 'brdMstrInfoSeq');
+                goBoardInfo(brdMstrInfoSeq);
+            })
+
+            pageMove(0);
+        })
+
+        function pageMove(offset) {
+
+            $('#offset').val(offset);
+
+            let url = '/board/list/ajax/';
+            let data = $('#boardForm').serialize();
+
+            $.get(url, data, function (result) {
+
+                grid.resetData(result.list);
+
+                let options = {
+                    totalItems : result.total
+                    , itemsPerPage : result.pageSize
+                    , page : result.offset + 1
+                }
+
+                let pagination = new tui.Pagination('pagingDiv', options);
+
+                pagination.on('beforeMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+
+                pagination.on('afterMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+            });
+        }
+    </script>
+</th:block>
+
+</html>

@@ -13,9 +13,8 @@ public class BaseUtil {
 	@Autowired
 	private BaseUtilService baseUtilService;
 
-	public List<Map<String, String>> getCmmnCdList(String grpCd) {
+	public List<Map<String, String>> selectCmmnCdList(String grpCd) {
 		List<Map<String, String>> cmmnCdMapList = baseUtilService.selectCmmnCdList(grpCd);
 		return cmmnCdMapList;
 	}
-
 }

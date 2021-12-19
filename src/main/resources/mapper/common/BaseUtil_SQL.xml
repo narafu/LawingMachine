@@ -12,7 +12,7 @@
 			AND DEL_YN = 'N'
 			AND USE_YN = 'Y'
 			AND GRP_CD = '${grpCd}'
-		ORDER BY SORT_NO
+		ORDER BY SRT_NO
 	</select>
 
 </mapper>

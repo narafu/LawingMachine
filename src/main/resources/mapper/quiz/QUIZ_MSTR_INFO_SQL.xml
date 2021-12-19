@@ -32,7 +32,7 @@
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B
         WHERE A.GRP_DTL_CD = B.SUBJECT_TYPE_CD
-          AND A.GRP_CD = '002'
+          AND A.GRP_CD = #{grpCd}
           AND A.DEL_YN = 'N'
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
@@ -111,27 +111,48 @@
         </choose>
     </select>
 
+    <sql id="selectQuizList-where">
+        AND DEL_YN = 'N'
+    </sql>
 
-    <select id="selectQuizNoList" resultType="HashMap">
+    <select id="selectQuizList" resultType="QuizMstrInfoVO">
         SELECT
-        ROW_NUMBER() OVER(ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS rno
-        , QUIZ_MSTR_INFO_SEQ AS quizMstrInfoSeq
-        , SUBJECT_TYPE_CD AS subjectTypeCd
-        , SRT_NO AS srtNo
+            ROW_NUMBER() OVER(ORDER BY REG_TS DESC) AS RNO
+            , QUIZ_MSTR_INFO_SEQ
+            , EXAM_GRP_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="001"/>
+                <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
+                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+            </include>
+            , SUBJECT_TYPE_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="002"/>
+                <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
+                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+            </include>
+            , EXAM_YEAR
+            , EXAM_NO
+            , SRT_NO
+            , CONTENT
+            , ANSWER
+            , CMNTR
+            , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
+        FROM QUIZ_MSTR_INFO A
+        WHERE 1 = 1
+        <include refid="selectQuizList-where"/>
+        LIMIT #{pageSize}
+        OFFSET #{offset}
+    </select>
+
+    <select id="getQuizListCnt" resultType="int">
+        SELECT
+        COUNT(*)
         FROM QUIZ_MSTR_INFO
-        WHERE DEL_YN = 'N'
-        <if test="examYear != null and examYear != ''">
-            AND EXAM_YEAR = ${examYear}
-        </if>
-        <if test="examGrpCd != null and examGrpCd != ''">
-            AND EXAM_GRP_CD = ${examGrpCd}
-        </if>
-        <if test="examNo != null and examNo != 0">
-            AND EXAM_NO = ${examNo}
-        </if>
-        <if test="subjectTypeCd != null and subjectTypeCd != ''">
-            AND SUBJECT_TYPE_CD = ${subjectTypeCd}
-        </if>
+        WHERE 1 = 1
+        <include refid="selectQuizList-where"/>
     </select>
 
     <insert id="insertQuizMstrInfo">
@@ -188,18 +209,58 @@
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
     </update>
 
-    <select id="getQuizFormInfo" resultType="QuizMstrInfoVO">
+    <select id="getQuizInfo" resultType="QuizMstrInfoVO">
         SELECT QUIZ_MSTR_INFO_SEQ
+            , EXAM_GRP_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="001"/>
+                <property name="grpDtlCd" value="EXAM_GRP_CD"/>
+                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+            </include>
+            , SUBJECT_TYPE_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="002"/>
+                <property name="grpDtlCd" value="SUBJECT_TYPE_CD"/>
+                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+            </include>
              , EXAM_YEAR
-             , EXAM_GRP_CD
              , EXAM_NO
-             , SUBJECT_TYPE_CD
              , SRT_NO
              , CONTENT
              , ANSWER
              , CMNTR
         FROM QUIZ_MSTR_INFO
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
+    </select>
+
+
+
+
+
+
+
+    <select id="selectQuizNoList" resultType="HashMap">
+        SELECT
+        ROW_NUMBER() OVER(ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS rno
+        , QUIZ_MSTR_INFO_SEQ AS quizMstrInfoSeq
+        , SUBJECT_TYPE_CD AS subjectTypeCd
+        , SRT_NO AS srtNo
+        FROM QUIZ_MSTR_INFO
+        WHERE DEL_YN = 'N'
+        <if test="examYear != null and examYear != ''">
+            AND EXAM_YEAR = ${examYear}
+        </if>
+        <if test="examGrpCd != null and examGrpCd != ''">
+            AND EXAM_GRP_CD = ${examGrpCd}
+        </if>
+        <if test="examNo != null and examNo != 0">
+            AND EXAM_NO = ${examNo}
+        </if>
+        <if test="subjectTypeCd != null and subjectTypeCd != ''">
+            AND SUBJECT_TYPE_CD = ${subjectTypeCd}
+        </if>
     </select>
 
     <select id="getFstQuizInfo" resultType="QuizMstrInfoVO">

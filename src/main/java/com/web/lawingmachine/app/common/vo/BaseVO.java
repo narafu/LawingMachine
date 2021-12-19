@@ -5,12 +5,16 @@ import lombok.Data;
 @Data
 public class BaseVO {
 
-	private String rno;
-	private String delYn;
-	private String registId;
-	private String registNm;
-	private String regIs;
-	private String mdfyTs;
-	private String delTs;
+    private int rno;
+    private int pageSize = 10;
+    private int offset;
+
+    private String delYn;
+    private String registId;
+    private String registNm;
+    private String regDt;
+    private String regTs;
+    private String mdfyTs;
+    private String delTs;
 
 }

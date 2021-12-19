@@ -11,25 +11,20 @@ public interface QuizMstrInfoMapper {
 
     List<QuizMstrInfoVO> selectAjaxQuizNavList(QuizMstrInfoVO quizMstrInfoVO);
 
-    List<Map<String, String>> selectQuizSubjectList();
+    List<Map<String, String>> selectQuizSubjectList(String grpCd);
 
     int getQuizTotalCnt(QuizMstrInfoVO param);
 
     int getQuizEndCnt(QuizMstrInfoVO param);
 
     QuizMstrInfoVO getQuizMstrInfo(QuizMstrInfoVO param);
-//
-//    List<Map<String, String>> selectQuizNoList(QuizMstrInfoVO quizMstrInfoVO);
-//
-//    int insertQuizMstrInfo(QuizMstrInfoVO param);
-//
-//    int updateQuizMstrInfo(QuizMstrInfoVO param);
-//
-//    int delQuiz(QuizMstrInfoVO param);
-//
-//    QuizMstrInfoVO getQuizFormInfo(QuizMstrInfoVO param);
-//
-//    QuizMstrInfoVO getFstQuizInfo();
 
+    List<QuizMstrInfoVO> selectQuizList(QuizMstrInfoVO quizMstrInfoVO);
+
+    int getQuizListCnt(QuizMstrInfoVO quizMstrInfoVO);
+
+    QuizMstrInfoVO getQuizInfo(QuizMstrInfoVO quizMstrInfoVO);
+
+    int insertQuizMstrInfo(QuizMstrInfoVO quizMstrInfoVO);
 
 }
