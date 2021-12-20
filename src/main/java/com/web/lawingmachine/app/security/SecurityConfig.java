@@ -26,14 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
         
-        httpSecurity.authorizeRequests()
-            .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**")
-            .permitAll()
+        httpSecurity.authorizeRequests() // imgs 폴더이름 수정해야함
+            .antMatchers("/", "/index", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**").permitAll()
+            .antMatchers("/admin/**").hasRole(Role.ADMIN.name())
             .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
             .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
             .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
             .antMatchers("/naver").hasAuthority(NAVER.getRoleType())
             .anyRequest().authenticated()
+        .and()
+            .logout()
+            .logoutSuccessUrl("/")
         .and()
             .oauth2Login()
             .userInfoEndpoint()
