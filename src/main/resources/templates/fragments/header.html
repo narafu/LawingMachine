@@ -16,7 +16,7 @@
                 <li class="nav-item mx-5"><a href="/board/list" class="nav-link">커뮤니티</a></li>
                 <li class="nav-item mx-5"><a href="/admin/quiz/list" class="nav-link">관리자</a></li>
                 <th:block sec:authorize="isAuthenticated() == false">
-                    <li class="nav-item mx-5"><a th:href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
+                    <li class="nav-item mx-5"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item mx-5"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
