@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+
+    <div class="row mt-5">
+
+        <div class="col">
+            <ul class="nav nav-pills flex-column w-75">
+                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/myProfile">내 프로필</a></li>
+                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote">오답노트</a></li>
+                <li class="nav-item m-2"><a class="nav-link py-3 active" href="/mypage/quizResult">진단결과</a></li>
+            </ul>
+        </div>
+
+        <div class="col-9">
+            <div class="border">
+                <div class="fs-3 my-4 text-center">로잉머신 진단결과</div>
+                <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">예비 변호사님, 시험을 치르느라 수고많으셨습니다.</div>
+                <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">시험결과 예비 변호사님은 제11회 변호사시험 빌보드에서 총
+                    1232명 가운데 32등을 하셨습니다. 사례형에서 평균적으로 00점 이상을 맞는다면 이번 제 11회 변호사시험 합격을 기대해볼 수 있겠습니다.
+                </div>
+                <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">따라서 위 사항들을 종합하여 판단하건데 현재 예비 변호사님이 제
+                    11회 변호사시험에서 합격할 가능성은 다소 어렵습니다.
+                </div>
+                <div class="fs-4 my-4 text-center">2022. 1. 13</div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- [content] 영역 끝 -->

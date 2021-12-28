@@ -10,6 +10,7 @@ public class UserInfoVO extends BaseVO {
     private String userInfoSeq;
     private String userId;
     private String userNm;
+    private String email;
     private String password;
     private String roleCd;
 

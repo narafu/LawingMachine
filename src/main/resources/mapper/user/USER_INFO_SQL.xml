@@ -4,7 +4,7 @@
 <mapper namespace="com.web.lawingmachine.app.user.mapper.UserInfoMapper">
 	
 	<insert id="insertUserInfo">
-		<selectKey keyProperty="userInfoSeq" resultType="int" order="BEFORE">
+		<selectKey keyProperty="userInfoSeq" resultType="String" order="BEFORE">
 			SELECT IFNULL(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
 		</selectKey>
 		INSERT INTO USER_INFO (
@@ -12,15 +12,21 @@
 			, USER_ID
 			, USER_NM
 			, PASSWORD
+			, EMAIL
 			, REGIST_ID
 			, REGIST_NM
+			, REG_TS
+			, MDFY_TS
 		) VALUES (
 			#{userInfoSeq}
 			, #{userId}
 			, #{userNm}
 			, #{password}
+			, #{email}
 			, 'SYSTEM'
 			, 'SYSTEM'
+			, current_timestamp()
+			, current_timestamp()
 		)
 	</insert>
 	
@@ -29,6 +35,7 @@
 			USER_INFO_SEQ
 			, USER_ID
 			, USER_NM
+			, EMAIL
 			, PASSWORD
 			, ROLE_CD
 			, (SELECT MAX(TAKE_REV) + 1 FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) AS TAKE_REV

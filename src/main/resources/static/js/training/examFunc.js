@@ -40,7 +40,7 @@ function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
 
     let url = '/training/exam/quizMstrInfo';
-    let data = $('#hiddenForm').serialize();
+    let data = $('#examMainForm').serialize();
 
     $.get(url, data, function (result) {
 
@@ -147,7 +147,7 @@ function goQuiz(obj) {
 
 function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
     let url = '/training/exam/userAnswer';
-    let param = $('#hiddenForm').serialize();
+    let param = $('#examMainForm').serialize();
     $.post(url, param, function (result) {
         if (result) {
             // if (modalYn == 'Y') {

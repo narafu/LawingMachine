@@ -1,90 +1,57 @@
 package com.web.lawingmachine.app.security;
 
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.RequestEntity;
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequestEntityConverter;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.OAuth2AuthorizationException;
-import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
-import java.util.Set;
 
-public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    private static final String MISSING_USER_INFO_URI_ERROR_CODE = "missing_user_info_uri";
-    private static final String MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE = "missing_user_name_attribute";
-    private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
-    private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE = new ParameterizedTypeReference<Map<String, Object>>() {
-    };
-    private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
-    private RestOperations restOperations;
+@Service
+public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    public CustomOAuth2UserService() {
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
-        this.restOperations = restTemplate;
-    }
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private HttpSession httpSession;
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        Assert.notNull(userRequest, "userRequest cannot be null");
-        if (!StringUtils.hasText(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri())) {
-            OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_INFO_URI_ERROR_CODE, "Missing required UserInfo Uri in UserInfoEndpoint for Client Registration: " + userRequest.getClientRegistration().getRegistrationId(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-        }
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-        if (!StringUtils.hasText(userNameAttributeName)) {
-            OAuth2Error oauth2Error = new OAuth2Error(MISSING_USER_NAME_ATTRIBUTE_ERROR_CODE, "Missing required \"user name\" attribute name in UserInfoEndpoint for Client Registration: " + userRequest.getClientRegistration().getRegistrationId(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString());
-        }
-        RequestEntity<?> request = this.requestEntityConverter.convert(userRequest);
-        ResponseEntity<Map<String, Object>> response;
-        try {
-            response = this.restOperations.exchange(request, PARAMETERIZED_RESPONSE_TYPE);
-        } catch (OAuth2AuthorizationException ex) {
-            OAuth2Error oauth2Error = ex.getError();
-            StringBuilder errorDetails = new StringBuilder();
-            errorDetails.append("Error details: [");
-            errorDetails.append("UserInfo Uri: ").append(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUri());
-            errorDetails.append(", Error Code: ").append(oauth2Error.getErrorCode());
-            if (oauth2Error.getDescription() != null) {
-                errorDetails.append(", Error Description: ").append(oauth2Error.getDescription());
-            }
-            errorDetails.append("]");
-            oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE, "An error occurred while attempting to retrieve the UserInfo Resource: " + errorDetails.toString(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
-        } catch (RestClientException ex) {
-            OAuth2Error oauth2Error = new OAuth2Error(INVALID_USER_INFO_RESPONSE_ERROR_CODE, "An error occurred while attempting to retrieve the UserInfo Resource: " + ex.getMessage(), null);
-            throw new OAuth2AuthenticationException(oauth2Error, oauth2Error.toString(), ex);
-        }
-        Map<String, Object> userAttributes = getUserAttributes(response);
-        Set<GrantedAuthority> authorities = new LinkedHashSet<>();
-        authorities.add(new OAuth2UserAuthority(userAttributes));
-        OAuth2AccessToken token = userRequest.getAccessToken();
-        for (String authority : token.getScopes()) {
-            authorities.add(new SimpleGrantedAuthority("SCOPE_" + authority));
-        }
-        return new DefaultOAuth2User(authorities, userAttributes, userNameAttributeName);
-    } // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
+    public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
 
+        OAuth2UserService oAuth2UserService = new DefaultOAuth2UserService();
+        OAuth2User oAuth2User = oAuth2UserService.loadUser(oAuth2UserRequest);
+
+        // 현재 진행중인 서비스를 구분하기 위해 문자열로 받음. oAuth2UserRequest.getClientRegistration().getRegistrationId()에 값이 들어있다. {registrationId='naver'} 이런식으로
+        String registrationId = oAuth2UserRequest.getClientRegistration().getRegistrationId();
+
+        // OAuth2 로그인 시 키 값이 된다. 구글은 키 값이 "sub"이고, 네이버는 "response"이고, 카카오는 "id"이다. 각각 다르므로 이렇게 따로 변수로 받아서 넣어줘야함.
+        String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+
+        // OAuth2 로그인을 통해 가져온 OAuth2User의 attribute를 담아주는 of 메소드.
+        OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
+
+        UserInfoVO userInfoVO = saveOrUpdate(attributes);
+        httpSession.setAttribute("userInfoVO", new SessionUser(userInfoVO));;
+
+        System.out.println(attributes.getAttributes());
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
+                , attributes.getAttributes()
+                , attributes.getNameAttributeKey());
+
+    }
+
+    // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
     private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
         Map<String, Object> userAttributes = response.getBody();
         if (userAttributes.containsKey("response")) {
@@ -94,4 +61,20 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
         return userAttributes;
     }
+
+    private UserInfoVO saveOrUpdate(OAuthAttributes attributes) {
+
+        UserInfoVO userInfoVo = userService.getUserInfo(attributes.getEmail());
+
+        if (userInfoVo == null) {
+            userInfoVo = new UserInfoVO();
+            userInfoVo.setUserId(attributes.getEmail());
+            userInfoVo.setEmail(attributes.getEmail());
+            userInfoVo.setUserNm(attributes.getName());
+            userService.insertUserInfo(userInfoVo);
+        }
+
+        return userInfoVo;
+    }
+
 }

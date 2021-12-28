@@ -12,7 +12,7 @@
     <!-- main -->
     <div class="col-7 p-5">
 
-        <form id="hiddenForm" method="get">
+        <form id="examMainForm" method="get">
             <input type="hidden" th:field="${quizMstrInfoVO.examGrpCd}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.examYear}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.examNo}"/>
@@ -20,6 +20,7 @@
             <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.quizUserAnsSeq}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.userAnswer}"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
             <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
                 <h1>주의사항</h1>

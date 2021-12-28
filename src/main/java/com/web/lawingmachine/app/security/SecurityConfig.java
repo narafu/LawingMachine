@@ -1,5 +1,6 @@
 package com.web.lawingmachine.app.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
@@ -23,11 +25,19 @@ import static com.web.lawingmachine.app.security.SocialType.*;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        
+
         httpSecurity.authorizeRequests()
-            .antMatchers("/", "/index", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**").permitAll()
+            .antMatchers("/", "/index", "/reg", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/facebook").hasAuthority(FACEBOOK.getRoleType())
             .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
@@ -37,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
             .oauth2Login()
             .userInfoEndpoint()
-            .userService(new CustomOAuth2UserService()) // 네이버 USER INFO의 응답을 처리하기 위한 설정
+            .userService(customOAuth2UserService) // 네이버 USER INFO의 응답을 처리하기 위한 설정
         .and()
             .defaultSuccessUrl("/loginSuccess")
             .failureUrl("/loginFailure")

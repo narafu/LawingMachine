@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/defaultLayout}">
+
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content" class="container">
+    
+    <div class="row mt-5">
+
+        <div class="col">
+            <ul class="nav nav-pills flex-column w-75">
+                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/myProfile">내 프로필</a></li>
+                <li class="nav-item m-2"><a class="nav-link py-3 active" href="/mypage/reviewNote">오답노트</a></li>
+                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult">진단결과</a></li>
+            </ul>
+        </div>
+
+        <div class="col-9">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="border p-1">
+                    <ul class="nav nav-pills m-1">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">전체</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">헌법</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">행정법</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">형법</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">형사소송법</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">민법</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">상법</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <form class="form-inline d-flex">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                               aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
+                                class="fas fa-search"></i></button>
+                    </form>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                   value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">전체 문제</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                   value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">틀린 문제</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                   value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">헷갈린 문제</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                   value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">중요 문제</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <div class="my-5 py-5 border border-primary rounded"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- [content] 영역 끝 -->

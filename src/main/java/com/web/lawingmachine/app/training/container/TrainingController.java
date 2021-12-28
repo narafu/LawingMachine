@@ -2,6 +2,7 @@ package com.web.lawingmachine.app.training.container;
 
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +41,10 @@ public class TrainingController {
     }
 
     @GetMapping("/exam/quizMstrInfo")
-    public String getQuizMstrInfo(QuizMstrInfoVO param, Model model) {
+    public String getQuizMstrInfo(HttpServletRequest req, QuizMstrInfoVO param, Model model) {
 
         // (임시)
+        UserInfoVO userInfoVO = (UserInfoVO) req.getSession().getAttribute("userInfoVo");
         param.setUserId("narafu@kakao.com");
 
         // 네비 리스트 (과목)
