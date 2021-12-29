@@ -154,7 +154,7 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
             //     $('#modalDiv .modal').modal('hide');
             // }
             if (resultYn == 'Y') {
-                moveResultPage(quizMstrInfoSeq);
+                moveResultPage();
             } else {
                 getAjaxQuizMstrInfo(quizMstrInfoSeq);
             }
@@ -164,8 +164,7 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
     });
 }
 
-function moveResultPage(quizMstrInfoSeq) {
-    $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
+function moveResultPage() {
     let form = $('#examMainForm');
     form.attr('action', '/mypage/reviewNote');
     form.attr('target', '');
@@ -199,5 +198,21 @@ function getReviewNoteQuizChk(obj) {
 function loadQuizRatioChart() {
     $.get('/mypage/reviewNote/chart', $('#reviewNoteForm').serialize(), function (result) {
         console.log(result);
+        let quizRnoArr = new Array();
+        let quizTrueRatioArr = new Array();
+
+        $.each(result, function(index, item) {
+            quizRnoArr.push(item.rno);
+            quizTrueRatioArr.push(item.quizTrueRatio * 100);
+        })
+        chart.setData({
+            categories: {
+                x: quizRnoArr,
+                y: [result[0].subjectTypeNm, result[1].subjectTypeNm]
+            },
+            series: [
+                quizTrueRatioArr
+            ]
+        });
     })
 }

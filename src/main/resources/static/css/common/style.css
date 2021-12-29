@@ -72,16 +72,16 @@ a.btn-outline-primary:hover {
 }
 
 .btn-primary:hover, .btn-primary:focus {
+	color: #086972;
+	background-color: #FFF;
 	border-color: #086972;
-	background-color: #086972;
-	color: #FFF;
 }
 
 .btn-primary:active, .btn-primary:visited, .btn-primary:active:focus,
 	.btn-primary:active:hover {
-	border-color: #086972;
+	color: #086972;
+	border-color: #FFF;
 	background-color: #086972;
-	color: #FFF;
 }
 
 .nav-pills .active {
@@ -137,10 +137,6 @@ a.btn-outline-primary:hover {
 
 h1 {
 	font-family: 'NEXON Lv1 Gothic OTF Bold';
-}
-
-i:not(#resultQuizStasticsDiv i):hover {
-	color: #086972;
 }
 
 i.active {

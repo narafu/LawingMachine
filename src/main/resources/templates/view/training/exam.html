@@ -121,31 +121,64 @@
             <!-- <h5 class="mx-3 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">공법</h5> -->
             <div>
                 <th:block th:each="subjectNavInfo:${quizSubjectNaviList}">
-                    <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
-                         style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                        <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
-                        <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
-                        <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
-                        <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
-                    </div>
-                    <div class="text-center mx-3">
-                        <div class="row row-cols-5">
-                            <th:block th:each="quizNavInfo:${quizAnswerNavList}"
-                                      th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
-                                <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
-                                     th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
-                                    <div>
-                                        <div th:text="${quizNavInfo.rno}"></div>
-                                        <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}"
-                                               class="quizMstrInfoSeq">
-                                    </div>
-                                    <div class="bg-primary text-light"
-                                         th:text="${quizNavInfo.userAnswer}"></div>
-                                </div>
-                            </th:block>
+                    <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
+                        <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
+                             style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                            <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
+                            <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
+                            <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
+                            <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
                         </div>
-                    </div>
+                        <div class="text-center mx-3">
+                            <div class="row row-cols-5">
+                                <th:block th:each="quizNavInfo:${quizAnswerNavList}"
+                                          th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
+                                    <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
+                                         th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
+                                        <div>
+                                            <div th:text="${quizNavInfo.rno}"></div>
+                                            <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}"
+                                                   class="quizMstrInfoSeq">
+                                        </div>
+                                        <div class="bg-primary text-light"
+                                             th:text="${quizNavInfo.userAnswer}"></div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
+                        <th:block th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, subjectNavInfo.subjectTypeCd)}">
+                            <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
+                                 style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                                <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
+                                <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
+                                <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
+                                <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
+                            </div>
+                            <div class="text-center mx-3">
+                                <div class="row row-cols-5">
+                                    <th:block th:each="quizNavInfo:${quizAnswerNavList}"
+                                              th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
+                                        <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
+                                             th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
+                                            <div>
+                                                <div th:text="${quizNavInfo.rno}"></div>
+                                                <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}"
+                                                       class="quizMstrInfoSeq">
+                                            </div>
+                                            <div class="bg-primary text-light"
+                                                 th:text="${quizNavInfo.userAnswer}"></div>
+                                        </div>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </th:block>
+                    </th:block>
                 </th:block>
+            </div>
+            <div th:if="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})">
+                <button type="button" class="btn btn-lg btn-primary my-3 w-100" onclick="moveResultPage()">제출하기</button>
             </div>
         </div>
     </div>

@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="d-flex w-50">
-                            <input class="form-control" type="search" placeholder="Search" id="schQuizCntnt"
+                            <input class="form-control" type="search" placeholder="문제 검색" id="schQuizCntnt"
                                aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                         </div>
@@ -91,70 +91,40 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
+        const el = document.getElementById('chart-area');
+        const data = {
+            categories: { x: [], y: [] },
+            series: []
+        };
+
+        let chartWidth = $('#chart-area').width();
+        let chartHeight = 300;
+
+        const theme = {
+            series: {
+                startColor:
+                    '#F3FFE3', endColor: '#086972', borderWidth: 3, borderColor: '#ffffff',
+                select: { color: '#fdfd96', borderWidth: 2,  borderColor: '#80CEE1' },
+                hover: { color: '#FFB144', borderWidth: 5, borderColor: '#CAE7C1' },
+            },
+        };
+
+        const options = {
+            chart: { title: '정답률', width: chartWidth, height: chartHeight },
+            xAxis: { title: '문제번호' },
+            yAxis: { title: '과목' },
+            tooltip: { formatter: (value) => `${value}%` },
+            legend: { align: 'bottom' },
+            series: {
+                dataLabels: { visible: true }
+            },
+            theme
+        };
+
+        const chart = toastui.Chart.heatmapChart({el, data, options});
 
         $(function () {
             loadQuizRatioChart();
         })
-
-        const el = document.getElementById('chart-area');
-        const data = {
-            categories: {
-                x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                y: ['Seoul', 'Seattle', 'Sydney', 'Moscow', 'Jungfrau'],
-            },
-            series: [
-                [-3.5, -1.1, 4.0, 11.3, 17.5, 21.5, 24.9, 25.2, 20.4, 13.9, 6.6, -0.6],
-                [3.8, 5.6, 7.0, 9.1, 12.4, 15.3, 17.5, 17.8, 15.0, 10.6, 6.4, 3.7],
-                [22.1, 22.0, 20.9, 18.3, 15.2, 12.8, 11.8, 13.0, 15.2, 17.6, 19.4, 21.2],
-                [-10.3, -9.1, -4.1, 4.4, 12.2, 16.3, 18.5, 16.7, 10.9, 4.2, -2.0, -7.5],
-                [-13.2, -13.7, -13.1, -10.3, -6.1, -3.2, 0.0, -0.1, -1.8, -4.5, -9.0, -10.9],
-            ],
-        };
-
-        const theme = {
-            series: {
-                startColor: '#F3FFE3',
-                endColor: '#086972',
-                borderWidth: 3,
-                borderColor: '#ffffff',
-                select: {
-                    color: '#fdfd96',
-                    borderWidth: 2,
-                    borderColor: '#80CEE1',
-                },
-                hover: {
-                    color: '#FFB144',
-                    borderWidth: 5,
-                    borderColor: '#CAE7C1',
-                },
-            },
-        };
-
-        let chartWidth = $('#chart-area').width();
-        let chartHeight = 150 * 4;
-
-        const options = {
-            chart: {title: '문제별 정답률', width: chartWidth, height: chartHeight},
-            // xAxis: {
-            //     title: 'Month',
-            // },
-            // yAxis: {
-            //     title: 'City',
-            // },
-            tooltip: {
-                formatter: (value) => `${value}%`,
-            },
-            legend: {
-                align: 'bottom',
-            },
-            series: {
-                dataLabels: {
-                    visible: true,
-                },
-            },
-            theme,
-        };
-
-        const chart = toastui.Chart.heatmapChart({el, data, options});
     </script>
 </th:block>

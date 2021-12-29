@@ -1,6 +1,7 @@
 package com.web.lawingmachine.app.mypage.controller;
 
 import com.web.lawingmachine.app.common.controller.BaseUtil;
+import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +42,10 @@ public class MyPageController {
 
     @GetMapping("/reviewNote/chart")
     @ResponseBody
-    public List<QuizMstrInfoVO> reviewNoteAjax(QuizMstrInfoVO param) {
+    public List<QuizMstrInfoVO> reviewNoteAjax(HttpServletRequest req, QuizMstrInfoVO param) {
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setUserId(sessionUser.getUserId());
 
         // 정답률(차트)
         List<QuizMstrInfoVO> quizResultList = quizService.selectQuizResultRatioList(param);

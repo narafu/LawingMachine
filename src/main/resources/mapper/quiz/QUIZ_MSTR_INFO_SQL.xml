@@ -148,8 +148,7 @@
     </select>
 
     <select id="getQuizListCnt" resultType="int">
-        SELECT
-        COUNT(*)
+        SELECT COUNT(*)
         FROM QUIZ_MSTR_INFO
         WHERE 1 = 1
         <include refid="selectQuizList-where"/>
@@ -160,35 +159,35 @@
             SELECT IFNULL(MAX(QUIZ_MSTR_INFO_SEQ), 0) + 1 FROM QUIZ_MSTR_INFO
         </selectKey>
         INSERT INTO QUIZ_MSTR_INFO (
-        QUIZ_MSTR_INFO_SEQ
-        , EXAM_YEAR
-        , EXAM_GRP_CD
-        , EXAM_NO
-        , SUBJECT_TYPE_CD
-        , SRT_NO
-        , CONTENT
-        , ANSWER
-        , CMNTR
-        , DEL_YN
-        , REGIST_ID
-        , REGIST_NM
-        , REG_TS
-        , MDFY_TS
+            QUIZ_MSTR_INFO_SEQ
+            , EXAM_YEAR
+            , EXAM_GRP_CD
+            , EXAM_NO
+            , SUBJECT_TYPE_CD
+            , SRT_NO
+            , CONTENT
+            , ANSWER
+            , CMNTR
+            , DEL_YN
+            , REGIST_ID
+            , REGIST_NM
+            , REG_TS
+            , MDFY_TS
         ) VALUES (
-        #{quizMstrInfoSeq}
-        , #{examYear}
-        , #{examGrpCd}
-        , #{examNo}
-        , #{subjectTypeCd}
-        , (SELECT IFNULL(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
-        , #{content}
-        , #{answer}
-        , #{cmntr}
-        , 'N'
-        , #{registId}
-        , #{registNm}
-        , CURRENT_TIMESTAMP
-        , CURRENT_TIMESTAMP
+            #{quizMstrInfoSeq}
+            , #{examYear}
+            , #{examGrpCd}
+            , #{examNo}
+            , #{subjectTypeCd}
+            , (SELECT IFNULL(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
+            , #{content}
+            , #{answer}
+            , #{cmntr}
+            , 'N'
+            , #{registId}
+            , #{registNm}
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
         )
     </insert>
 
@@ -233,43 +232,6 @@
              , CMNTR
         FROM QUIZ_MSTR_INFO
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
-    </select>
-
-
-
-
-
-
-
-    <select id="selectQuizNoList" resultType="HashMap">
-        SELECT
-        ROW_NUMBER() OVER(ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS rno
-        , QUIZ_MSTR_INFO_SEQ AS quizMstrInfoSeq
-        , SUBJECT_TYPE_CD AS subjectTypeCd
-        , SRT_NO AS srtNo
-        FROM QUIZ_MSTR_INFO
-        WHERE DEL_YN = 'N'
-        <if test="examYear != null and examYear != ''">
-            AND EXAM_YEAR = ${examYear}
-        </if>
-        <if test="examGrpCd != null and examGrpCd != ''">
-            AND EXAM_GRP_CD = ${examGrpCd}
-        </if>
-        <if test="examNo != null and examNo != 0">
-            AND EXAM_NO = ${examNo}
-        </if>
-        <if test="subjectTypeCd != null and subjectTypeCd != ''">
-            AND SUBJECT_TYPE_CD = ${subjectTypeCd}
-        </if>
-    </select>
-
-    <select id="getFstQuizInfo" resultType="QuizMstrInfoVO">
-        SELECT ROW_NUMBER() OVER(ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS rno
-			, SUBJECT_TYPE_CD
-             , SRT_NO
-             , QUIZ_MSTR_INFO_SEQ
-        FROM QUIZ_MSTR_INFO
-        WHERE DEL_YN = 'N' LIMIT 1
     </select>
 
 </mapper>
