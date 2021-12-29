@@ -48,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .oauth2Login()
             .userInfoEndpoint()
             .userService(customOAuth2UserService) // 네이버 USER INFO의 응답을 처리하기 위한 설정
+            .successHandler(new MyOAuth2SuccessHandler()); // db 저장
         .and()
             .defaultSuccessUrl("/loginSuccess")
             .failureUrl("/loginFailure")
@@ -89,4 +90,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         return null;
     }
+    
 }
