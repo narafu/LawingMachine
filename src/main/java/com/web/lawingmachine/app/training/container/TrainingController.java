@@ -1,8 +1,8 @@
 package com.web.lawingmachine.app.training.container;
 
+import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
-import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +25,7 @@ public class TrainingController {
     @GetMapping("/exam")
     public String exam(Model model) {
 
-        // 시험 조회(임시)
         QuizMstrInfoVO quizMstrInfoVO = new QuizMstrInfoVO();
-        quizMstrInfoVO.setExamGrpCd("10");
-        quizMstrInfoVO.setExamYear("2018");
-        quizMstrInfoVO.setExamNo(7);
-        quizMstrInfoVO.setSubjectTypeCd("10");
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         // 네비 리스트 (과목)
@@ -43,9 +38,8 @@ public class TrainingController {
     @GetMapping("/exam/quizMstrInfo")
     public String getQuizMstrInfo(HttpServletRequest req, QuizMstrInfoVO param, Model model) {
 
-        // (임시)
-        UserInfoVO userInfoVO = (UserInfoVO) req.getSession().getAttribute("userInfoVo");
-        param.setUserId("narafu@kakao.com");
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setUserId(sessionUser.getUserId());
 
         // 네비 리스트 (과목)
         List<Map<String, String>> quizSubjectNaviList = quizService.selectQuizSubjectList();

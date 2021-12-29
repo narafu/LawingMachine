@@ -7,4 +7,6 @@ public interface UserService {
     int insertUserInfo(UserInfoVO userInfoVO);
 
     UserInfoVO getUserInfo(String userId);
+
+    int updateUserInfo(UserInfoVO userInfoVO);
 }

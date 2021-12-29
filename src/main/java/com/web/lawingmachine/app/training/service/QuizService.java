@@ -18,4 +18,6 @@ public interface QuizService {
     int saveUserAnswer(QuizMstrInfoVO param);
 
     List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param);
+
+    List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param);
 }

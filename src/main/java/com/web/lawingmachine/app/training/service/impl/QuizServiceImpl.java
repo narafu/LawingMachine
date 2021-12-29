@@ -81,6 +81,11 @@ public class QuizServiceImpl implements QuizService {
         return quizDtlInfoMapper.selectQuizDtlList(param);
     }
 
+    @Override
+    public List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param) {
+        return quizUserAnsMapper.selectQuizResultRatioList(param);
+    }
+
 
 //
 //    @Override

@@ -9,6 +9,11 @@ body, #wrapper {
 	overflow-y:scroll;
 }
 
+a {
+	color: black;
+	text-decoration: none;
+}
+
 footer {
 	margin-top: auto;
 }
@@ -19,6 +24,26 @@ body {
 
 hr.solid {
 	border-top: 3px solid #086972;
+}
+
+a:hover
+,li:hover
+, button:hover
+, i:hover
+, input[type=checkbox]:hover
+, .tui-grid-cell-content:hover {
+	cursor: pointer !important;
+}
+
+.nav-link {
+	color: black;
+}
+
+a.btn-outline-primary:hover {
+	color: white !important;
+}
+.border-primary {
+	border-color: #086972 !important;
 }
 
 .text-primary {
@@ -59,31 +84,11 @@ hr.solid {
 	color: #FFF;
 }
 
-a {
-	color: black !important;
-	text-decoration: none;
-}
-
-a:hover
-, button:hover
-, i:hover
-, input[type=checkbox]:hover
-, .tui-grid-cell-content:hover {
-	cursor: pointer !important;
-}
-
-a.btn-outline-primary:hover {
-	color: white !important;
-}
-
 .nav-pills .active {
-	color: white !important;
 	background-color: #086972 !important;
+	color: white !important;
 }
 
-.border-primary {
-	border-color: #086972 !important;
-}
 
 @font-face {
 	font-family: 'NEXON Lv1 Gothic OTF Bold';

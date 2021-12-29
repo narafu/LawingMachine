@@ -12,7 +12,10 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -44,7 +47,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         UserInfoVO userInfoVO = saveOrUpdate(attributes);
         HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         httpSession = req.getSession();
-        httpSession.setAttribute("userInfoVO", new SessionUser(userInfoVO));;
+        httpSession.setAttribute("sessionUser", new SessionUser(userInfoVO));;
 
         System.out.println(attributes.getAttributes());
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
@@ -66,17 +69,17 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private UserInfoVO saveOrUpdate(OAuthAttributes attributes) {
 
-        UserInfoVO userInfoVo = userService.getUserInfo(attributes.getEmail());
+        UserInfoVO userInfoVO = userService.getUserInfo(attributes.getEmail());
 
-        if (userInfoVo == null) {
-            userInfoVo = new UserInfoVO();
-            userInfoVo.setUserId(attributes.getEmail());
-            userInfoVo.setEmail(attributes.getEmail());
-            userInfoVo.setUserNm(attributes.getName());
-            userService.insertUserInfo(userInfoVo);
+        if (userInfoVO == null) {
+            userInfoVO = new UserInfoVO();
+            userInfoVO.setUserId(attributes.getEmail());
+            userInfoVO.setEmail(attributes.getEmail());
+            userInfoVO.setUserNm(attributes.getName());
+            userService.insertUserInfo(userInfoVO);
         }
 
-        return userInfoVo;
+        return userInfoVO;
     }
 
 }

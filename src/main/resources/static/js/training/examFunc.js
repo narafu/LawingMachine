@@ -154,7 +154,7 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
             //     $('#modalDiv .modal').modal('hide');
             // }
             if (resultYn == 'Y') {
-                // moveResultPage(quizMstrInfoSeq);
+                moveResultPage(quizMstrInfoSeq);
             } else {
                 getAjaxQuizMstrInfo(quizMstrInfoSeq);
             }
@@ -165,16 +165,39 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
 }
 
 function moveResultPage(quizMstrInfoSeq) {
-    // $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
-    // let form = $('#quizForm');
-    // let duration = Number(getCountTimer());
-    // let secondsRemaining = $('#count-down-timer').text().split(':');
-    // let timeSolving = duration - (Number(secondsRemaining[0]) * 60 + Number(secondsRemaining[1]));
+    $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
+    let form = $('#examMainForm');
+    form.attr('action', '/mypage/reviewNote');
+    form.attr('target', '');
+    form.submit();
+}
+
+function getReviewNoteSubject(obj, subjectTypeCd) {
+    $('#schSubjectTypeCd').val(subjectTypeCd);
+    $(obj).closest('ul').find('.active').removeClass('active');
+    $(obj).closest('ul').find('li a').css('color', 'black');
+    $(obj).addClass('active');
+    $(obj).find('a').css('color', 'white');
+    loadQuizRatioChart();
+}
+
+function getReviewNoteQuizChk(obj) {
+
+    // if($(obj).attr('id') == 'schAllChk') {
+    //     $('#quizSchChkDiv').find('input[type=checkbox]:gt(0)').attr('checked', false);
+    // } else {
+    //     $('#quizSchChkDiv').find('input[type=checkbox]:eq(0)').attr('checked', false);
+    // }
     //
-    // $('#minSolving').val(parseInt(timeSolving / 60));
-    // $('#secSolving').val(parseInt(timeSolving % 60));
-    //
-    // form.attr('action', '/quiz/result.do');
-    // form.attr('target', '');
-    // form.submit();
+    // if($('#quizSchChkDiv input[type=checkbox]:checked').length == 0) {
+    //     $('#schAllChk').attr('checked', true);
+    // }
+
+    loadQuizRatioChart();
+}
+
+function loadQuizRatioChart() {
+    $.get('/mypage/reviewNote/chart', $('#reviewNoteForm').serialize(), function (result) {
+        console.log(result);
+    })
 }

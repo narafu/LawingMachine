@@ -43,5 +43,11 @@
 		WHERE DEL_YN = 'N'
 			AND USER_ID = #{userId}
 	</select>
+
+	<update id="updateUserInfo">
+		UPDATE USER_INFO SET
+			MDFY_TS = current_timestamp()
+		WHERE USER_ID = #{userId}
+	</update>
 	
 </mapper>

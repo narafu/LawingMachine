@@ -32,12 +32,16 @@ public class QuizMstrInfoVO extends BaseVO {
     private String userChkCnfsd;
     private int takeRev;
 
-    private int secSolving;
-    private int minSolving;
-
     private int quizTotalCnt;
     private int quizEndCnt;
     private int quizTrueCnt;
+    private float quizTrueRatio;
 
     private List<QuizDtlInfoVO> quizDtlList;
+
+    private String schSubjectTypeCd;
+    private String schUserChkImprt;
+    private String schUserChkCnfsd;
+    private String schAnswerChk;
+    private String schQuizCntnt;
 }

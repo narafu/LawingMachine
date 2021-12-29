@@ -10,4 +10,5 @@ public interface UserInfoMapper {
 
     UserInfoVO getUserInfo(String userId);
 
+    int updateUserInfo(UserInfoVO userInfoVO);
 }

@@ -6,7 +6,7 @@
 
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content" class="container">
-    
+
     <div class="row mt-5">
 
         <div class="col">
@@ -18,75 +18,143 @@
         </div>
 
         <div class="col-9">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="border p-1">
-                    <ul class="nav nav-pills m-1">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">전체</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">헌법</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">행정법</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">형법</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">형사소송법</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">민법</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">상법</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>
-                </div>
-            </div>
-            <div class="mt-4">
+            <form id="reviewNoteForm">
+                <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
+                <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
+                <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}" id="examNo"/>
+                <input type="hidden" name='schSubjectTypeCd' id="schSubjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd}"/>
+
                 <div class="d-flex justify-content-between align-items-center">
-                    <form class="form-inline d-flex">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search"
-                               aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i
-                                class="fas fa-search"></i></button>
-                    </form>
-                    <div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
-                                   value="option1">
-                            <label class="form-check-label" for="inlineCheckbox1">전체 문제</label>
+                    <div class="border p-1">
+                        <ul class="nav nav-pills m-1 d-grid gap-3 d-flex">
+                            <li class="nav-item" onclick="getReviewNoteSubject(this)">
+                                <a class="nav-link" href="#"
+                                   th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">전체</a>
+                            </li>
+                            <th:block th:each="CommSubject:${CommSubjectList}">
+                                <li class="nav-item" th:onclick="getReviewNoteSubject(this, [[${CommSubject.cmmnDtlCd}]])">
+                                    <a class="nav-link" href="#" th:text="${CommSubject.cmmnDtlNm}"
+                                       th:classappend="${CommSubject.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+<!--                    <div>-->
+<!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
+<!--                    </div>-->
+                </div>
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center mx-4">
+                        <div id="quizSchChkDiv" class="d-grid gap-3 d-flex">
+<!--                            <div class="form-check form-check-inline">-->
+<!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
+<!--                                       value="Y" onclick="getReviewNoteQuizChk(this)" checked="true">-->
+<!--                                <label class="form-check-label" for="schAllChk">전체 문제</label>-->
+<!--                            </div>-->
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="schAnswerChk" name="schAnswerChk"
+                                       value="Y" onclick="getReviewNoteQuizChk(this)">
+                                <label class="form-check-label" for="schAnswerChk">틀린 문제</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="schUserChkCnfsd" name="schUserChkCnfsd"
+                                       value="Y" onclick="getReviewNoteQuizChk(this)">
+                                <label class="form-check-label" for="schUserChkCnfsd">헷갈린 문제</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="schUserChkImprt" name="schUserChkImprt"
+                                       value="Y" onclick="getReviewNoteQuizChk(this)">
+                                <label class="form-check-label" for="schUserChkImprt">중요 문제</label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                   value="option2">
-                            <label class="form-check-label" for="inlineCheckbox2">틀린 문제</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                   value="option2">
-                            <label class="form-check-label" for="inlineCheckbox2">헷갈린 문제</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
-                                   value="option2">
-                            <label class="form-check-label" for="inlineCheckbox2">중요 문제</label>
+                        <div class="d-flex w-50">
+                            <input class="form-control" type="search" placeholder="Search" id="schQuizCntnt"
+                               aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr/>
-            <div>
-                <div class="my-5 py-5 border border-primary rounded"></div>
-            </div>
+
+                <hr/>
+                <div>
+                    <div id="chart-area"></div>
+                </div>
+            </form>
         </div>
 
     </div>
 
 </div>
 <!-- [content] 영역 끝 -->
+
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/training/examFunc.js}"></script>
+    <script>
+
+        $(function () {
+            loadQuizRatioChart();
+        })
+
+        const el = document.getElementById('chart-area');
+        const data = {
+            categories: {
+                x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                y: ['Seoul', 'Seattle', 'Sydney', 'Moscow', 'Jungfrau'],
+            },
+            series: [
+                [-3.5, -1.1, 4.0, 11.3, 17.5, 21.5, 24.9, 25.2, 20.4, 13.9, 6.6, -0.6],
+                [3.8, 5.6, 7.0, 9.1, 12.4, 15.3, 17.5, 17.8, 15.0, 10.6, 6.4, 3.7],
+                [22.1, 22.0, 20.9, 18.3, 15.2, 12.8, 11.8, 13.0, 15.2, 17.6, 19.4, 21.2],
+                [-10.3, -9.1, -4.1, 4.4, 12.2, 16.3, 18.5, 16.7, 10.9, 4.2, -2.0, -7.5],
+                [-13.2, -13.7, -13.1, -10.3, -6.1, -3.2, 0.0, -0.1, -1.8, -4.5, -9.0, -10.9],
+            ],
+        };
+
+        const theme = {
+            series: {
+                startColor: '#F3FFE3',
+                endColor: '#086972',
+                borderWidth: 3,
+                borderColor: '#ffffff',
+                select: {
+                    color: '#fdfd96',
+                    borderWidth: 2,
+                    borderColor: '#80CEE1',
+                },
+                hover: {
+                    color: '#FFB144',
+                    borderWidth: 5,
+                    borderColor: '#CAE7C1',
+                },
+            },
+        };
+
+        let chartWidth = $('#chart-area').width();
+        let chartHeight = 150 * 4;
+
+        const options = {
+            chart: {title: '문제별 정답률', width: chartWidth, height: chartHeight},
+            // xAxis: {
+            //     title: 'Month',
+            // },
+            // yAxis: {
+            //     title: 'City',
+            // },
+            tooltip: {
+                formatter: (value) => `${value}%`,
+            },
+            legend: {
+                align: 'bottom',
+            },
+            series: {
+                dataLabels: {
+                    visible: true,
+                },
+            },
+            theme,
+        };
+
+        const chart = toastui.Chart.heatmapChart({el, data, options});
+    </script>
+</th:block>
