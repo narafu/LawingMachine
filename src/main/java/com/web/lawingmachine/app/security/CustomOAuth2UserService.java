@@ -42,6 +42,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         UserInfoVO userInfoVO = saveOrUpdate(attributes);
+        HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        httpSession = req.getSession();
         httpSession.setAttribute("userInfoVO", new SessionUser(userInfoVO));;
 
         System.out.println(attributes.getAttributes());
