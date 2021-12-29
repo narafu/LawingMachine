@@ -35,16 +35,16 @@ mybatis:
 server:
   port: 8090
 
-jpa:
-  database-platform: org.hibernate.dialect.MariaDB103Dialect
-  properties:
-    hibernate:
-      format_sql: true
-      hbm2ddl.auto: update
-      implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-      physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-  open-in-view: false
-  show-sql: true
+# jpa:
+#   database-platform: org.hibernate.dialect.MariaDB103Dialect
+#   properties:
+#     hibernate:
+#       format_sql: true
+#       hbm2ddl.auto: update
+#       implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+#       physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#   open-in-view: false
+#   show-sql: true
 
 logging:
   pattern:
