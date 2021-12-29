@@ -13,6 +13,8 @@
 		</div>
 		<div>
 			<span class="d-block fs-5">인증되었습니다.</span>
+			<th:block th:text="${httpSession.userInfoVO.userId}"/>
+			<th:block th:text="${httpSession.userInfoVO.userNm}"/>
 		</div>
 		<div class="my-5">
 			<button type="button" class="btn btn-primary btn-lg btn-block px-5 py-3 text-light" onclick="location.replace('/index');">홈으로</button>
