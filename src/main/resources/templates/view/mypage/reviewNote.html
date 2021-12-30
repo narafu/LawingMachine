@@ -103,7 +103,7 @@
         const theme = {
             series: {
                 startColor:
-                    '#F3FFE3', endColor: '#086972', borderWidth: 3, borderColor: '#ffffff',
+                    '#c88885', endColor: '#721108', borderWidth: 3, borderColor: '#ffffff',
                 select: { color: '#fdfd96', borderWidth: 2,  borderColor: '#80CEE1' },
                 hover: { color: '#FFB144', borderWidth: 5, borderColor: '#CAE7C1' },
             },
@@ -122,6 +122,17 @@
         };
 
         const chart = toastui.Chart.heatmapChart({el, data, options});
+          
+        chart.on('selectSeries', (ev) => {
+              const { name, value } = ev.heatmap[0].data;
+              alert(`(${name}): ${value}`);
+              console.log(ev);
+      });
+
+      chart.on('unselectSeries', () => {
+        alert('unselect!');
+      });
+    
 
         $(function () {
             loadQuizRatioChart();
