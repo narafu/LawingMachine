@@ -12,7 +12,7 @@ public class UserInfoVO extends BaseVO {
     private String userNm;
     private String email;
     private String password;
-    private String roleCd;
+    private String role = "ROLE_USER";
 
     private int takeRev;
 }
