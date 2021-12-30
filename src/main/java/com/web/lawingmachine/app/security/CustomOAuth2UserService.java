@@ -56,17 +56,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     }
 
-    // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
-    private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
-        Map<String, Object> userAttributes = response.getBody();
-        if (userAttributes.containsKey("response")) {
-            LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
-            userAttributes.putAll(responseData);
-            userAttributes.remove("response");
-        }
-        return userAttributes;
-    }
-
     private UserInfoVO saveOrUpdate(OAuthAttributes attributes) {
 
         UserInfoVO userInfoVO = userService.getUserInfo(attributes.getEmail());
