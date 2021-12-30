@@ -16,8 +16,8 @@ spring:
             client-secret: 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
             scope: profile, email
           facebook:
-            client-id: 310837437716103
-            client-secret: ee8bd2b187e944ad03b5517bd8b4035b
+            client-id: 1082362739246533
+            client-secret: ed85f51536408416430531c10c9eaa8a
           naver:
             client-id: jRaeRzo8NPDxgwdHHNjX
             client-secret: q_k0N99pXC
