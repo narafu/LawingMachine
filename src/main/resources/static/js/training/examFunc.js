@@ -177,59 +177,20 @@ function getReviewNoteSubject(obj, subjectTypeCd) {
     $(obj).closest('ul').find('li a').css('color', 'black');
     $(obj).addClass('active');
     $(obj).find('a').css('color', 'white');
-    loadQuizRatioChart();
+    selectQuizResultData();
 }
 
 function getReviewNoteQuizChk(obj) {
-
-    // if($(obj).attr('id') == 'schAllChk') {
-    //     $('#quizSchChkDiv').find('input[type=checkbox]:gt(0)').attr('checked', false);
-    // } else {
-    //     $('#quizSchChkDiv').find('input[type=checkbox]:eq(0)').attr('checked', false);
-    // }
-    //
-    // if($('#quizSchChkDiv input[type=checkbox]:checked').length == 0) {
-    //     $('#schAllChk').attr('checked', true);
-    // }
-
-    loadQuizRatioChart();
+    selectQuizResultData();
 }
 
-function loadQuizRatioChart() {
+function selectQuizResultData() {
 
-    $.get('/mypage/reviewNote/chart', $('#reviewNoteForm').serialize(), function (result) {
-
-        let axisXList = new Array();
-        let axisYList = result.axisYList;
-        let dataList = result.dataList;
-
-        let chartWidth = $('#chart-area').width();
-        let chartHeight = 200 + (50 * axisYList.length);
-
-        let maxQuizCnt = Math.max.apply(null, result.axisXList);
-        let i = 1;
-        while(i <= maxQuizCnt) {
-            axisXList.push(i++);
-        }
-
-        chart.setData({
-            categories: {
-                x: axisXList,
-                y: axisYList
-            },
-            series: dataList
-        });
-
-        chart.setOptions({
-            chart: {width: chartWidth, height: chartHeight},
-            xAxis: {title: '문제번호'},
-            yAxis: {title: '과목'},
-            tooltip: {formatter: (value) => `${value}%`},
-            legend: {align: 'bottom'},
-            series: {
-                selectable: true, dataLabels: {visible: true}
-            },
-            theme
-        });
+    $.get('/mypage/reviewNote/data', $('#reviewNoteForm').serialize(), function (result) {
+        $('#quizResultData').html(result);
     })
+}
+
+function quizResultInfoModal(quizMstrInfoSeq) {
+
 }

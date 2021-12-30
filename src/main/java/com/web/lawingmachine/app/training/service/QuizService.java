@@ -20,4 +20,6 @@ public interface QuizService {
     List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param);
 
     List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param);
+
+    List<Map<String, String>> selectSubjectList(QuizMstrInfoVO param);
 }

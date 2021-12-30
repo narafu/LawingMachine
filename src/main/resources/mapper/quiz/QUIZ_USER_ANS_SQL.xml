@@ -47,7 +47,6 @@
 
     <sql id="selectQuizResultRatioList-where">
         AND A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
-		AND A.DEL_YN = 'N'
         AND A.EXAM_GRP_CD = #{examGrpCd}
         AND A.EXAM_YEAR = #{examYear}
         AND A.EXAM_NO = #{examNo}
@@ -87,46 +86,33 @@
              , B.USER_CHK_CNFSD
         FROM
             (SELECT
-                 A.QUIZ_MSTR_INFO_SEQ, A.SUBJECT_TYPE_CD, A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.CONTENT, A.ANSWER, A.CMNTR
-                  , ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.QUIZ_MSTR_INFO_SEQ) AS QUIZ_NO
-	    , ROUND(SUM(CASE WHEN B.ANSWER_CHK = 'T' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
+                ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.QUIZ_MSTR_INFO_SEQ) AS QUIZ_NO
+                , A.QUIZ_MSTR_INFO_SEQ, A.SUBJECT_TYPE_CD, A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.CONTENT, A.ANSWER, A.CMNTR
+                , ROUND(SUM(CASE WHEN B.ANSWER_CHK = 'T' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
              FROM QUIZ_MSTR_INFO A, QUIZ_USER_ANS B
              WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ AND A.DEL_YN = 'N'
              GROUP BY A.QUIZ_MSTR_INFO_SEQ) A
-           , (SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER, ANSWER_CHK, USER_CHK_IMPRT, USER_CHK_CNFSD FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = 'narafu@kakao.com') B
+           , (SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER, ANSWER_CHK, USER_CHK_IMPRT, USER_CHK_CNFSD FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
         WHERE 1 = 1
         <include refid="selectQuizResultRatioList-where"></include>
         ORDER BY A.QUIZ_MSTR_INFO_SEQ
     </select>
 
-    <!--<select id="selectQuizResultRatioList" resultType="Int">
+    <select id="selectSubjectList" resultType="HashMap">
         SELECT
-            ROUND(SUM(CASE WHEN B.ANSWER_CHK = 'T' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
-        FROM QUIZ_MSTR_INFO A, QUIZ_USER_ANS B
-        WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
-            AND A.DEL_YN = 'N'
-            AND A.EXAM_GRP_CD = #{examGrpCd}
-            AND A.EXAM_YEAR = #{examYear}
-            AND A.EXAM_NO = #{examNo}
-        GROUP BY A.QUIZ_MSTR_INFO_SEQ
-        ORDER BY A.QUIZ_MSTR_INFO_SEQ
-    </select>
-
-    <select id="selectQuizResultChartAxisList" resultType="HashMap">
-        SELECT
-            COUNT(*) AS QUIZ_TOTAL_CNT
-            , A.SUBJECT_TYPE_CD
+             A.SUBJECT_TYPE_CD
             ,
             <include refid="util.getComnCodeNm">
                 <property name="grpCd" value="002"/>
                 <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
                 <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
             </include>
-        FROM QUIZ_MSTR_INFO A, (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) B
+        FROM QUIZ_MSTR_INFO A
+           , (SELECT * FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
         WHERE 1 = 1
         <include refid="selectQuizResultRatioList-where"></include>
         GROUP BY A.SUBJECT_TYPE_CD
-        ORDER BY A.SUBJECT_TYPE_CD
-    </select>-->
+        ORDER BY A.QUIZ_MSTR_INFO_SEQ
+    </select>
 
 </mapper>

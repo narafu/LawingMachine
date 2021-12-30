@@ -144,6 +144,10 @@ i {
 	color: black;
 }
 
+.quizNumTd {
+	min-width: 100px;
+}
+
 .quizNumTd:hover {
 	background-color: #086972;
 	cursor: pointer;
@@ -166,4 +170,22 @@ i {
 
 .sideNavDiv:hover, .quizNavTltDiv:hover {
 	cursor: pointer;
+}
+
+.quizTrueRatio-5 {
+	background-color: #FFAB00;
+	color: white;
+}
+.quizTrueRatio-4 {
+	background-color: #FFC400;
+	color: white;
+}
+.quizTrueRatio-3 {
+	background-color: #FFD740;
+}
+.quizTrueRatio-2 {
+	background-color: #FFE57F;
+}
+.quizTrueRatio-1 {
+	background-color: #fff;
 }

@@ -19,6 +19,7 @@
 
         <div class="col-9">
             <form id="reviewNoteForm">
+                <input type="hidden" th:field="${quizMstrInfoVO.userId}"/>
                 <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
                 <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
                 <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}"
@@ -84,8 +85,11 @@
 
                 <hr/>
                 <div>
-                    <div class="text-center h5 mt-5 fw-bold">문제별 정답률</div>
-                    <div id="chart-area"></div>
+                    <div class="h5 mt-4 fw-bold">문제별 정답률</div>
+                    <div class="mb-4"><i class="fas fa-asterisk"></i> 문제 번호를 클릭하여 [문제]와 [해설]을 볼 수 있습니다.</div>
+
+                    <div id="quizResultData"></div>
+
                 </div>
             </form>
         </div>
@@ -99,27 +103,9 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
-        const el = document.getElementById('chart-area');
-        const options = '';
-        const data = {
-            categories: {x: [], y: []},
-            series: []
-        };
-        const theme = {
-            series: {
-                startColor: '#e7c1c3',
-                endColor: '#721108',
-                borderWidth: 3,
-                borderColor: '#ffffff',
-                hover: {color: '#FFB144', borderWidth: 5, borderColor: '#CAE7C1'}
-            }
-        };
-        const chart = toastui.Chart.heatmapChart({el, data, options});
-
         $(function () {
-            loadQuizRatioChart();
+            selectQuizResultData();
         })
-
         function searchclear() {
             $('#schAnswerChk').attr('checked', false);
             $('#schUserChkCnfsd').attr('checked', false);

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -30,27 +29,31 @@ public class MyPageController {
     }
 
     @GetMapping("/reviewNote")
-    public String reviewNote(QuizMstrInfoVO quizMstrInfoVO, Model model) {
+    public String reviewNote(HttpServletRequest req, QuizMstrInfoVO quizMstrInfoVO, Model model) {
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        quizMstrInfoVO.setUserId(sessionUser.getUserId());
+        model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         // 공통코드(과목코드)
         List<Map<String, String>> CommSubjectList = baseUtil.selectCmmnCdList("002");
         model.addAttribute("CommSubjectList", CommSubjectList);
-        model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         return "/view/mypage/reviewNote";
     }
 
-    @GetMapping("/reviewNote/chart")
-    @ResponseBody
-    public List<QuizMstrInfoVO> reviewNoteAjax(HttpServletRequest req, QuizMstrInfoVO param) {
+    @GetMapping("/reviewNote/data")
+    public String reviewNoteAjax(QuizMstrInfoVO param, Model model) {
 
-        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
-        param.setUserId(sessionUser.getUserId());
+        // 과목명
+        List<Map<String, String>> subjectList = quizService.selectSubjectList(param);
+        model.addAttribute("subjectList", subjectList);
 
         // 정답률(차트)
         List<QuizMstrInfoVO> quizResultRatioList = quizService.selectQuizResultRatioList(param);
+        model.addAttribute("quizResultRatioList", quizResultRatioList);
 
-        return quizResultRatioList;
+        return "/view/mypage/quizResultData";
     }
 
     @GetMapping("/quizResult")

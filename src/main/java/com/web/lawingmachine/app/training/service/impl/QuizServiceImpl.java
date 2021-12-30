@@ -86,30 +86,8 @@ public class QuizServiceImpl implements QuizService {
         return quizUserAnsMapper.selectQuizResultRatioList(param);
     }
 
-//    @Override
-//    public Map<String, Object> selectQuizResultRatioList(QuizMstrInfoVO param) {
-//
-//        QuizMstrInfoVO quizMstrInfoVO = param;
-//        List<Map<String, String>> mapList = quizUserAnsMapper.selectQuizResultChartAxisList(param);
-//
-//        Map<String, Object> resultMap = new HashMap<>();
-//        List<String> axisXList = new ArrayList<>();
-//        List<String> axisYList = new ArrayList<>();
-//        List<List<Integer>> dataList = new ArrayList<>();
-//
-//        for(Map<String, String> map : mapList) {
-//            axisXList.add(String.valueOf(map.get("QUIZ_TOTAL_CNT")));
-//            axisYList.add(map.get("SUBJECT_TYPE_NM"));
-//            quizMstrInfoVO.setSchSubjectTypeCd(map.get("SUBJECT_TYPE_CD"));
-//            List<Integer> list = quizUserAnsMapper.selectQuizResultRatioList(quizMstrInfoVO);
-//            dataList.add(list);
-//        }
-//
-//        resultMap.put("axisXList", axisXList);
-//        resultMap.put("axisYList", axisYList);
-//        resultMap.put("dataList", dataList);
-//
-//        return resultMap;
-//    }
-
+    @Override
+    public List<Map<String, String>> selectSubjectList(QuizMstrInfoVO param) {
+        return quizUserAnsMapper.selectSubjectList(param);
+    }
 }
