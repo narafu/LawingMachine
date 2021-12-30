@@ -12,11 +12,12 @@ public class SessionUser implements Serializable {
     private String userId;
     private String userNm;
     private String email;
-    private String roleCd;
+    private String role;
 
     public SessionUser(UserInfoVO userInfoVo) {
         this.userId = userInfoVo.getEmail();
         this.userNm = userInfoVo.getUserNm();
         this.email = userInfoVo.getEmail();
+        this.role = userInfoVo.getRole();
     }
 }
