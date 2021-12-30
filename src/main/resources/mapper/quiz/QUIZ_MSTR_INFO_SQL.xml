@@ -4,8 +4,9 @@
 <mapper namespace="com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper">
 
     <select id="selectAjaxQuizNavList" resultType="QuizMstrInfoVO">
-        SELECT ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
-		, A.QUIZ_MSTR_INFO_SEQ
+        SELECT
+	    ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
+	     , A.QUIZ_MSTR_INFO_SEQ
              , B.QUIZ_USER_ANS_SEQ
              , A.SUBJECT_TYPE_CD
              , A.SRT_NO
