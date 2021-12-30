@@ -1,6 +1,3 @@
-@import './style_pc.css';
-@import './style_tablet.css';
-@import './style_mobile.css';
 
 body, #wrapper {
 	display: flex;
