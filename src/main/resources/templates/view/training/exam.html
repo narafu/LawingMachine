@@ -205,24 +205,24 @@
                 let subjectNm = $(this).find('.subjectNm').text();
                 let subjectCd = $(this).find('.subjectCd').text();
 
-                // let url = '/modal/confirm';
-                // let modalId = 'confirmTest';
-                // let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
-                // let modalFunc = getAjaxQuizMstrInfo();
-                // let actBtnText = '시작';
-
-                // let data = {
-                //     'modalId': modalId,
-                //     'modalText': modalText,
-                //     // 'modalFunc': modalFunc,
-                //     'actBtnText': actBtnText
-                // };
-
-                // $.get(url, data).done(function (modalHtml) {
-                //     $('#modalDiv').html(modalHtml);
-                //     let modal = new bootstrap.Modal(document.getElementById(modalId));
-                //     modal.show();
-                // })
+            //     let url = '/modal/confirm';
+            //     let modalId = 'confirmTest';
+            //     let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
+            //     let modalFunc = getAjaxQuizMstrInfo();
+            //     let actBtnText = '시작';
+            //
+            //     let data = {
+            //         'modalId': modalId,
+            //         'modalText': modalText,
+            //         // 'modalFunc': modalFunc,
+            //         'actBtnText': actBtnText
+            //     };
+            //
+            //     $.get(url, data).done(function (modalHtml) {
+            //         $('#modalDiv').html(modalHtml);
+            //         let modal = new bootstrap.Modal(document.getElementById(modalId));
+            //         modal.show();
+            //     })
 
                 if (confirm(subjectNm + '을 응시하시겠습니까? \n주의사항을 꼭 확인해주세요!')) {
                     $('#subjectTypeCd').val(subjectCd);

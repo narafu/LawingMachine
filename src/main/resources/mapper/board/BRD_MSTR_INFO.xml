@@ -104,4 +104,22 @@
 		)
 	</insert>
 
+	<update id="updateBoardinfo">
+		UPDATE BRD_MSTR_INFO SET
+			BRD_TYPE_CD = #{brdTypeCd}
+			, SUBJECT_TYPE_CD = #{subjectTypeCd}
+			, TITLE = #{title}
+			, CONTENT = #{content}
+			, NOTICE_YN = #{noticeYn}
+			, MDFY_TS = CURRENT_TIMESTAMP
+		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
+	</update>
+
+	<update id="delBoardinfo">
+		UPDATE BRD_MSTR_INFO SET
+			DEL_YN = 'Y'
+		   , MDFY_TS = CURRENT_TIMESTAMP
+		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
+	</update>
+
 </mapper>

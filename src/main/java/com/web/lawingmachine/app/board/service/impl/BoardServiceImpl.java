@@ -33,4 +33,14 @@ public class BoardServiceImpl implements BoardService {
     public int insertBoardinfo(BoardVO param) {
         return boardMapper.insertBoardinfo(param);
     }
+
+    @Override
+    public int delBoardinfo(BoardVO param) {
+        return boardMapper.delBoardinfo(param);
+    }
+
+    @Override
+    public int updateBoardInfo(BoardVO param) {
+        return boardMapper.updateBoardInfo(param);
+    }
 }

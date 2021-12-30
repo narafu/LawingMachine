@@ -58,9 +58,9 @@ public class TrainingController {
 
     @PostMapping("/exam/userAnswer")
     @ResponseBody
-    public Integer saveUserAnswer(QuizMstrInfoVO param) {
-        // (임시)
-        param.setUserId("narafu@kakao.com");
+    public Integer saveUserAnswer(HttpServletRequest req, QuizMstrInfoVO param) {
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setUserId(sessionUser.getUserId());
         return quizService.saveUserAnswer(param);
     }
 

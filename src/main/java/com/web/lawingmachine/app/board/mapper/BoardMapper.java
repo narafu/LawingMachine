@@ -15,4 +15,8 @@ public interface BoardMapper {
     BoardVO getBoardInfo(BoardVO boardVO);
 
     int insertBoardinfo(BoardVO param);
+
+    int delBoardinfo(BoardVO param);
+
+    int updateBoardInfo(BoardVO param);
 }

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,15 +77,47 @@ public class BoardController {
         return "/view/board/infoView";
     }
 
-    @PostMapping("/infoView")
+    @PostMapping("/infoView/insert")
     @ResponseBody
-    public ResultMessageVO insertBoardinfo(BoardVO param, Model model) {
+    public ResultMessageVO insertBoardinfo(BoardVO param) {
 
         ResultMessageVO result = new ResultMessageVO();
         int resultCnt = boardService.insertBoardinfo(param);
 
         if (resultCnt > 0) {
             result.setMessage("등록되었습니다.");
+        } else {
+            result.setMessage("오류가 발생하였습니다.");
+        }
+
+        return result;
+    }
+    
+    @PostMapping("/infoView/update")
+    @ResponseBody
+    public ResultMessageVO updateBoardInfo(BoardVO param) {
+
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = boardService.updateBoardInfo(param);
+
+        if (resultCnt > 0) {
+            result.setMessage("저장되었습니다.");
+        } else {
+            result.setMessage("오류가 발생하였습니다.");
+        }
+
+        return result;
+    }
+
+    @RequestMapping("/infoView/delete")
+    @ResponseBody
+    public ResultMessageVO delBoardinfo(BoardVO param) {
+
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = boardService.delBoardinfo(param);
+
+        if (resultCnt > 0) {
+            result.setMessage("삭제되었습니다.");
         } else {
             result.setMessage("오류가 발생하였습니다.");
         }

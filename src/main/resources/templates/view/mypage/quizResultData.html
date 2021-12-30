@@ -19,7 +19,7 @@
                     </div>
                 </th:block>
                 <th:block th:if="20 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 40">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-2" th:onclick="quizResultInfoModal([[${result.quizMstrInfoSeq}]])">
+                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-2" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
                             <div class="col border border-primary" th:text="${result.userAnswer}"></div>

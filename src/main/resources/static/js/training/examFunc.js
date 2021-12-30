@@ -27,7 +27,6 @@ function startCountDown(duration, timer) {
             clearInterval(countInterval);
             $('#count-down-timer').css('color', 'red');
         }
-        ;
 
     }, 1000);
 }

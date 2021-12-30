@@ -42,8 +42,14 @@
     </form>
 
     <div class="d-grid gap-2 d-flex justify-content-end">
-        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="regBoardInfo()">등록</button>
-        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">취소</button>
+        <th:block th:if="${#strings.isEmpty(boardVO.brdMstrInfoSeq)}">
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="insertBoardInfo()">등록</button>
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
+        </th:block>
+        <th:block th:unless="${#strings.isEmpty(boardVO.brdMstrInfoSeq)}">
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="updateBoardInfo()">저장</button>
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" th:onclick="goBoardInfo([[${boardVO.brdMstrInfoSeq}]])">취소</button>
+        </th:block>
     </div>
 
 

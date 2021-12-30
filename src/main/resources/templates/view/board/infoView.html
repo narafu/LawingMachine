@@ -10,28 +10,28 @@
         <input type="hidden" th:field="${boardVO.content}"/>
         <input type="hidden" th:field="${boardVO.brdMstrInfoSeq}"/>
 
-        <div class="row g-3 w-75 align-items-center">
-            <div class="col">
-                <th:block th:text="${boardVO.brdTypeNm}" />
+        <div class="mt-5">
+            <div class="row">
+                <div class="col">
+                    <div class="border px-4 py-2 fw-bold" th:text="${boardVO.brdTypeNm}"></div>
+                </div>
+                <div class="col">
+                    <div class="border px-4 py-2 fw-bold" th:text="${boardVO.subjectTypeNm}"></div>
+                </div>
             </div>
-            <div class="col">
-                <th:block th:text="${boardVO.subjectTypeNm}" />
-            </div>
-        </div>
 
-        <div class="my-3">
-            <div>
-                <th:block th:text="${boardVO.title}" />
+            <div class="my-3">
+                <div class="border px-4 py-2" th:text="${boardVO.title}"></div>
             </div>
-        </div>
 
-        <div id="boardCntnt"></div>
+            <div class="border px-4 py-3" id="boardCntnt"></div>
+        </div>
     </form>
 
     <div class="d-grid gap-2 d-flex justify-content-end">
         <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
         <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardForm()">수정</button>
-        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="">삭제</button>
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="delBoardInfo()">삭제</button>
     </div>
 
 
