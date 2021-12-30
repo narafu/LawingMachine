@@ -118,7 +118,8 @@
             series: {
                 dataLabels: { visible: true }
             },
-            theme
+            theme,
+            series: { selectable: true }
         };
 
         const chart = toastui.Chart.heatmapChart({el, data, options});
