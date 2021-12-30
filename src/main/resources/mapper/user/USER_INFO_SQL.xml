@@ -13,8 +13,7 @@
 			, USER_NM
 			, PASSWORD
 			, EMAIL
-			, REGIST_ID
-			, REGIST_NM
+			, ROLE
 			, REG_TS
 			, MDFY_TS
 		) VALUES (
@@ -23,8 +22,7 @@
 			, #{userNm}
 			, #{password}
 			, #{email}
-			, 'SYSTEM'
-			, 'SYSTEM'
+			, #{role}
 			, current_timestamp()
 			, current_timestamp()
 		)
@@ -37,7 +35,7 @@
 			, USER_NM
 			, EMAIL
 			, PASSWORD
-			, ROLE_CD
+			, ROLE
 			, (SELECT MAX(TAKE_REV) + 1 FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) AS TAKE_REV
 		FROM USER_INFO
 		WHERE DEL_YN = 'N'
