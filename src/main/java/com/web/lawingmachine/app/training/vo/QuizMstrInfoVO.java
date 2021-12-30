@@ -20,6 +20,7 @@ public class QuizMstrInfoVO extends BaseVO {
     private String subjectTypeNm;
 
     private int srtNo;
+    private int quizNo;
 
     private String content;
     private String answer;

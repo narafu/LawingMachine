@@ -86,79 +86,30 @@ public class QuizServiceImpl implements QuizService {
         return quizUserAnsMapper.selectQuizResultRatioList(param);
     }
 
-
-//
 //    @Override
-//    public List<QuizMstrInfoVO> getQuizCntList(QuizMstrInfoVO param) {
-//        return quizUserAnsMapper.getQuizCntList(param);
-//    }
+//    public Map<String, Object> selectQuizResultRatioList(QuizMstrInfoVO param) {
 //
-//    @Override
-//    public int mergeSelectQuizAll(UserInfoVO userInfoVO) {
-//        List<Map<String, String>> mapList = quizUserAnsMapper.selectQuizUsrAnsSeqAll(userInfoVO);
-//        for (Map<String, String> map : mapList) {
-//            map.put("userId", userInfoVO.getUserId());
-//            quizUserAnsMapper.mergeUserAnswer(map);
-//        }
-//        return mapList.size();
-//    }
+//        QuizMstrInfoVO quizMstrInfoVO = param;
+//        List<Map<String, String>> mapList = quizUserAnsMapper.selectQuizResultChartAxisList(param);
 //
-//    @Override
-//    public List<Map<String, String>> selectQuizNoList(QuizMstrInfoVO quizMstrInfoVO) {
-//        return quizMstrInfoMapper.selectQuizNoList(quizMstrInfoVO);
-//    }
+//        Map<String, Object> resultMap = new HashMap<>();
+//        List<String> axisXList = new ArrayList<>();
+//        List<String> axisYList = new ArrayList<>();
+//        List<List<Integer>> dataList = new ArrayList<>();
 //
-//    @Override
-//    public int regQuiz(QuizMstrInfoVO param) {
-//        int resultCnt = quizMstrInfoMapper.insertQuizMstrInfo(param);
-//        if (resultCnt > 0) {
-//            for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlInfoList()) {
-//                quizDtlInfoVO.setQuizMstrInfoSeq(param.getQuizMstrInfoSeq());
-//                quizDtlInfoMapper.insertQuizDtlInfo(quizDtlInfoVO);
-//            }
-//        }
-//        return resultCnt;
-//    }
-//
-//    @Override
-//    public int editQuiz(QuizMstrInfoVO param) {
-//        int resultCnt = quizMstrInfoMapper.updateQuizMstrInfo(param);
-//        if (resultCnt > 0) {
-//            for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlInfoList()) {
-//                quizDtlInfoMapper.updateQuizDtlInfo(quizDtlInfoVO);
-//            }
-//        }
-//        return resultCnt;
-//    }
-//
-//    @Override
-//    public int delQuiz(QuizMstrInfoVO param) {
-//        return quizMstrInfoMapper.delQuiz(param);
-//    }
-//
-//    @Override
-//    public QuizMstrInfoVO getQuizFormInfo(QuizMstrInfoVO param) {
-//
-//        QuizMstrInfoVO quizMstrInfoVO = quizMstrInfoMapper.getQuizFormInfo(param);
-//        if (quizMstrInfoVO == null) {
-//            quizMstrInfoVO = param;
+//        for(Map<String, String> map : mapList) {
+//            axisXList.add(String.valueOf(map.get("QUIZ_TOTAL_CNT")));
+//            axisYList.add(map.get("SUBJECT_TYPE_NM"));
+//            quizMstrInfoVO.setSchSubjectTypeCd(map.get("SUBJECT_TYPE_CD"));
+//            List<Integer> list = quizUserAnsMapper.selectQuizResultRatioList(quizMstrInfoVO);
+//            dataList.add(list);
 //        }
 //
-//        int quizTotalCnt = quizMstrInfoMapper.getQuizTotalCnt(param);
-//        quizMstrInfoVO.setQuizTotalCnt(quizTotalCnt);
+//        resultMap.put("axisXList", axisXList);
+//        resultMap.put("axisYList", axisYList);
+//        resultMap.put("dataList", dataList);
 //
-//        List<QuizDtlInfoVO> quizDtlInfoList = quizDtlInfoMapper.selectQuizMstrFormDtlList(param);
-//        if (quizDtlInfoList.isEmpty()) {
-//            quizDtlInfoList = new ArrayList<QuizDtlInfoVO>();
-//            quizDtlInfoList.add(new QuizDtlInfoVO());
-//            quizDtlInfoList.add(new QuizDtlInfoVO());
-//            quizDtlInfoList.add(new QuizDtlInfoVO());
-//            quizDtlInfoList.add(new QuizDtlInfoVO());
-//            quizDtlInfoList.add(new QuizDtlInfoVO());
-//        }
-//
-//        quizMstrInfoVO.setQuizDtlInfoList(quizDtlInfoList);
-//        return quizMstrInfoVO;
+//        return resultMap;
 //    }
 
 }

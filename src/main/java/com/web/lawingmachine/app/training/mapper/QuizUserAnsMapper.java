@@ -12,11 +12,8 @@ public interface QuizUserAnsMapper {
 
     List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param);
 
-//    List<QuizMstrInfoVO> getQuizCntList(QuizMstrInfoVO param);
-//
-//    List<Map<String, String>> selectQuizUsrAnsSeqAll(UserInfoVO userInfoVO);
-//
-//
-//    int mergeUserAnswer(Map<String, String> map);
+//    List<Integer> selectQuizResultRatioList(QuizMstrInfoVO param);
+
+//    List<Map<String, String>> selectQuizResultChartAxisList(QuizMstrInfoVO param);
 
 }

@@ -48,9 +48,9 @@ public class MyPageController {
         param.setUserId(sessionUser.getUserId());
 
         // 정답률(차트)
-        List<QuizMstrInfoVO> quizResultList = quizService.selectQuizResultRatioList(param);
+        List<QuizMstrInfoVO> quizResultRatioList = quizService.selectQuizResultRatioList(param);
 
-        return quizResultList;
+        return quizResultRatioList;
     }
 
     @GetMapping("/quizResult")

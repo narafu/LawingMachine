@@ -21,8 +21,10 @@
             <form id="reviewNoteForm">
                 <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
                 <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-                <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}" id="examNo"/>
-                <input type="hidden" name='schSubjectTypeCd' id="schSubjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd}"/>
+                <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}"
+                       id="examNo"/>
+                <input type="hidden" name='schSubjectTypeCd' id="schSubjectTypeCd"
+                       th:value="${quizMstrInfoVO.subjectTypeCd}"/>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="border p-1">
@@ -32,51 +34,57 @@
                                    th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">전체</a>
                             </li>
                             <th:block th:each="CommSubject:${CommSubjectList}">
-                                <li class="nav-item" th:onclick="getReviewNoteSubject(this, [[${CommSubject.cmmnDtlCd}]])">
+                                <li class="nav-item"
+                                    th:onclick="getReviewNoteSubject(this, [[${CommSubject.cmmnDtlCd}]])">
                                     <a class="nav-link" href="#" th:text="${CommSubject.cmmnDtlNm}"
                                        th:classappend="${CommSubject.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
                                 </li>
                             </th:block>
                         </ul>
                     </div>
-<!--                    <div>-->
-<!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
-<!--                    </div>-->
+                    <!--                    <div>-->
+                    <!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
+                    <!--                    </div>-->
                 </div>
                 <div class="mt-4">
                     <div class="d-flex justify-content-between align-items-center mx-4">
                         <div id="quizSchChkDiv" class="d-grid gap-3 d-flex">
-<!--                            <div class="form-check form-check-inline">-->
-<!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
-<!--                                       value="Y" onclick="getReviewNoteQuizChk(this)" checked="true">-->
-<!--                                <label class="form-check-label" for="schAllChk">전체 문제</label>-->
-<!--                            </div>-->
+                            <!--                            <div class="form-check form-check-inline">-->
+                            <!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
+                            <!--                                       value="Y" onclick="getReviewNoteQuizChk(this)" checked="true">-->
+                            <!--                                <label class="form-check-label" for="schAllChk">전체 문제</label>-->
+                            <!--                            </div>-->
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="schAnswerChk" name="schAnswerChk"
                                        value="Y" onclick="getReviewNoteQuizChk(this)">
                                 <label class="form-check-label" for="schAnswerChk">틀린 문제</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="schUserChkCnfsd" name="schUserChkCnfsd"
+                                <input class="form-check-input" type="checkbox" id="schUserChkCnfsd"
+                                       name="schUserChkCnfsd"
                                        value="Y" onclick="getReviewNoteQuizChk(this)">
                                 <label class="form-check-label" for="schUserChkCnfsd">헷갈린 문제</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="schUserChkImprt" name="schUserChkImprt"
+                                <input class="form-check-input" type="checkbox" id="schUserChkImprt"
+                                       name="schUserChkImprt"
                                        value="Y" onclick="getReviewNoteQuizChk(this)">
                                 <label class="form-check-label" for="schUserChkImprt">중요 문제</label>
                             </div>
                         </div>
                         <div class="d-flex w-50">
                             <input class="form-control" type="search" placeholder="문제 검색" id="schQuizCntnt"
-                               aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                                   aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
+                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="loadQuizRatioChart()"><i
+                                    class="fas fa-search"></i></button>
+                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchclear();">clear</button>
                         </div>
                     </div>
                 </div>
 
                 <hr/>
                 <div>
+                    <div class="text-center h5 mt-5 fw-bold">문제별 정답률</div>
                     <div id="chart-area"></div>
                 </div>
             </form>
@@ -92,51 +100,31 @@
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
         const el = document.getElementById('chart-area');
+        const options = '';
         const data = {
-            categories: { x: [], y: [] },
+            categories: {x: [], y: []},
             series: []
         };
-
-        let chartWidth = $('#chart-area').width();
-        let chartHeight = 300;
-
         const theme = {
             series: {
-                startColor:
-                    '#c88885', endColor: '#721108', borderWidth: 3, borderColor: '#ffffff',
-                select: { color: '#fdfd96', borderWidth: 2,  borderColor: '#80CEE1' },
-                hover: { color: '#FFB144', borderWidth: 5, borderColor: '#CAE7C1' },
-            },
+                startColor: '#e7c1c3',
+                endColor: '#721108',
+                borderWidth: 3,
+                borderColor: '#ffffff',
+                hover: {color: '#FFB144', borderWidth: 5, borderColor: '#CAE7C1'}
+            }
         };
-
-        const options = {
-            chart: { title: '정답률', width: chartWidth, height: chartHeight },
-            xAxis: { title: '문제번호' },
-            yAxis: { title: '과목' },
-            tooltip: { formatter: (value) => `${value}%` },
-            legend: { align: 'bottom' },
-            series: {
-                dataLabels: { visible: true }
-            },
-            theme,
-            series: { selectable: true }
-        };
-
         const chart = toastui.Chart.heatmapChart({el, data, options});
-          
-        chart.on('selectSeries', (ev) => {
-              const { name, value } = ev.heatmap[0].data;
-              alert(`(${name}): ${value}`);
-              console.log(ev);
-      });
-
-      chart.on('unselectSeries', () => {
-        alert('unselect!');
-      });
-    
 
         $(function () {
             loadQuizRatioChart();
         })
+
+        function searchclear() {
+            $('#schAnswerChk').attr('checked', false);
+            $('#schUserChkCnfsd').attr('checked', false);
+            $('#schUserChkImprt').attr('checked', false);
+            $('#schQuizCntnt').val('');
+        }
     </script>
 </th:block>

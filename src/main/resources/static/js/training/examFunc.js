@@ -196,23 +196,40 @@ function getReviewNoteQuizChk(obj) {
 }
 
 function loadQuizRatioChart() {
-    $.get('/mypage/reviewNote/chart', $('#reviewNoteForm').serialize(), function (result) {
-        console.log(result);
-        let quizRnoArr = new Array();
-        let quizTrueRatioArr = new Array();
 
-        $.each(result, function(index, item) {
-            quizRnoArr.push(item.rno);
-            quizTrueRatioArr.push(item.quizTrueRatio * 100);
-        })
+    $.get('/mypage/reviewNote/chart', $('#reviewNoteForm').serialize(), function (result) {
+
+        let axisXList = new Array();
+        let axisYList = result.axisYList;
+        let dataList = result.dataList;
+
+        let chartWidth = $('#chart-area').width();
+        let chartHeight = 200 + (50 * axisYList.length);
+
+        let maxQuizCnt = Math.max.apply(null, result.axisXList);
+        let i = 1;
+        while(i <= maxQuizCnt) {
+            axisXList.push(i++);
+        }
+
         chart.setData({
             categories: {
-                x: quizRnoArr,
-                y: [result[0].subjectTypeNm, result[1].subjectTypeNm]
+                x: axisXList,
+                y: axisYList
             },
-            series: [
-                quizTrueRatioArr
-            ]
+            series: dataList
+        });
+
+        chart.setOptions({
+            chart: {width: chartWidth, height: chartHeight},
+            xAxis: {title: '문제번호'},
+            yAxis: {title: '과목'},
+            tooltip: {formatter: (value) => `${value}%`},
+            legend: {align: 'bottom'},
+            series: {
+                selectable: true, dataLabels: {visible: true}
+            },
+            theme
         });
     })
 }
