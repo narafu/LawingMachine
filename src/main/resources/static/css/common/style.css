@@ -145,7 +145,10 @@ i {
 }
 
 .quizNumTd {
-	min-width: 100px;
+	min-width: 85px;
+	font-size: 0.9em;
+	border-radius: 10px;
+	color: white;
 }
 
 .quizNumTd:hover {
@@ -172,20 +175,37 @@ i {
 	cursor: pointer;
 }
 
-.quizTrueRatio-5 {
-	background-color: #FFAB00;
-	color: white;
-}
-.quizTrueRatio-4 {
-	background-color: #FFC400;
-	color: white;
-}
-.quizTrueRatio-3 {
-	background-color: #FFD740;
+.quizTrueRatio-1 {
+	background-color: #fff2df;
+	color: black;
 }
 .quizTrueRatio-2 {
-	background-color: #FFE57F;
+	background-color: #ffddb0;
+	color: black;
 }
-.quizTrueRatio-1 {
-	background-color: #fff;
+.quizTrueRatio-3 {
+	background-color: #ffc77d;
+	color: black;
+}
+.quizTrueRatio-4 {
+	background-color: #ffaf49;
+	color: black;
+}
+.quizTrueRatio-5 {
+	background-color: #ff9e22;
+}
+.quizTrueRatio-6 {
+	background-color: #ff8d00;
+}
+.quizTrueRatio-7 {
+	background-color: #fa8100;
+}
+.quizTrueRatio-8 {
+	background-color: #f47100;
+}
+.quizTrueRatio-9 {
+	background-color: #ee6002;
+}
+.quizTrueRatio-10 {
+	background-color: #e54304;
 }

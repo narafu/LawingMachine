@@ -1,6 +1,6 @@
 package com.web.lawingmachine.app.mypage.controller;
 
-import com.web.lawingmachine.app.common.controller.BaseUtil;
+import com.web.lawingmachine.app.common.service.BaseUtilService;
 import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
@@ -21,7 +21,7 @@ public class MyPageController {
     @Autowired
     private QuizService quizService;
     @Autowired
-    private BaseUtil baseUtil;
+    private BaseUtilService baseUtilService;
 
     @GetMapping("/myProfile")
     public String myProfile() {
@@ -36,8 +36,8 @@ public class MyPageController {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         // 공통코드(과목코드)
-        List<Map<String, String>> CommSubjectList = baseUtil.selectCmmnCdList("002");
-        model.addAttribute("CommSubjectList", CommSubjectList);
+        List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
+        model.addAttribute("CommLst002", CommLst002);
 
         return "/view/mypage/reviewNote";
     }

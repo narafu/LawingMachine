@@ -35,15 +35,46 @@ function paddedFormat(num) {
     return num < 10 ? "0" + num : num;
 }
 
+function goExamPage() {
+    let form = $('#examMainForm');
+    form.attr('method', 'get');
+    form.attr('action', '/training/exam/quiz');
+    form.attr('target', '');
+    form.submit();
+}
+
 function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
+
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
 
-    let url = '/training/exam/quizMstrInfo';
+    let url = '/training/exam/quiz/ajax';
     let data = $('#examMainForm').serialize();
 
     $.get(url, data, function (result) {
 
         $('#quizMstrInfoDiv').replaceWith(result);
+
+        // 진행률 반영
+        let prgrsData = $('#progress-bar').text().split('/');
+        let prgrsLvl = prgrsData[0] / prgrsData[1] * 100;
+        $("#progress-bar").css("width", prgrsLvl + '%');
+
+    });
+
+    // nav
+    getQuizNavAjax(quizMstrInfoSeq);
+}
+
+function getQuizNavAjax(quizMstrInfoSeq) {
+
+    $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
+
+    let url = '/training/exam/quiz/nav/ajax';
+    let data = $('#examMainForm').serialize();
+
+    $.get(url, data, function (result) {
+
+        $('#quizAnswerNavListDiv').replaceWith(result);
 
         // active 스타일 반영
         let curSubjectTypeCd = $('#subjectTypeCd').val();
@@ -55,12 +86,6 @@ function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
                 $(this).addClass('text-light');
             }
         })
-
-        // 진행률 반영
-        let prgrsData = $('#progress-bar').text().split('/');
-        let prgrsLvl = prgrsData[0] / prgrsData[1] * 100;
-        $("#progress-bar").css("width", prgrsLvl + '%');
-
     });
 }
 
@@ -125,7 +150,7 @@ function goQuiz(obj) {
 
         if (quizMstrInfoSeq == lastQuizMstrInfoSeq) {
             // if (mobileYn) {
-            if (confirm('마지막 문제입니다.\n(풀지 않은 문제는 오답처리 됩니다.)\n결과로 이동하시겠습니?')) {
+            if (alert('마지막 문제입니다.\n모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.')) {
                 quizAnsSave(quizMstrInfoSeq, 'N', 'Y');
             }
             // } else {
@@ -164,6 +189,11 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
 }
 
 function moveResultPage() {
+
+    if (!confirm('시험을 제출하고 결과로 이동하시겠습니까?')) {
+        return;
+    }
+
     let form = $('#examMainForm');
     form.attr('action', '/mypage/reviewNote');
     form.attr('target', '');

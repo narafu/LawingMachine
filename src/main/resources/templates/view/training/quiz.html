@@ -4,7 +4,7 @@
       layout:decorate="~{layouts/defaultLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="row" id="quizMstrInfoDiv">
+<div layout:fragment="content" class="row">
 
     <!-- sidebar -->
     <div class="col p-5"></div>
@@ -15,34 +15,33 @@
         <form id="examMainForm" method="get">
             <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
             <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}" id="examNo"/>
-            <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}" id="subjectTypeCd"/>
-            <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}" id="quizMstrInfoSeq"/>
-            <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}" id="quizUserAnsSeq"/>
-            <input type="hidden" name="userAnswer" th:value="${quizMstrInfoVO.userAnswer}" id="userAnswer"/>
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}"
+                   id="examNo"/>
+            <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}"
+                   id="subjectTypeCd"/>
 
-            <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
-                <h1>주의사항</h1>
-                <p class="fs-4 mt-5">시험은 실제 시험과 같은 조건으로 진행됩니다.</p>
-                <p class="fs-4">정확한 데이터를 위해 <strong>시험은 <span class="text-danger">한 번만</span> 응시할 수 있습니다.</strong></p>
-                <p class="fs-4"><strong>중간에 시험을 중단하면, <span class="text-danger">재응시할 수 없습니다.</span></strong></p>
-                <p class="fs-4">시험을 마친 경우만, 빌보드 데이터에 등록됩니다.</p>
-                <p class="fs-4">오른쪽 메뉴에서 응시할 과목을 선택해주세요.</p>
-            </th:block>
-
-            <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
-                        <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
-                        <h2 class="mx-2" th:text="${quizMstrInfoVO.examGrpNm}"></h2>
-                        <h2 class="mx-2" th:text="${quizMstrInfoVO.subjectTypeNm}"></h2>
-                    </div>
-                    <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                        <h1 class="text-center" id="count-down-timer"></h1>
-                    </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex">
+                    <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
+                    <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
+                    <h2 class="mx-2" th:each="Comm001:${CommLst001}" th:if="${Comm001.cmmnDtlCd} == ${quizMstrInfoVO.examGrpCd}"
+                        th:text="${Comm001.cmmnDtlNm}"></h2>
+                    <h2 class="mx-2" th:each="Comm002:${CommLst002}" th:if="${Comm002.cmmnDtlCd} == ${quizMstrInfoVO.subjectTypeCd}"
+                        th:text="${Comm002.cmmnDtlNm}"></h2>
                 </div>
+                <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                    <h1 class="text-center" id="count-down-timer"></h1>
+                </div>
+            </div>
+
+            <div id="quizMstrInfoDiv">
+                <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}"
+                       id="quizMstrInfoSeq"/>
+                <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}"
+                       id="quizUserAnsSeq"/>
+                <input type="hidden" name="userAnswer" th:value="${quizMstrInfoVO.userAnswer}" id="userAnswer"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
                 <div class="progress my-5">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" id="progress-bar"
                          role="progressbar" style="width: 75%;"
@@ -111,7 +110,8 @@
                         </th:block>
                     </div>
                 </div>
-            </th:block>
+            </div>
+
         </form>
     </div>
 
@@ -148,11 +148,13 @@
                         </div>
                     </th:block>
                     <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
-                        <th:block th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, subjectNavInfo.subjectTypeCd)}">
+                        <th:block
+                                th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, subjectNavInfo.subjectTypeCd)}">
                             <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
                                  style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                                 <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
-                                <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
+                                <span class='subjectCd' style="display: none;"
+                                      th:text="${subjectNavInfo.grpDtlCd}"></span>
                                 <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
                                 <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
                             </div>
@@ -177,8 +179,12 @@
                     </th:block>
                 </th:block>
             </div>
-            <div th:if="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})">
-                <button type="button" class="btn btn-lg btn-primary my-3 w-100" onclick="moveResultPage()">제출하기</button>
+            <div>
+                <button th:if="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
+                    type="button" class="btn btn-lg btn-primary my-3 w-100" onclick="moveResultPage()">제출하기</button>
+                <button th:unless="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
+                    type="button" class="btn btn-lg btn-outline-primary my-3 w-100">제출하기</button>
+            <div>
             </div>
         </div>
     </div>
@@ -189,48 +195,6 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
-        $(function () {
-
-            $('.quizNavTltDiv').hover(function () {
-                $(this).removeClass('text-primary');
-                $(this).addClass('bg-primary');
-                $(this).addClass('text-light');
-            }, function () {
-                $(this).addClass('text-primary');
-                $(this).removeClass('bg-primary');
-                $(this).removeClass('text-light');
-            })
-
-            $('.quizNavTltDiv').click(function () {
-                let subjectNm = $(this).find('.subjectNm').text();
-                let subjectCd = $(this).find('.subjectCd').text();
-
-            //     let url = '/modal/confirm';
-            //     let modalId = 'confirmTest';
-            //     let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
-            //     let modalFunc = getAjaxQuizMstrInfo();
-            //     let actBtnText = '시작';
-            //
-            //     let data = {
-            //         'modalId': modalId,
-            //         'modalText': modalText,
-            //         // 'modalFunc': modalFunc,
-            //         'actBtnText': actBtnText
-            //     };
-            //
-            //     $.get(url, data).done(function (modalHtml) {
-            //         $('#modalDiv').html(modalHtml);
-            //         let modal = new bootstrap.Modal(document.getElementById(modalId));
-            //         modal.show();
-            //     })
-
-                if (confirm(subjectNm + '을 응시하시겠습니까? \n주의사항을 꼭 확인해주세요!')) {
-                    $('#subjectTypeCd').val(subjectCd);
-                    getAjaxQuizMstrInfo('');
-                }
-            })
-        })
-
         $(document).on({
             mouseenter: function () {
                 $(this).addClass('border-primary');
@@ -243,6 +207,10 @@
                 $(this).removeClass('fw-bold');
             }
         }, '.sideNavDiv');
+
+        $(function () {
+            getAjaxQuizMstrInfo();
+        })
     </script>
 </th:block>
 

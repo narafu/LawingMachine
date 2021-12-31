@@ -3,72 +3,129 @@
 
 <th:block th:each="subjectInfo : ${subjectList}">
     <div class="mx-auto mb-4">
+
         <div class="fs-5" th:text="${subjectInfo.SUBJECT_TYPE_NM}" style="font-family: 'GongGothicMedium';"></div>
-        <div class="row row-cols-auto text-center mx-auto mt-2">
+
+        <div class="row row-cols-auto mx-auto text-center mt-1">
+
             <th:block th:each="result : ${quizResultRatioList}" th:if="${result.subjectTypeCd == subjectInfo.SUBJECT_TYPE_CD}">
-                <th:block th:if="${result.quizTrueRatio} < 20">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-1" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+
+                <th:block th:if="${result.quizTrueRatio} < 10">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-1" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
-                            <div class="col border border-primary" th:text="${result.userAnswer}"></div>
-                            <div class="col border border-primary fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
-                                 th:classappend="${result.answerChk} == 'T' ? text-primary : text-danger"
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
                                  th:text="${result.answerChk}"></div>
                         </div>
                         <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
                     </div>
                 </th:block>
-                <th:block th:if="20 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 40">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-2" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                <th:block th:if="10 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 20">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-2" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
-                            <div class="col border border-primary" th:text="${result.userAnswer}"></div>
-                            <div class="col border border-primary fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
-                                 th:classappend="${result.answerChk} == 'T' ? text-primary : text-danger"
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
                                  th:text="${result.answerChk}"></div>
                         </div>
                         <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
                     </div>
                 </th:block>
-                <th:block th:if="40 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 60">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-3" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                <th:block th:if="20 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 30">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-3" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
-                            <div class="col border border-primary" th:text="${result.userAnswer}"></div>
-                            <div class="col border border-primary fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
-                                 th:classappend="${result.answerChk} == 'T' ? text-primary : text-danger"
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
                                  th:text="${result.answerChk}"></div>
                         </div>
                         <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
                     </div>
                 </th:block>
-                <th:block th:if="60 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 80">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-4" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                <th:block th:if="30 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 40">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-4" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
-                            <div class="col border border-primary" th:text="${result.userAnswer}"></div>
-                            <div class="col border border-primary fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
-                                 th:classappend="${result.answerChk} == 'T' ? text-primary : text-danger"
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
                                  th:text="${result.answerChk}"></div>
                         </div>
                         <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
                     </div>
                 </th:block>
-                <th:block th:if="80 <= ${result.quizTrueRatio}">
-                    <div class="col border border-primary m-1 quizNumTd quizTrueRatio-5" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                <th:block th:if="40 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 50">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-5" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
                         <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
                         <div class="row">
-                            <div class="col border border-primary" th:text="${result.userAnswer}"></div>
-                            <div class="col border border-primary fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
-                                 th:classappend="${result.answerChk} == 'T' ? text-primary : text-danger"
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
                                  th:text="${result.answerChk}"></div>
                         </div>
                         <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
                     </div>
                 </th:block>
+                <th:block th:if="50 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 60">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-6" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                        <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
+                        <div class="row">
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
+                                 th:text="${result.answerChk}"></div>
+                        </div>
+                        <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
+                    </div>
+                </th:block>
+                <th:block th:if="60 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 70">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-7" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                        <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
+                        <div class="row">
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
+                                 th:text="${result.answerChk}"></div>
+                        </div>
+                        <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
+                    </div>
+                </th:block>
+                <th:block th:if="70 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 80">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-8" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                        <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
+                        <div class="row">
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
+                                 th:text="${result.answerChk}"></div>
+                        </div>
+                        <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
+                    </div>
+                </th:block>
+                <th:block th:if="80 <= ${result.quizTrueRatio} and ${result.quizTrueRatio} < 90">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-9" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                        <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
+                        <div class="row">
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
+                                 th:text="${result.answerChk}"></div>
+                        </div>
+                        <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
+                    </div>
+                </th:block>
+                <th:block th:if="90 <= ${result.quizTrueRatio}">
+                    <div class="col border m-1 quizNumTd quizTrueRatio-10" th:onclick="resultQuizStastics([[${result.quizMstrInfoSeq}]])">
+                        <div class="w-100" th:text="|No. ${#strings.length(result.quizNo) == 1 ? '0' + result.quizNo : result.quizNo}|"></div>
+                        <div class="row">
+                            <div class="col border" th:text="${result.userAnswer}"></div>
+                            <div class="col border fw-bold" style="font-family: 'KOTRA_BOLD-Bold';"
+                                 th:text="${result.answerChk}"></div>
+                        </div>
+                        <div class="w-100" th:text="|${result.quizTrueRatio}%|"></div>
+                    </div>
+                </th:block>
+
             </th:block>
+
         </div>
     </div>
+
 </th:block>
 
 </html>

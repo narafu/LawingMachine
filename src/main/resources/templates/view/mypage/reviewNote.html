@@ -34,11 +34,11 @@
                                 <a class="nav-link" href="#"
                                    th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">전체</a>
                             </li>
-                            <th:block th:each="CommSubject:${CommSubjectList}">
+                            <th:block th:each="Comm002:${CommLst002}">
                                 <li class="nav-item"
-                                    th:onclick="getReviewNoteSubject(this, [[${CommSubject.cmmnDtlCd}]])">
-                                    <a class="nav-link" href="#" th:text="${CommSubject.cmmnDtlNm}"
-                                       th:classappend="${CommSubject.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
+                                    th:onclick="getReviewNoteSubject(this, [[${Comm002.cmmnDtlCd}]])">
+                                    <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
+                                       th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
                                 </li>
                             </th:block>
                         </ul>
@@ -87,9 +87,7 @@
                 <div>
                     <div class="h5 mt-4 fw-bold">문제별 정답률</div>
                     <div class="mb-4"><i class="fas fa-asterisk"></i> 문제 번호를 클릭하여 [문제]와 [해설]을 볼 수 있습니다.</div>
-
-                    <div id="quizResultData"></div>
-
+                    <div class="mx-auto" id="quizResultData"></div>
                 </div>
             </form>
         </div>
