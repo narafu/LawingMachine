@@ -1,5 +1,5 @@
 
-function modal(url, modalId, modalText, actBtnText) {
+function modal(url, modalId, modalText, actBtnText, modalTitle) {
 
     let data = {
         'modalId': modalId,

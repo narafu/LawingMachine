@@ -10,26 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ModalController {
 
     @RequestMapping("/alert")
-    public String alert(ModalVO modalVO, ModelMap modal) {
-        modal.addAttribute("modalVO", modalVO);
+    public String alert(ModalVO modalVO, ModelMap model) {
+        model.addAttribute("modalVO", modalVO);
         return "view/modal/alert";
     }
 
     @RequestMapping("/dialog")
-    public String dialog(ModalVO modalVO, ModelMap modal) {
-        modal.addAttribute("modalVO", modalVO);
+    public String dialog(ModalVO modalVO, ModelMap model) {
+        model.addAttribute("modalVO", modalVO);
         return "view/modal/dialog";
     }
 
     @RequestMapping("/quizStartConfirm")
-    public String quizStartConfirm(ModalVO modalVO, ModelMap modal) {
-        modal.addAttribute("modalVO", modalVO);
+    public String quizStartConfirm(ModalVO modalVO, ModelMap model) {
+        model.addAttribute("modalVO", modalVO);
         return "view/modal/quizStartConfirm";
     }
 
-    @RequestMapping("/goQuizResultConfirm")
-    public String goQuizResultConfirm(ModalVO modalVO, ModelMap modal) {
-        modal.addAttribute("modalVO", modalVO);
-        return "view/modal/goQuizResultConfirm";
+    @RequestMapping("/quizResultConfirm")
+    public String quizResultConfirm(ModalVO modalVO, ModelMap model) {
+        model.addAttribute("modalVO", modalVO);
+        return "view/modal/quizResultConfirm";
     }
+
 }

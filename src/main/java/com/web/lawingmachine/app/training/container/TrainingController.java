@@ -62,6 +62,11 @@ public class TrainingController {
         // 문제 조회
         QuizMstrInfoVO quizMstrInfoVO = quizService.getAjaxQuizMstrInfo(param);
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
+
+        // 네비 리스트 (문제) - 문제번호 때문에
+        List<QuizMstrInfoVO> quizAnswerNavList = quizService.selectAjaxQuizNavList(param);
+        model.addAttribute("quizAnswerNavList", quizAnswerNavList);
+
         return "view/training/quiz :: #quizMstrInfoDiv";
     }
 

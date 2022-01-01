@@ -1,12 +1,14 @@
 package com.web.lawingmachine.app.mypage.controller;
 
 import com.web.lawingmachine.app.common.service.BaseUtilService;
+import com.web.lawingmachine.app.common.vo.ModalVO;
 import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -59,6 +61,22 @@ public class MyPageController {
     @GetMapping("/quizResult")
     public String quizResult() {
         return "/view/mypage/quizResult";
+    }
+
+    @RequestMapping("/quizResultInfoModal")
+    public String quizResultInfoModal(HttpServletRequest req, QuizMstrInfoVO param, ModalVO modalVO, ModelMap model) {
+
+        model.addAttribute("modalVO", modalVO);
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setUserId(sessionUser.getUserId());
+
+        // 문제 조회
+        QuizMstrInfoVO quizMstrInfoVO = quizService.getAjaxQuizMstrInfo(param);
+        quizMstrInfoVO.setQuizNo(param.getQuizNo());
+        model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
+
+        return "view/modal/quizResultInfoModal";
     }
 
 }

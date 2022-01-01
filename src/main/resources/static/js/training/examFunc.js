@@ -196,9 +196,9 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
     });
 }
 
-function goQuizResultConfirm() {
-    let url = '/modal/goQuizResultConfirm';
-    let modalId = 'goQuizResultConfirm';
+function quizResultConfirm() {
+    let url = '/modal/quizResultConfirm';
+    let modalId = 'quizResultConfirm';
     let modalText = '시험을 제출하고 결과로 이동하시겠습니까?';
     let actBtnText = '이동';
 
@@ -233,6 +233,35 @@ function selectQuizResultData() {
     })
 }
 
-function quizResultInfoModal(quizMstrInfoSeq) {
+function quizResultInfoModal(obj, quizMstrInfoSeq) {
 
+    let url = '/mypage/quizResultInfoModal';
+    let modalId = 'quizResultConfirm';
+    let modalText = '';
+    let actBtnText = '이동';
+    let quizNo = $(obj).find('.quizNo').text();
+
+    let data = {
+        'quizNo': quizNo,
+        'quizMstrInfoSeq': quizMstrInfoSeq,
+        'modalId': modalId,
+        'modalText': modalText,
+        'actBtnText': actBtnText
+    };
+
+    $.get(url, data).done(function (modalHtml) {
+        $('#modalDiv').html(modalHtml);
+        let modal = new bootstrap.Modal(document.getElementById(modalId));
+        modal.show();
+    })
+
+}
+
+function toggleCmntr() {
+    $('#cmntrDiv').slideToggle();
+    $('html,body').animate({ scrollTop: $('#cmntrDiv').offset().top }, 100);
+}
+
+function toggleDtlCmntr(obj) {
+    $(obj).closest('.exDiv').find('.cmntrDtl').slideToggle();
 }
