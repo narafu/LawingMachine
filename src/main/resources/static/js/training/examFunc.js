@@ -132,7 +132,7 @@ function goQuiz(obj) {
             quizAnsSave(prevQuizMstrInfoSeq, 'N', 'N');
         } else {
             // if (mobileYn) {
-            alert('첫 번째 문제입니다!');
+            // alert('첫 번째 문제입니다.');
             // } else {
             //     let url = '/quiz/modal/firstPageModal';
             //     $.ajax(url).done(function (modalHtml) {
@@ -141,6 +141,10 @@ function goQuiz(obj) {
             //         firstPageModal.show();
             //     })
             // }
+            let url = '/modal/alert';
+            let modalId = 'fstQuizAlert';
+            let modalText = '첫 번째 문제입니다.';
+            modal(url, modalId, modalText);
         }
     }
 
@@ -150,9 +154,7 @@ function goQuiz(obj) {
 
         if (quizMstrInfoSeq == lastQuizMstrInfoSeq) {
             // if (mobileYn) {
-            if (alert('마지막 문제입니다.\n모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.')) {
-                quizAnsSave(quizMstrInfoSeq, 'N', 'Y');
-            }
+            quizAnsSave(quizMstrInfoSeq, 'N', 'Y');
             // } else {
             //     let url = '/quiz/modal/lastPageModal?quizMstrInfoSeq=' + quizMstrInfoSeq;
             //     $.ajax(url).done(function (modalHtml) {
@@ -178,23 +180,34 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
             //     $('#modalDiv .modal').modal('hide');
             // }
             if (resultYn == 'Y') {
-                moveResultPage();
+                let url = '/modal/alert';
+                let modalId = 'lstQuizAlert';
+                let modalText = '마지막 문제입니다. <br> 모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.';
+                modal(url, modalId, modalText);
             } else {
                 getAjaxQuizMstrInfo(quizMstrInfoSeq);
             }
         } else {
-            alert("오류가 발생하였습니다.");
+            let url = '/modal/alert';
+            let modalId = 'fstQuizAlert';
+            let modalText = '오류가 발생하였습니다.';
+            modal(url, modalId, modalText);
         }
     });
 }
 
+function goQuizResultConfirm() {
+    let url = '/modal/goQuizResultConfirm';
+    let modalId = 'goQuizResultConfirm';
+    let modalText = '시험을 제출하고 결과로 이동하시겠습니까?';
+    let actBtnText = '이동';
+
+    modal(url, modalId, modalText, actBtnText);
+}
+
 function moveResultPage() {
-
-    if (!confirm('시험을 제출하고 결과로 이동하시겠습니까?')) {
-        return;
-    }
-
     let form = $('#examMainForm');
+    $('#subjectTypeCd').val('');
     form.attr('action', '/mypage/reviewNote');
     form.attr('target', '');
     form.submit();

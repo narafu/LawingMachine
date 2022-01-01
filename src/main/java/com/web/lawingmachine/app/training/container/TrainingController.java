@@ -40,13 +40,16 @@ public class TrainingController {
 
     @GetMapping("/exam/quiz")
     public String getQuizMstrInfo(QuizMstrInfoVO param, Model model) {
+
         // 공통코드(시험구분코드)
         List<Map<String, String>> CommLst001 = baseUtilService.selectCmmnCdList("001");
         model.addAttribute("CommLst001", CommLst001);
+
         // 공통코드(과목코드)
         List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
         model.addAttribute("quizMstrInfoVO", param);
+
         return "view/training/quiz";
     }
 
@@ -59,7 +62,6 @@ public class TrainingController {
         // 문제 조회
         QuizMstrInfoVO quizMstrInfoVO = quizService.getAjaxQuizMstrInfo(param);
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
-
         return "view/training/quiz :: #quizMstrInfoDiv";
     }
 

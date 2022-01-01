@@ -15,15 +15,21 @@ public class ModalController {
         return "view/modal/alert";
     }
 
-    @RequestMapping("/confirm")
-    public String confirm(ModalVO modalVO, ModelMap modal) {
-        modal.addAttribute("modalVO", modalVO);
-        return "view/modal/confirm";
-    }
-
     @RequestMapping("/dialog")
     public String dialog(ModalVO modalVO, ModelMap modal) {
         modal.addAttribute("modalVO", modalVO);
         return "view/modal/dialog";
+    }
+
+    @RequestMapping("/quizStartConfirm")
+    public String quizStartConfirm(ModalVO modalVO, ModelMap modal) {
+        modal.addAttribute("modalVO", modalVO);
+        return "view/modal/quizStartConfirm";
+    }
+
+    @RequestMapping("/goQuizResultConfirm")
+    public String goQuizResultConfirm(ModalVO modalVO, ModelMap modal) {
+        modal.addAttribute("modalVO", modalVO);
+        return "view/modal/goQuizResultConfirm";
     }
 }

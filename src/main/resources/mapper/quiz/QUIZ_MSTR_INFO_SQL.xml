@@ -5,8 +5,8 @@
 
     <select id="selectAjaxQuizNavList" resultType="QuizMstrInfoVO">
         SELECT
-	    ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
-	     , A.QUIZ_MSTR_INFO_SEQ
+            ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
+             , A.QUIZ_MSTR_INFO_SEQ
              , B.QUIZ_USER_ANS_SEQ
              , A.SUBJECT_TYPE_CD
              , A.SRT_NO
@@ -65,33 +65,33 @@
 
     <select id="getQuizMstrInfo" resultType="QuizMstrInfoVO">
         SELECT
-        A.QUIZ_MSTR_INFO_SEQ
-        , A.EXAM_YEAR
-        , A.EXAM_GRP_CD
-        ,
-        <include refid="util.getComnCodeNm">
-            <property name="grpCd" value="001"/>
-            <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
-            <property name="grpDtlNm" value="EXAM_GRP_NM"/>
-        </include>
-        , A.SUBJECT_TYPE_CD
-        ,
-        <include refid="util.getComnCodeNm">
-            <property name="grpCd" value="002"/>
-            <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
-            <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
-        </include>
-        , A.EXAM_NO
-        , A.SRT_NO
-        , A.CONTENT
-        , A.ANSWER
-        , A.CMNTR
-        , B.QUIZ_USER_ANS_SEQ
-        , B.USER_ID
-        , B.USER_ANSWER
-        , B.ANSWER_CHK
-        , B.USER_CHK_IMPRT
-        , B.USER_CHK_CNFSD
+            A.QUIZ_MSTR_INFO_SEQ
+            , A.EXAM_YEAR
+            , A.EXAM_GRP_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="001"/>
+                <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
+                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+            </include>
+            , A.SUBJECT_TYPE_CD
+            ,
+            <include refid="util.getComnCodeNm">
+                <property name="grpCd" value="002"/>
+                <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
+                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+            </include>
+            , A.EXAM_NO
+            , A.SRT_NO
+            , A.CONTENT
+            , A.ANSWER
+            , A.CMNTR
+            , B.QUIZ_USER_ANS_SEQ
+            , B.USER_ID
+            , B.USER_ANSWER
+            , B.ANSWER_CHK
+            , B.USER_CHK_IMPRT
+            , B.USER_CHK_CNFSD
         FROM QUIZ_MSTR_INFO A
         LEFT JOIN (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) B
         ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ

@@ -1,0 +1,28 @@
+<!-- Modal : moveResultMsg -->
+<div class="modal fade" th:id="${modalVO.modalId}" data-bs-backdrop="static"
+	data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="mb-3 text-center">
+					<label for="message-text" class="col-form-label d-grid">
+						<span th:text="${modalVO.modalText}"></span>
+					</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" onclick="modalFunc()" th:text="${modalVO.actBtnText}"></button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="${modalVO.clsBtnText}"></button>
+			</div>
+		 </div>
+	</div>
+</div>
+
+<script>
+	function modalFunc() {
+		goExamPage();
+	}
+</script>

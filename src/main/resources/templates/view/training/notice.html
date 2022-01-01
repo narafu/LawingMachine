@@ -60,6 +60,7 @@
 <th:block layout:fragment="script">
     <script th:src="@{/js/training/examFunc.js}"></script>
     <script>
+
         $(function () {
 
             $('.quizNavTltDiv').hover(function () {
@@ -73,47 +74,20 @@
             })
 
             $('.quizNavTltDiv').click(function () {
+
                 let subjectNm = $(this).find('.subjectNm').text();
                 let subjectCd = $(this).find('.subjectCd').text();
+                $('#subjectTypeCd').val(subjectCd);
 
-            //     let url = '/modal/confirm';
-            //     let modalId = 'confirmTest';
-            //     let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
-            //     let modalFunc = getAjaxQuizMstrInfo();
-            //     let actBtnText = '시작';
-            //
-            //     let data = {
-            //         'modalId': modalId,
-            //         'modalText': modalText,
-            //         // 'modalFunc': modalFunc,
-            //         'actBtnText': actBtnText
-            //     };
-            //
-            //     $.get(url, data).done(function (modalHtml) {
-            //         $('#modalDiv').html(modalHtml);
-            //         let modal = new bootstrap.Modal(document.getElementById(modalId));
-            //         modal.show();
-            //     })
+                let url = '/modal/quizStartConfirm';
+                let modalId = 'quizStartConfirm';
+                let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
+                let actBtnText = '시작';
 
-                if (confirm(subjectNm + '을 응시하시겠습니까? \n주의사항을 꼭 확인해주세요!')) {
-                    $('#subjectTypeCd').val(subjectCd);
-                    goExamPage();
-                }
+                modal(url, modalId, modalText, actBtnText);
+
             })
         })
-
-        $(document).on({
-            mouseenter: function () {
-                $(this).addClass('border-primary');
-                $(this).addClass('border-2');
-                $(this).addClass('fw-bold');
-            },
-            mouseleave: function () {
-                $(this).removeClass('border-primary');
-                $(this).removeClass('border-2');
-                $(this).removeClass('fw-bold');
-            }
-        }, '.sideNavDiv');
     </script>
 </th:block>
 
