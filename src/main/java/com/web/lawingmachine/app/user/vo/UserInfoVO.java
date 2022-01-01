@@ -11,6 +11,7 @@ public class UserInfoVO extends BaseVO {
     private String userId;
     private String userNm;
     private String email;
+    private String mobile;
     private String password;
     private String role = "ROLE_USER";
 

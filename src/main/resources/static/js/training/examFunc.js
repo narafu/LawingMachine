@@ -265,3 +265,10 @@ function toggleCmntr() {
 function toggleDtlCmntr(obj) {
     $(obj).closest('.exDiv').find('.cmntrDtl').slideToggle();
 }
+
+function quizNotYetAlert() {
+    let url = '/modal/alert';
+    let modalId = 'quizNotYetAlert';
+    let modalText = '아직 풀지 않은 문제가 있습니다.';
+    modal(url, modalId, modalText);
+}

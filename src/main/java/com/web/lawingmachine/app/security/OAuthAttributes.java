@@ -10,13 +10,15 @@ public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
     private String name;
+    private String mobile;
     private String email;
     private String picture;
 
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String mobile, String picture) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
+        this.mobile = mobile;
         this.email = email;
         this.picture = picture;
     }
@@ -44,6 +46,7 @@ public class OAuthAttributes {
                 userNameAttributeName,
                 (String) profile.get("nickname"),
                 (String) kakao_account.get("email"),
+                (String) profile.get("mobile"),
                 (String) profile.get("profile_image_url"));
     }
 
@@ -54,6 +57,7 @@ public class OAuthAttributes {
                 userNameAttributeName,
                 (String) response.get("name"),
                 (String) response.get("email"),
+                (String) response.get("mobile"),
                 (String) response.get("profile_image"));
     }
 
@@ -63,6 +67,7 @@ public class OAuthAttributes {
                 userNameAttributeName,
                 (String) attributes.get("name"),
                 (String) attributes.get("email"),
+                (String) attributes.get("mobile"),
                 (String) attributes.get("picture"));
     }
 

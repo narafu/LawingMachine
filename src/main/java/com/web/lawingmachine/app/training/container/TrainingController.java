@@ -26,14 +26,17 @@ public class TrainingController {
     private QuizService quizService;
 
     @GetMapping("/exam/notice")
-    public String getExamNotice(Model model) {
+    public String getExamNotice(HttpServletRequest req,Model model) {
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        String userId = sessionUser.getUserId();
 
         QuizMstrInfoVO quizMstrInfoVO = new QuizMstrInfoVO();
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         // 네비 리스트 (과목)
-        List<Map<String, String>> quizSubjectNaviList = quizService.selectQuizSubjectList();
-        model.addAttribute("quizSubjectNaviList", quizSubjectNaviList);
+        List<QuizMstrInfoVO> quizSubjectNaviUserList = quizService.selectQuizSubjectUserList(userId);
+        model.addAttribute("quizSubjectNaviUserList", quizSubjectNaviUserList);
 
         return "view/training/notice";
     }
@@ -83,6 +86,10 @@ public class TrainingController {
         // 네비 리스트 (문제)
         List<QuizMstrInfoVO> quizAnswerNavList = quizService.selectAjaxQuizNavList(param);
         model.addAttribute("quizAnswerNavList", quizAnswerNavList);
+
+        // 문제 조회 -  제출하기 때문에
+        QuizMstrInfoVO quizMstrInfoVO = quizService.getAjaxQuizMstrInfo(param);
+        model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         return "view/training/quiz :: #quizAnswerNavListDiv";
     }

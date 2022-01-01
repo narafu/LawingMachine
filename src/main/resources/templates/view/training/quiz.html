@@ -179,10 +179,10 @@
                 </th:block>
             </div>
             <div>
-                <button th:if="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
+                <button th:if="${not #strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
                     type="button" class="btn btn-lg btn-primary my-3 w-100" onclick="quizResultConfirm()">제출하기</button>
-                <button th:unless="${quizMstrInfoVO.quizMstrInfoSeq} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
-                    type="button" class="btn btn-lg btn-outline-primary my-3 w-100">제출하기</button>
+                <button th:unless="${not #strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)} and (${quizMstrInfoVO.quizEndCnt} == ${quizMstrInfoVO.quizTotalCnt})"
+                    type="button" class="btn btn-lg btn-outline-primary my-3 w-100" onclick="quizNotYetAlert()">제출하기</button>
             <div>
             </div>
         </div>

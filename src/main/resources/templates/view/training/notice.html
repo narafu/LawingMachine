@@ -39,13 +39,14 @@
         <div class="d-grid gap-5" id="quizAnswerNavListDiv">
             <!-- <h5 class="mx-3 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">공법</h5> -->
             <div>
-                <th:block th:each="subjectNavInfo:${quizSubjectNaviList}">
+                <th:block th:each="subjectNavInfo:${quizSubjectNaviUserList}">
                     <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
                         <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
+                             th:classappend="${#strings.isEmpty(subjectNavInfo.userId)} ? disable"
                              style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-                            <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
-                            <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
-                            <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
+                            <span class='subjectNm' th:text="${subjectNavInfo.subjectTypeNm}"></span>
+                            <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.subjectTypeCd}"></span>
+                            <span th:text="|총 ${subjectNavInfo.quizTotalCnt}문제|"></span>
                             <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
                         </div>
                     </th:block>
@@ -63,7 +64,7 @@
 
         $(function () {
 
-            $('.quizNavTltDiv').hover(function () {
+            $('.quizNavTltDiv').not('.disable').hover(function () {
                 $(this).removeClass('text-primary');
                 $(this).addClass('bg-primary');
                 $(this).addClass('text-light');
@@ -74,6 +75,14 @@
             })
 
             $('.quizNavTltDiv').click(function () {
+
+                if($(this).hasClass('disable')) {
+                    let url = '/modal/alert';
+                    let modalId = 'quizNotYetAlert';
+                    let modalText = '이미 응시한 과목입니다. 다시 응시할 수 없습니다.';
+                    modal(url, modalId, modalText);
+                    return;
+                }
 
                 let subjectNm = $(this).find('.subjectNm').text();
                 let subjectCd = $(this).find('.subjectCd').text();

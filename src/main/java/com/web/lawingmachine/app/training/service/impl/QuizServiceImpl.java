@@ -90,4 +90,9 @@ public class QuizServiceImpl implements QuizService {
     public List<Map<String, String>> selectSubjectList(QuizMstrInfoVO param) {
         return quizUserAnsMapper.selectSubjectList(param);
     }
+
+    @Override
+    public List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId) {
+        return quizMstrInfoMapper.selectQuizSubjectUserList(userId);
+    }
 }
