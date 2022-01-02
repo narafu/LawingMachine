@@ -28,4 +28,5 @@ public interface QuizMstrInfoMapper {
     int insertQuizMstrInfo(QuizMstrInfoVO quizMstrInfoVO);
 
     List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId);
+
 }

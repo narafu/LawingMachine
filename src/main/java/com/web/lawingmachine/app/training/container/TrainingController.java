@@ -1,9 +1,12 @@
 package com.web.lawingmachine.app.training.container;
 
 import com.web.lawingmachine.app.common.service.BaseUtilService;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +27,11 @@ public class TrainingController {
     private BaseUtilService baseUtilService;
     @Autowired
     private QuizService quizService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/exam/notice")
-    public String getExamNotice(HttpServletRequest req,Model model) {
+    public String getExamNotice(HttpServletRequest req, Model model) {
 
         SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
         String userId = sessionUser.getUserId();
@@ -101,5 +106,33 @@ public class TrainingController {
         param.setUserId(sessionUser.getUserId());
         return quizService.saveUserAnswer(param);
     }
+
+    @PostMapping("/exam/result")
+    @ResponseBody
+    public ResultMessageVO insertQuizResultInfo(HttpServletRequest req, QuizMstrInfoVO param) {
+
+        ResultMessageVO result = new ResultMessageVO();
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setUserId(sessionUser.getUserId());
+
+        int resultCnt = quizService.insertQuizResultInfo(param);
+
+        // 공통코드(과목코드)
+        List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
+        int totalSubjectCnt = CommLst002.size();
+        int userSubjectCnt = quizService.getQuizResultUserSubjectCnt(param);
+
+        // 전과목 제출했을 경우
+        if (totalSubjectCnt == userSubjectCnt) {
+            UserInfoVO userInfoVO = new UserInfoVO();
+            userInfoVO.setUserId(sessionUser.getUserId());
+            userInfoVO.setMembershipCd("20"); // 빌보드회원
+            userService.updateUserInfo(userInfoVO);
+        }
+
+        return result;
+    }
+
 
 }

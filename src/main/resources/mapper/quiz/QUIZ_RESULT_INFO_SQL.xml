@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.lawingmachine.app.training.mapper.QuizResultInfoMapper">
+
+    <insert id="insertQuizResultInfo">
+        <selectKey keyProperty="quizResultInfoSeq" order="BEFORE">
+            SELECT IFNULL(MAX(QUIZ_RESULT_INFO_SEQ), 0) + 1 AS QUIZ_RESULT_INFO_SEQ FROM QUIZ_RESULT_INFO
+        </selectKey>
+        INSERT INTO QUIZ_RESULT_INFO (
+            QUIZ_RESULT_INFO_SEQ
+            , SUBJECT_TYPE_CD
+            , EXAM_GRP_CD
+            , EXAM_YEAR
+            , EXAM_NO
+            , USER_ID
+            , RESULT
+            , DEL_YN
+            , REG_TS
+            , MDFY_TS
+        )
+        VALUES (
+            #{quizResultInfoSeq}
+            , #{subjectTypeCd}
+            , #{examGrpCd}
+            , #{examYear}
+            , #{examNo}
+            , #{userId}
+            , (SELECT COUNT(*) FROM (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId} AND ANSWER_CHK = 'O' AND DEL_YN = 'N') A, QUIZ_MSTR_INFO B
+                WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
+                   AND B.SUBJECT_TYPE_CD = #{subjectTypeCd} AND B.EXAM_GRP_CD = #{examGrpCd} AND EXAM_YEAR = #{examYear} AND EXAM_NO = #{examNo}
+            )
+            , 'N'
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+        )
+    </insert>
+
+    <select id="getQuizResultUserSubjectCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM QUIZ_RESULT_INFO
+        WHERE DEL_YN = 'N' AND USER_ID = #{userId}
+        GROUP BY SUBJECT_TYPE_CD
+    </select>
+
+</mapper>

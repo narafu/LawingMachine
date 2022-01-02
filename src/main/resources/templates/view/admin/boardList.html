@@ -54,7 +54,6 @@
             });
 
             grid.on('click', (obj) => {
-                if(!obj.rowKey) { return; }
                 let quizMstrInfoSeq = grid.getValue(obj.rowKey, 'quizMstrInfoSeq');
                 goBoardInfo(quizMstrInfoSeq);
             })

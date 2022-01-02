@@ -12,9 +12,12 @@
 			, USER_ID
 			, USER_NM
 			, PASSWORD
+			, NICKNAME
 			, EMAIL
 			, MOBILE
+			, MEMBERSHIP_CD
 			, ROLE
+			, LOGIN_CNT
 			, REGIST_ID
 			, REGIST_NM
 			, REG_TS
@@ -24,9 +27,12 @@
 			, #{userId}
 			, #{userNm}
 			, #{password}
+			, #{nickname}
 			, #{email}
 			, #{mobile}
+			, #{membershipCd}
 			, #{role}
+			, #{loginCnt}
 			, 'SYETEM'
 			, 'SYETEM'
 			, current_timestamp()
@@ -42,6 +48,16 @@
 			, EMAIL
 			, MOBILE
 			, PASSWORD
+			, NICKNAME
+			, EXAM_TICKET
+			, EXAM_TICKET_NO
+			, MEMBERSHIP_CD
+			,
+			<include refid="util.getComnCodeNm">
+				<property name="grpCd" value="005"/>
+				<property name="grpDtlCd" value="MEMBERSHIP_CD"/>
+				<property name="grpDtlNm" value="MEMBERSHIP_NM"/>
+			</include>
 			, ROLE
 			, (SELECT MAX(TAKE_REV) + 1 FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) AS TAKE_REV
 		FROM USER_INFO
@@ -52,6 +68,28 @@
 	<update id="updateUserInfo">
 		UPDATE USER_INFO SET
 			MDFY_TS = current_timestamp()
+			 <if test="email != null and email != ''">
+				,EMAIL = #{email}
+			 </if>
+			 <if test="nickname != null and nickname != ''">
+				, NICKNAME = #{nickname}
+			 </if>
+			 <if test="examTicket != null and examTicket != ''">
+				, EXAM_TICKET = #{examTicket}
+			 </if>
+			 <if test="examTicketNo != null and examTicketNo != ''">
+				, EXAM_TICKET_NO = #{examTicketNo}
+			 </if>
+			 <if test="membershipCd != null and membershipCd != ''">
+				, MEMBERSHIP_CD = #{membershipCd}
+			 </if>
+		WHERE USER_ID = #{userId}
+	</update>
+
+	<update id="updateLoginUserInfo">
+		UPDATE USER_INFO A SET
+		    LOGIN_CNT = A.LOGIN_CNT + 1
+			, MDFY_TS = current_timestamp()
 		WHERE USER_ID = #{userId}
 	</update>
 	

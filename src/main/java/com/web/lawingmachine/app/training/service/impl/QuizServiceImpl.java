@@ -1,9 +1,6 @@
 package com.web.lawingmachine.app.training.service.impl;
 
-import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizUserAnsDtlMapper;
-import com.web.lawingmachine.app.training.mapper.QuizUserAnsMapper;
+import com.web.lawingmachine.app.training.mapper.*;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
@@ -28,6 +25,9 @@ public class QuizServiceImpl implements QuizService {
 
     @Autowired
     private QuizUserAnsDtlMapper quizUserAnsDtlMapper;
+
+    @Autowired
+    private QuizResultInfoMapper quizResultInfoMapper;
 
 
     @Override
@@ -94,5 +94,15 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId) {
         return quizMstrInfoMapper.selectQuizSubjectUserList(userId);
+    }
+
+    @Override
+    public int insertQuizResultInfo(QuizMstrInfoVO param) {
+        return quizResultInfoMapper.insertQuizResultInfo(param);
+    }
+
+    @Override
+    public int getQuizResultUserSubjectCnt(QuizMstrInfoVO param) {
+        return quizResultInfoMapper.getQuizResultUserSubjectCnt(param);
     }
 }

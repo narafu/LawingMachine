@@ -201,7 +201,6 @@ function quizResultConfirm() {
     let modalId = 'quizResultConfirm';
     let modalText = '시험을 제출하고 결과로 이동하시겠습니까?';
     let actBtnText = '이동';
-
     modal(url, modalId, modalText, actBtnText);
 }
 
@@ -211,59 +210,6 @@ function moveResultPage() {
     form.attr('action', '/mypage/reviewNote');
     form.attr('target', '');
     form.submit();
-}
-
-function getReviewNoteSubject(obj, subjectTypeCd) {
-    $('#schSubjectTypeCd').val(subjectTypeCd);
-    $(obj).closest('ul').find('.active').removeClass('active');
-    $(obj).closest('ul').find('li a').css('color', 'black');
-    $(obj).addClass('active');
-    $(obj).find('a').css('color', 'white');
-    selectQuizResultData();
-}
-
-function getReviewNoteQuizChk(obj) {
-    selectQuizResultData();
-}
-
-function selectQuizResultData() {
-
-    $.get('/mypage/reviewNote/data', $('#reviewNoteForm').serialize(), function (result) {
-        $('#quizResultData').html(result);
-    })
-}
-
-function quizResultInfoModal(obj, quizMstrInfoSeq) {
-
-    let url = '/mypage/quizResultInfoModal';
-    let modalId = 'quizResultConfirm';
-    let modalText = '';
-    let actBtnText = '이동';
-    let quizNo = $(obj).find('.quizNo').text();
-
-    let data = {
-        'quizNo': quizNo,
-        'quizMstrInfoSeq': quizMstrInfoSeq,
-        'modalId': modalId,
-        'modalText': modalText,
-        'actBtnText': actBtnText
-    };
-
-    $.get(url, data).done(function (modalHtml) {
-        $('#modalDiv').html(modalHtml);
-        let modal = new bootstrap.Modal(document.getElementById(modalId));
-        modal.show();
-    })
-
-}
-
-function toggleCmntr() {
-    $('#cmntrDiv').slideToggle();
-    $('html,body').animate({ scrollTop: $('#cmntrDiv').offset().top }, 100);
-}
-
-function toggleDtlCmntr(obj) {
-    $(obj).closest('.exDiv').find('.cmntrDtl').slideToggle();
 }
 
 function quizNotYetAlert() {

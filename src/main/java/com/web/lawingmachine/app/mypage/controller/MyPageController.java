@@ -5,11 +5,14 @@ import com.web.lawingmachine.app.common.vo.ModalVO;
 import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +24,28 @@ import java.util.Map;
 public class MyPageController {
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private QuizService quizService;
     @Autowired
     private BaseUtilService baseUtilService;
 
-    @GetMapping("/myProfile")
-    public String myProfile() {
-        return "/view/mypage/myProfile";
+    @GetMapping("/myprofile")
+    public String myProfile(HttpServletRequest req, Model model) {
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
+        model.addAttribute("userInfo", userInfo);
+
+        return "/view/mypage/myprofile";
+    }
+
+    @PostMapping("/myprofile")
+    public String updateUserInfo(UserInfoVO userInfoVO, Model model) {
+
+//        int resultCnt = userService.updateUserInfo(userInfoVO);
+
+        return "/view/mypage/myprofile :: #myprofileForm";
     }
 
     @GetMapping("/reviewNote")

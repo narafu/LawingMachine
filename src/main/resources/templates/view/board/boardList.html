@@ -60,7 +60,6 @@
             });
 
             grid.on('click', (obj) => {
-                if(!obj.rowKey) { return; }
                 let brdMstrInfoSeq = grid.getValue(obj.rowKey, 'brdMstrInfoSeq');
                 goBoardInfo(brdMstrInfoSeq);
             })

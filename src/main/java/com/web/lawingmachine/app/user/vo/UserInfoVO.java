@@ -10,10 +10,16 @@ public class UserInfoVO extends BaseVO {
     private String userInfoSeq;
     private String userId;
     private String userNm;
+    private String nickname;
     private String email;
     private String mobile;
-    private String password;
+    private int loginCnt;
+    private String membershipCd;
+    private String membershipNm;
+    private String examTicket;
+    private String examTicketNo;
     private String role = "ROLE_USER";
 
+    private String password;
     private int takeRev;
 }

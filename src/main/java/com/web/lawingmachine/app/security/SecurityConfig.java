@@ -37,12 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.authorizeRequests()
             .antMatchers("/", "/index", "/login/**", "/reg", "/oauth2/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**").permitAll()
-            .antMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().authenticated()
         .and()
             .oauth2Login()
             .userInfoEndpoint()
-            .userService(customOAuth2UserService) // 네이버 USER INFO의 응답을 처리하기 위한 설정
+            .userService(customOAuth2UserService)
         .and()
             .defaultSuccessUrl("/loginSuccess")
             .failureUrl("/loginFailure")

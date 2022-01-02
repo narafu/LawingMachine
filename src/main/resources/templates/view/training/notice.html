@@ -42,7 +42,8 @@
                 <th:block th:each="subjectNavInfo:${quizSubjectNaviUserList}">
                     <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
                         <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
-                             th:classappend="${#strings.isEmpty(subjectNavInfo.userId)} ? disable"
+                             th:classappend="${(not #strings.isEmpty(subjectNavInfo.userId) and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN') ? 'disable' : '')
+                             + (not #strings.isEmpty(subjectNavInfo.userId) and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN') ? ' text-decoration-line-through' : '')}"
                              style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                             <span class='subjectNm' th:text="${subjectNavInfo.subjectTypeNm}"></span>
                             <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.subjectTypeCd}"></span>
