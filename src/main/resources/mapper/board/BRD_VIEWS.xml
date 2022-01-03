@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.lawingmachine.app.board.mapper.BrdViewsMapper">
+
+	<select id="getBrdViews" resultType="int">
+		SELECT COUNT(*)
+		FROM BRD_VIEWS
+		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
+		  AND REGIST_ID = #{registId}
+	</select>
+
+	<insert id="insertBrdViews">
+		<selectKey keyProperty="brdViewsSeq" resultType="String" order="BEFORE">
+			SELECT IFNULL(MAX(BRD_VIEWS_SEQ), 0) + 1 FROM BRD_VIEWS
+		</selectKey>
+		INSERT INTO BRD_VIEWS (
+			BRD_VIEWS_SEQ
+			, BRD_MSTR_INFO_SEQ
+			, REGIST_ID
+			, REGIST_NM
+			, REG_TS
+		) VALUES (
+			#{brdViewsSeq}
+			, #{brdMstrInfoSeq}
+			, #{registId}
+			, #{registNm}
+			, CURRENT_TIMESTAMP
+		)
+	</insert>
+
+</mapper>

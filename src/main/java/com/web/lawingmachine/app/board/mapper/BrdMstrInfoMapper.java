@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface BoardMapper {
+public interface BrdMstrInfoMapper {
 
     List<BoardVO> selectBoardList(BoardVO boardVO);
 
@@ -14,9 +14,11 @@ public interface BoardMapper {
 
     BoardVO getBoardInfo(BoardVO boardVO);
 
-    int insertBoardinfo(BoardVO param);
+    int insertBoardInfo(BoardVO param);
 
-    int delBoardinfo(BoardVO param);
+    int delBoardInfo(BoardVO param);
 
     int updateBoardInfo(BoardVO param);
+
+    int insertBrdViews(BoardVO param);
 }

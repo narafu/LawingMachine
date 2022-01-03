@@ -12,9 +12,13 @@ public interface BoardService {
 
     BoardVO getBoardInfo(BoardVO param);
 
-    int insertBoardinfo(BoardVO param);
+    int insertBoardInfo(BoardVO param);
 
-    int delBoardinfo(BoardVO param);
+    int delBoardInfo(BoardVO param);
 
     int updateBoardInfo(BoardVO param);
+
+    int insertBrdViews(BoardVO param);
+
+    int getBrdViews(BoardVO boardVO);
 }

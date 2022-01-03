@@ -3,6 +3,7 @@ package com.web.lawingmachine.app.admin.controller;
 import com.web.lawingmachine.app.admin.service.AdminService;
 import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
+import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,7 +109,7 @@ public class AdminController {
 
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/inputForm";
+        return "/view/admin/inputForm :: #boardContent";
     }
 
     @GetMapping("/quiz/infoView")
@@ -117,12 +119,16 @@ public class AdminController {
         quizMstrInfoVO.setQuizDtlList(quizService.selectQuizDtlList(param));
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/infoView";
+        return "/view/admin/infoView :: #boardContent";
     }
 
-    @PostMapping("/quiz/infoView")
+    @PostMapping("/quiz/infoView/insert")
     @ResponseBody
-    public ResultMessageVO insertQuizMstrInfo(QuizMstrInfoVO param, Model model) {
+    public ResultMessageVO insertQuizMstrInfo(HttpServletRequest req, QuizMstrInfoVO param) {
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        param.setRegistId(sessionUser.getUserId());
+        param.setRegistNm(sessionUser.getNickname());
 
         ResultMessageVO result = new ResultMessageVO();
         int resultCnt = adminService.insertQuizMstrInfo(param);
@@ -136,4 +142,33 @@ public class AdminController {
         return result;
     }
 
+
+    @PostMapping("/quiz/infoView/update")
+    @ResponseBody
+    public ResultMessageVO updateQuizMstrInfo(QuizMstrInfoVO param) {
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = adminService.updateQuizMstrInfo(param);
+        if (resultCnt > 0) {
+            result.setMessage("저장되었습니다.");
+        } else {
+            result.setMessage("오류가 발생하였습니다.");
+        }
+        return result;
+    }
+
+    @RequestMapping("/quiz/infoView/delete")
+    @ResponseBody
+    public ResultMessageVO delQuizMstrInfo(QuizMstrInfoVO param) {
+
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = adminService.delQuizMstrInfo(param);
+
+        if (resultCnt > 0) {
+            result.setMessage("삭제되었습니다.");
+        } else {
+            result.setMessage("오류가 발생하였습니다.");
+        }
+
+        return result;
+    }
 }

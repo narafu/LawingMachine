@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.lawingmachine.app.board.mapper.BoardMapper">
+<mapper namespace="com.web.lawingmachine.app.board.mapper.BrdMstrInfoMapper">
 
 	<sql id="selectBoardList-where">
 		AND DEL_YN = 'N'
@@ -27,7 +27,7 @@
 			, (SELECT SUM(CASE WHEN LIKE_YN = 'Y' THEN 1 WHEN LIKE_YN = 'N' THEN -1 END) FROM BRD_LIKES WHERE BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS LIKE_TOTAL_CNT
 			, (SELECT COUNT(*) FROM BRD_VIEWS WHERE DEL_YN = 'N' AND BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS VIEW_CNT
             , REGIST_ID
-            , REGIST_NM
+			, REGIST_NM
             , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
 		FROM BRD_MSTR_INFO A
 		WHERE 1 = 1
@@ -73,8 +73,8 @@
 		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
 	</select>
 
-	<insert id="insertBoardinfo">
-		<selectKey keyProperty="brdMstrInfoSeq" resultType="int" order="BEFORE">
+	<insert id="insertBoardInfo">
+		<selectKey keyProperty="brdMstrInfoSeq" resultType="String" order="BEFORE">
 			SELECT IFNULL(MAX(BRD_MSTR_INFO_SEQ), 0) + 1 FROM BRD_MSTR_INFO
 		</selectKey>
 		INSERT INTO BRD_MSTR_INFO (
@@ -104,7 +104,7 @@
 		)
 	</insert>
 
-	<update id="updateBoardinfo">
+	<update id="updateBoardInfo">
 		UPDATE BRD_MSTR_INFO SET
 			BRD_TYPE_CD = #{brdTypeCd}
 			, SUBJECT_TYPE_CD = #{subjectTypeCd}
@@ -115,7 +115,7 @@
 		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
 	</update>
 
-	<update id="delBoardinfo">
+	<update id="delBoardInfo">
 		UPDATE BRD_MSTR_INFO SET
 			DEL_YN = 'Y'
 		   , MDFY_TS = CURRENT_TIMESTAMP

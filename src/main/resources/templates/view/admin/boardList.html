@@ -6,21 +6,23 @@
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
 
-    <h4>문제게시판</h4>
+    <div id="boardContent">
+        <h4>문제게시판</h4>
 
-    <form id="boardForm">
-        <input type="hidden" name="offset" id="offset" th:value="${quizMstrInfoVO.offset}" />
-        <input type="hidden" name="quizMstrInfoSeq" id="quizMstrInfoSeq" value="" />
-    </form>
+        <form id="boardForm">
+            <input type="hidden" name="offset" id="offset" th:value="${quizMstrInfoVO.offset}" />
+            <input type="hidden" name="quizMstrInfoSeq" id="quizMstrInfoSeq" value="" />
+        </form>
 
-    <div id="totalDiv"></div>
-    <div class="mt-4" id="grid"></div>
-    <div id="pagingDiv" class="tui-pagination"></div>
+        <div id="totalDiv"></div>
+        <div class="mt-4" id="grid"></div>
+        <div id="pagingDiv" class="tui-pagination"></div>
 
-    <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="goBoardForm();">
-        <span>작성하기</span>
-        <i class="fas fa-pencil-alt text-light"></i>
-    </button>
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="goBoardForm();">
+            <span>작성하기</span>
+            <i class="fas fa-pencil-alt text-light"></i>
+        </button>
+    </div>
 
 </div>
 <!-- [content] 영역 끝 -->
@@ -33,10 +35,10 @@
             scrollX: false,
             scrollY: false,
             columns: [
-                { header: '과목명', name: 'subjectTypeNm', width: 100, align: 'center'}
-                , { header: '시험구분', name: 'examGrpNm', width: 100, align: 'center'}
-                , { header: '시험년도', name: 'examYear', width: 80, align: 'center'}
-                , { header: '회차', name: 'examNo', width: 80, align: 'center'}
+                { header: '과목명', name: 'subjectTypeNm', width: 100, align: 'center', filter: 'select'}
+                , { header: '시험구분', name: 'examGrpNm', width: 100, align: 'center', filter: 'select'}
+                , { header: '시험년도', name: 'examYear', width: 80, align: 'center', filter: 'select'}
+                , { header: '회차', name: 'examNo', width: 80, align: 'center', filter: 'select'}
                 , { header: '문제번호', name: 'rno', width: 80, align: 'center'}
                 , { header: '문제', name: 'content'}
                 , { header: '등록일자', name: 'regDt', width: 120, align: 'center'}
@@ -50,7 +52,7 @@
                     hover: { background: '#eee' }
                 },
                 cell: {
-                    header: { background: '#086972', text: '#fbfbfb', showHorizontalBorder: 'true'  },
+                    header: { background: '#ccc', showHorizontalBorder: 'true'  },
                     normal: { background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true' }
                 }
             });

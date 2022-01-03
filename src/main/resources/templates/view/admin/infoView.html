@@ -6,79 +6,81 @@
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
 
-    <form id="boardForm">
-        <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
-        <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
+    <div id="boardContent">
+        <form id="boardForm">
+            <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
+            <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
 
-        <div class="row mt-4" style="font-family: 'NEXON Lv1 Gothic OTF';">
-            <div class="col text-center">
-                <div class="rounded-pill border border-primary text-primary py-2">
-                    <sapn>시험구분</sapn>
-                    <span> | </span>
-                    <th:block th:text="${quizMstrInfoVO.examGrpNm}" />
+            <div class="row mt-4" style="font-family: 'NEXON Lv1 Gothic OTF';">
+                <div class="col text-center">
+                    <div class="rounded-pill border border-primary text-primary py-2">
+                        <sapn>시험구분</sapn>
+                        <span> | </span>
+                        <th:block th:text="${quizMstrInfoVO.examGrpNm}" />
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="rounded-pill border border-primary text-primary py-2">
+                        <sapn>시험과목</sapn>
+                        <span> | </span>
+                      <th:block th:text="${quizMstrInfoVO.subjectTypeNm}" />
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="rounded-pill border border-primary text-primary py-2">
+                        <sapn>시험년도</sapn>
+                        <span> | </span>
+                        <th:block th:text="${quizMstrInfoVO.examYear}" />
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="rounded-pill border border-primary text-primary py-2">
+                        <sapn>시험회차</sapn>
+                        <span> | </span>
+                        <th:block th:text="|${quizMstrInfoVO.examNo}회|" />
+                    </div>
                 </div>
             </div>
-            <div class="col text-center">
-                <div class="rounded-pill border border-primary text-primary py-2">
-                    <sapn>시험과목</sapn>
-                    <span> | </span>
-                  <th:block th:text="${quizMstrInfoVO.subjectTypeNm}" />
-                </div>
+
+            <div class="my-5 border border-primary px-3 py-2" id="boardCntnt"></div>
+
+            <div>
+                <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
+                    <div class="exDiv d-flex text-start mx-3">
+                        <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 1}">&#9312;</span>
+                        <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 2}">&#9313;</span>
+                        <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 3}">&#9314;</span>
+                        <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 4}">&#9315;</span>
+                        <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 5}">&#9316;</span>
+                        <span class="exCntnt mx-1" th:text="${quizDtlInfo.content}" ></span>
+                    </div>
+                </th:block>
             </div>
-            <div class="col text-center">
-                <div class="rounded-pill border border-primary text-primary py-2">
-                    <sapn>시험년도</sapn>
-                    <span> | </span>
-                    <th:block th:text="${quizMstrInfoVO.examYear}" />
-                </div>
-            </div>
-            <div class="col text-center">
-                <div class="rounded-pill border border-primary text-primary py-2">
-                    <sapn>시험회차</sapn>
-                    <span> | </span>
-                    <th:block th:text="|${quizMstrInfoVO.examNo}회|" />
-                </div>
-            </div>
+
+        </form>
+
+        <div class="d-grid gap-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" onclick="goBoardForm()">수정</button>
+            <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" onclick="delBoardInfo">삭제</button>
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
         </div>
 
-        <div class="my-5 border border-primary px-3 py-2" id="boardCntnt"></div>
-
-        <div>
-            <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
-                <div class="exDiv d-flex text-start mx-3">
-                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 1}">&#9312;</span>
-                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 2}">&#9313;</span>
-                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 3}">&#9314;</span>
-                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 4}">&#9315;</span>
-                    <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 5}">&#9316;</span>
-                    <span class="exCntnt mx-1" th:text="${quizDtlInfo.content}" ></span>
-                </div>
-            </th:block>
-        </div>
-
-    </form>
-
-    <div class="d-grid gap-2 d-flex justify-content-end">
-        <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" onclick="goBoardForm()">수정</button>
-        <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" onclick="">삭제</button>
-        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/admin/adminFunc.js}"></script>
+            <script>
+                let boardCntnt = toastui.Editor.factory({
+                    el: document.querySelector('#boardCntnt'),
+                    viewer: true,
+                    height: '400px',
+                    initialValue: $('#content').val(),
+                })
+            </script>
+        </th:block>
     </div>
-
 
 </div>
 <!-- [content] 영역 끝 -->
 
-<th:block layout:fragment="script">
-    <script th:src="@{/js/admin/adminFunc.js}"></script>
-    <script>
-        let boardCntnt = toastui.Editor.factory({
-            el: document.querySelector('#boardCntnt'),
-            viewer: true,
-            height: '400px',
-            initialValue: $('#content').val(),
-        })
-    </script>
-</th:block>
 
 
 </html>

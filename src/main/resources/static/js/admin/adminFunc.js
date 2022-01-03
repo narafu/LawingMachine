@@ -8,28 +8,26 @@ function goBoardList() {
 }
 
 function goBoardForm() {
-    let form = $('#boardForm');
-    form.attr('method', 'get');
-    form.attr('action', '/admin/board/quiz/inputForm');
-    form.attr('target', '');
-    form.submit();
+    let url = '/admin/board/quiz/inputForm';
+    let data = $('#boardForm').serialize();
+    $.get(url, data, function (result) {
+        $('#boardContent').html(result);
+    })
 }
 
 function goBoardInfo(quizMstrInfoSeq) {
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
-    let form = $('#boardForm');
-    form.attr('method', 'get');
-    form.attr('action', '/admin/board/quiz/infoView');
-    form.attr('target', '');
-    form.submit();
+    let url = '/admin/board/quiz/infoView';
+    let data = $('#boardForm').serialize();
+    $.get(url, data, function (result) {
+        $('#boardContent').html(result);
+    })
 }
 
-function regBoardInfo() {
-    let form = $('#boardForm');
-    let url = '/admin/quiz/infoView';
-    $.post(url, form.serialize(), function (result) {
-        if (alert(result['message'])) {
-            goBoardList();
-        }
+function delBoardInfo() {
+    let url = '/admin/quiz/infoView/delete';
+    let data = $('#boardForm').serialize();
+    $.post(url, data, function (result) {
+        goBoardList();
     });
 }

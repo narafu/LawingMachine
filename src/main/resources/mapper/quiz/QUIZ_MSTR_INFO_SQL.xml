@@ -221,7 +221,7 @@
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
     </update>
 
-    <update id="delQuiz">
+    <update id="delQuizMstrInfo">
         UPDATE QUIZ_MSTR_INFO
         SET DEL_YN  = 'Y'
           , MDFY_TS = CURRENT_TIMESTAMP

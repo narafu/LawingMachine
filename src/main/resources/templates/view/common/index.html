@@ -23,18 +23,17 @@
             <div class="text-center fs-1 my-4" style="font-family: 'KOTRA_BOLD-Bold';">제11회 변호사시험 빌보드</div>
             <div>
                 <ul class="nav nav-pills m-1">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">종합</a>
+                    <li class="nav-item" onclick="getBillboardSubject(this);">
+                        <a class="nav-link" href="#"
+                           th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">종합</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">공법</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">형사법</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">민사법</a>
-                    </li>
+                    <th:block th:each="Comm002:${CommLst002}">
+                        <li class="nav-item"
+                            th:onclick="getBillboardSubject(this, [[${Comm002.cmmnDtlCd}]])">
+                            <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
+                               th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
+                        </li>
+                    </th:block>
                 </ul>
             </div>
             <div class="d-flex">

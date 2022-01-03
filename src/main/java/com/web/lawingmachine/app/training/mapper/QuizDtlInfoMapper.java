@@ -15,6 +15,5 @@ public interface QuizDtlInfoMapper {
 
     int updateQuizDtlInfo(QuizDtlInfoVO quizDtlInfoVO);
 
-    List<QuizDtlInfoVO> selectQuizMstrFormDtlList(QuizMstrInfoVO param);
-
+    void delQuizDtlInfo(QuizDtlInfoVO quizDtlInfoVO);
 }

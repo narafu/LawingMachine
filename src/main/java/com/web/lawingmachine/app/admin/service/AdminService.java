@@ -10,7 +10,11 @@ public interface AdminService {
 
     int getQuizListCnt(QuizMstrInfoVO quizMstrInfoVO);
 
-    QuizMstrInfoVO getQuizInfo(QuizMstrInfoVO param);
+    QuizMstrInfoVO getQuizInfo(QuizMstrInfoVO quizMstrInfoVO);
 
-    int insertQuizMstrInfo(QuizMstrInfoVO param);
+    int insertQuizMstrInfo(QuizMstrInfoVO quizMstrInfoVO);
+
+    int updateQuizMstrInfo(QuizMstrInfoVO param);
+
+    int delQuizMstrInfo(QuizMstrInfoVO param);
 }

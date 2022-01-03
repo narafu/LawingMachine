@@ -1,7 +1,9 @@
 package com.web.lawingmachine.app.admin.service.impl;
 
 import com.web.lawingmachine.app.admin.service.AdminService;
+import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
 import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
+import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private QuizMstrInfoMapper quizMstrInfoMapper;
+    @Autowired
+    private QuizDtlInfoMapper quizDtlInfoMapper;
 
     @Override
     public List<QuizMstrInfoVO> selectQuizList(QuizMstrInfoVO quizMstrInfoVO) {
@@ -30,7 +34,35 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int insertQuizMstrInfo(QuizMstrInfoVO quizMstrInfoVO) {
-        return quizMstrInfoMapper.insertQuizMstrInfo(quizMstrInfoVO);
+    public int insertQuizMstrInfo(QuizMstrInfoVO param) {
+        int resultCnt = quizMstrInfoMapper.insertQuizMstrInfo(param);
+        if (resultCnt > 0) {
+            for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlList()) {
+                quizDtlInfoMapper.insertQuizDtlInfo(quizDtlInfoVO);
+            }
+        }
+        return resultCnt;
+    }
+
+    @Override
+    public int updateQuizMstrInfo(QuizMstrInfoVO param) {
+        int resultCnt = quizMstrInfoMapper.updateQuizMstrInfo(param);
+        if (resultCnt > 0) {
+            for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlList()) {
+                quizDtlInfoMapper.updateQuizDtlInfo(quizDtlInfoVO);
+            }
+        }
+        return resultCnt;
+    }
+
+    @Override
+    public int delQuizMstrInfo(QuizMstrInfoVO param) {
+        int resultCnt = quizMstrInfoMapper.delQuizMstrInfo(param);
+        if (resultCnt > 0) {
+            for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlList()) {
+                quizDtlInfoMapper.delQuizDtlInfo(quizDtlInfoVO);
+            }
+        }
+        return resultCnt;
     }
 }

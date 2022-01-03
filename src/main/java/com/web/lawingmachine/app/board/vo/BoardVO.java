@@ -7,6 +7,8 @@ import lombok.Data;
 public class BoardVO extends BaseVO {
 
     private String brdMstrInfoSeq;
+    private String brdViewsSeq;
+
     private String brdTypeCd;
     private String brdTypeNm;
     private String subjectTypeCd;
