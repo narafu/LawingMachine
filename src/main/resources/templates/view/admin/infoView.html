@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
+      layout:decorate="~{layouts/adminBoardLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
 
     <form id="boardForm">
         <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
         <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
 
-        <div class="row mt-5" style="font-family: 'NEXON Lv1 Gothic OTF';">
+        <div class="row mt-4" style="font-family: 'NEXON Lv1 Gothic OTF';">
             <div class="col text-center">
                 <div class="rounded-pill border border-primary text-primary py-2">
                     <sapn>시험구분</sapn>

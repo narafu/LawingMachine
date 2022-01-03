@@ -1,98 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
-
+      layout:decorate="~{layouts/mypageLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
+    <form id="reviewNoteForm">
+        <input type="hidden" th:field="${quizMstrInfoVO.userId}"/>
+        <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
+        <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
+        <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}"
+               id="examNo"/>
+        <input type="hidden" name='schSubjectTypeCd' id="schSubjectTypeCd"
+               th:value="${quizMstrInfoVO.subjectTypeCd}"/>
 
-    <div class="row mt-5">
-
-        <div class="col">
-            <ul class="nav nav-pills flex-column w-75">
-                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/myprofile">내 프로필</a></li>
-                <li class="nav-item m-2"><a class="nav-link py-3 active" href="/mypage/reviewNote">오답노트</a></li>
-                <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult">진단결과</a></li>
-            </ul>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="border p-1">
+                <ul class="nav nav-pills m-1 d-grid gap-3 d-flex">
+                    <li class="nav-item" onclick="getReviewNoteSubject(this)">
+                        <a class="nav-link" href="#"
+                           th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">전체</a>
+                    </li>
+                    <th:block th:each="Comm002:${CommLst002}">
+                        <li class="nav-item"
+                            th:onclick="getReviewNoteSubject(this, [[${Comm002.cmmnDtlCd}]])">
+                            <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
+                               th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+            <!--                    <div>-->
+            <!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
+            <!--                    </div>-->
         </div>
-
-        <div class="col-9">
-            <form id="reviewNoteForm">
-                <input type="hidden" th:field="${quizMstrInfoVO.userId}"/>
-                <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
-                <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-                <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}"
-                       id="examNo"/>
-                <input type="hidden" name='schSubjectTypeCd' id="schSubjectTypeCd"
-                       th:value="${quizMstrInfoVO.subjectTypeCd}"/>
-
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="border p-1">
-                        <ul class="nav nav-pills m-1 d-grid gap-3 d-flex">
-                            <li class="nav-item" onclick="getReviewNoteSubject(this)">
-                                <a class="nav-link" href="#"
-                                   th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">전체</a>
-                            </li>
-                            <th:block th:each="Comm002:${CommLst002}">
-                                <li class="nav-item"
-                                    th:onclick="getReviewNoteSubject(this, [[${Comm002.cmmnDtlCd}]])">
-                                    <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
-                                       th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
-                                </li>
-                            </th:block>
-                        </ul>
+        <div class="mt-4">
+            <div class="d-flex justify-content-between align-items-center mx-4">
+                <div id="quizSchChkDiv" class="d-grid gap-3 d-flex">
+                    <!--                            <div class="form-check form-check-inline">-->
+                    <!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
+                    <!--                                       value="Y" onclick="selectQuizResultData()" checked="true">-->
+                    <!--                                <label class="form-check-label" for="schAllChk">전체 문제</label>-->
+                    <!--                            </div>-->
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="schAnswerChk" name="schAnswerChk"
+                               value="Y" onclick="selectQuizResultData()">
+                        <label class="form-check-label" for="schAnswerChk">틀린 문제</label>
                     </div>
-                    <!--                    <div>-->
-                    <!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
-                    <!--                    </div>-->
-                </div>
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between align-items-center mx-4">
-                        <div id="quizSchChkDiv" class="d-grid gap-3 d-flex">
-                            <!--                            <div class="form-check form-check-inline">-->
-                            <!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
-                            <!--                                       value="Y" onclick="selectQuizResultData()" checked="true">-->
-                            <!--                                <label class="form-check-label" for="schAllChk">전체 문제</label>-->
-                            <!--                            </div>-->
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="schAnswerChk" name="schAnswerChk"
-                                       value="Y" onclick="selectQuizResultData()">
-                                <label class="form-check-label" for="schAnswerChk">틀린 문제</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="schUserChkCnfsd"
-                                       name="schUserChkCnfsd"
-                                       value="Y" onclick="selectQuizResultData()">
-                                <label class="form-check-label" for="schUserChkCnfsd">헷갈린 문제</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="schUserChkImprt"
-                                       name="schUserChkImprt"
-                                       value="Y" onclick="selectQuizResultData(this)">
-                                <label class="form-check-label" for="schUserChkImprt">중요 문제</label>
-                            </div>
-                        </div>
-                        <div class="d-flex w-50">
-                            <input class="form-control" type="search" placeholder="문제 검색" id="schQuizCntnt"
-                                   aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
-                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="selectQuizResultData()"><i class="fas fa-search"></i></button>
-                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchclear();">clear</button>
-                        </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="schUserChkCnfsd"
+                               name="schUserChkCnfsd"
+                               value="Y" onclick="selectQuizResultData()">
+                        <label class="form-check-label" for="schUserChkCnfsd">헷갈린 문제</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="schUserChkImprt"
+                               name="schUserChkImprt"
+                               value="Y" onclick="selectQuizResultData(this)">
+                        <label class="form-check-label" for="schUserChkImprt">중요 문제</label>
                     </div>
                 </div>
-
-                <hr/>
-                <div>
-                    <div class="h5 mt-4 fw-bold">문제별 정답률</div>
-                    <div class="mb-4"><i class="fas fa-asterisk"></i> 문제 번호를 클릭하여 [문제]와 [해설]을 볼 수 있습니다.</div>
-                    <div class="mx-auto" id="quizResultData"></div>
+                <div class="d-flex w-50">
+                    <input class="form-control" type="search" placeholder="문제 검색" id="schQuizCntnt"
+                           aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
+                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="selectQuizResultData()"><i class="fas fa-search"></i></button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="searchclear();">clear</button>
                 </div>
-            </form>
+            </div>
         </div>
 
-    </div>
-
+        <hr/>
+        <div>
+            <div class="h5 mt-4 fw-bold">문제별 정답률</div>
+            <div class="mb-4"><i class="fas fa-asterisk"></i> 문제 번호를 클릭하여 [문제]와 [해설]을 볼 수 있습니다.</div>
+            <div class="mx-auto" id="quizResultData"></div>
+        </div>
+    </form>
 </div>
 <!-- [content] 영역 끝 -->
 

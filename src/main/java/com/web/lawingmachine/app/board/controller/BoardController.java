@@ -24,14 +24,15 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
-    @GetMapping("/list")
+    @GetMapping("/qna/list")
     public String boardList(BoardVO boardVO, Model model) {
         model.addAttribute("boardVO", boardVO);
+        model.addAttribute("leftsidebarCd", "10");
         return "/view/board/boardList";
     }
 
     @ResponseBody
-    @GetMapping("/list/ajax")
+    @GetMapping("/qna/list/ajax")
     public Map<String, Object> boardListAjax(BoardVO boardVO) {
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -47,7 +48,7 @@ public class BoardController {
         return resultMap;
     }
 
-    @GetMapping("/inputForm")
+    @GetMapping("/qna/inputForm")
     public String boardInputForm(BoardVO param, Model model) {
 
         // 공통코드(과목코드)
@@ -68,7 +69,7 @@ public class BoardController {
         return "/view/board/inputForm";
     }
 
-    @GetMapping("/infoView")
+    @GetMapping("/qna/infoView")
     public String boardinfoView(BoardVO param, Model model) {
 
         BoardVO boardVO = boardService.getBoardInfo(param);
@@ -77,7 +78,7 @@ public class BoardController {
         return "/view/board/infoView";
     }
 
-    @PostMapping("/infoView/insert")
+    @PostMapping("/qna/infoView/insert")
     @ResponseBody
     public ResultMessageVO insertBoardinfo(BoardVO param) {
 
@@ -93,7 +94,7 @@ public class BoardController {
         return result;
     }
     
-    @PostMapping("/infoView/update")
+    @PostMapping("/qna/infoView/update")
     @ResponseBody
     public ResultMessageVO updateBoardInfo(BoardVO param) {
 
@@ -109,7 +110,7 @@ public class BoardController {
         return result;
     }
 
-    @RequestMapping("/infoView/delete")
+    @RequestMapping("/qna/infoView/delete")
     @ResponseBody
     public ResultMessageVO delBoardinfo(BoardVO param) {
 

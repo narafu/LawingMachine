@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
+      layout:decorate="~{layouts/adminBoardLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
 
     <form id="boardForm">
         <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
         <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
 
-        <div class="row mt-5">
+        <div class="row mb-5">
             <div class="col">
                 <select class="form-select rounded-pill px-4" name="examYear">
                     <option value="">시험년도 선택</option>
@@ -48,12 +48,6 @@
                 </select>
             </div>
         </div>
-
-        <div class="my-3">
-            <!--            <input type="text" class="form-control" name="title" th:value="${quizMstrInfoVO.title}" placeholder="제목을 입력해주세요.">-->
-        </div>
-
-        <div id="boardCntnt"></div>
 
         <div class="fs-5" style="min-height: 200px;">
             <h2 class="fs-5 mx-1 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">문제</h2>

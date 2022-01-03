@@ -1,122 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
-
+      layout:decorate="~{layouts/mypageLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
 
-    <div class="row mt-5">
-
-        <div class="col">
-            <ul class="nav nav-pills flex-column w-75">
-                <li class="nav-item m-2"><a class="nav-link py-3 active" href="/mypage/myprofile">내 프로필</a></li>
-                <th:block th:unless="${#strings.equals(session.sessionUser.membershipCd, '10')}">
-                    <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote">오답노트</a></li>
-                    <li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult">진단결과</a></li>
-                </th:block>
-            </ul>
+    <form class="d-grid gap-4" id="myprofileForm">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" th:field="${userInfo.userId}">
+        <div>
+            <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
         </div>
-
-        <div class="col-9">
-            <form class="d-grid gap-4" id="myprofileForm">
-                <input type="hidden" th:field="${userInfo.userId}">
-                <div>
-                    <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
+        <div>
+            <div class="d-flex justify-content-between d-grid gap-5">
+                <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                    <span class="mb-2">닉네임</span>
+                    <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.nickname}"></span>
                 </div>
-                <div>
-                    <div class="d-flex justify-content-between d-grid gap-5">
-                        <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                            <span class="mb-2">닉네임</span>
-                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.nickname}"></span>
-                        </div>
-                        <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                            <span class="mb-2">이메일</span>
-                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.email}"></span>
-                        </div>
-                    </div>
+                <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                    <span class="mb-2">이메일</span>
+                    <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.email}"></span>
                 </div>
-                <div class="d-flex justify-content-between d-grid gap-5">
-                    <div class="form-group w-100">
-                        <label for="nickname" class="m-2 text-primary">닉네임</label>
-                        <input type="text" class="form-control" id="nickname" name="nickname"
-                               placeholder="변경할 닉네임을 입력해주세요.">
-                    </div>
-                    <div class="form-group w-100">
-                        <label for="email" class="m-2 text-primary">이메일</label>
-                        <input type="text" class="form-control" id="email" name="email"
-                               placeholder="변경할 이메일을 입력해주세요.">
-                    </div>
-                </div>
-                <div>
-                    <label for="examTicketNo" class="m-2 text-primary">수험번호</label>
-                    <small class="form-text text-danger">* 수험번호는 등록 후 수정할 수 없습니다.</small>
-                    <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">
-                        <input type="text" class="form-control" id="examTicketNo" name="examTicketNo"
-                               placeholder="수험번호를 입력해주세요.">
-                    </th:block>
-                    <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">
-                        <input type="text" class="form-control" th:value="${userInfo.examTicketNo}" readonly>
-                    </th:block>
-                </div>
-                <div>
-                    <label for="examTicket" class="m-2 text-primary">수험표</label>
-                    <small class="form-text text-danger">* 수험표는 등록 후 수정할 수 없습니다.</small>
-                    <input type="hidden" class="form-control" id="examTicket" name="examTicket" >
-                    <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">
-                        <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 이미지 첨부 기능으로 수험표를 업로드 해주세요.</div>
-                        <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 관리자가 수험번호와 수험표를 확인하여 승인 후, 서비스를 이용할 수 있습니다.</div>
-                        <div class="w-100 my-2" id="examTicketDiv"></div>
-                        <script>
-                            let Editor = toastui.Editor;
-                            let examTicket = new Editor({
-                                el: document.querySelector('#examTicketDiv'),
-                                height: '400px',
-                                initialValue: $('#examTicket').val(),
-                                initialEditType: 'wysiwyg'
-                            })
-                        </script>
-                    </th:block>
-                    <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">
-                        <div class="w-100 my-2" id="examTicketDiv"></div>
-                        <script>
-                            let examTicket = toastui.Editor.factory({
-                                el: document.querySelector('#examTicketDiv'),
-                                viewer: true,
-                                height: '400px',
-                                initialValue: $('#examTicket').val(),
-                            })
-                        </script>
-                    </th:block>
-                </div>
-                <!--            <div class="my-4">-->
-                <!--                <h5>비밀번호 변경</h5>-->
-                <!--                <small id="emailHelp" class="form-text text-danger">* 비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.</small>-->
-                <!--                <div class="d-flex">-->
-                <!--                    <div class="form-group m-3 w-75">-->
-                <!--                        <label for="exampleInputPassword1" class="m-2 text-primary">비밀번호</label>-->
-                <!--                        <input type="password" class="form-control" id="exampleInputPassword1"-->
-                <!--                               placeholder="비밀번호를 입력해주세요.">-->
-                <!--                    </div>-->
-                <!--                    <div class="form-group m-3 w-75">-->
-                <!--                        <label for="exampleInputPassword1" class="m-2 text-primary">비밀번호 확인</label>-->
-                <!--                        <input type="password" class="form-control" id="exampleInputPassword1"-->
-                <!--                               placeholder="비밀번호를 다시 한번 입력해주세요.">-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <!--                <div style="float: right;">-->
-                <!--                    <button type="submit" class="btn btn-primary px-3 py-2">비밀번호 변경</button>-->
-                <!--                </div>-->
-                <!--            </div>-->
-                <div class="text-center m-3">
-                    <button type="submit" class="btn btn-primary px-5 py-2" onclick="updateUserInfo();">프로필 수정</button>
-                </div>
-            </form>
+            </div>
         </div>
-
-    </div>
-
+        <div class="d-flex justify-content-between d-grid gap-5">
+            <div class="form-group w-100">
+                <label for="nickname" class="m-2 text-primary">닉네임</label>
+                <input type="text" class="form-control" id="nickname" name="nickname"
+                       placeholder="변경할 닉네임을 입력해주세요.">
+            </div>
+            <div class="form-group w-100">
+                <label for="email" class="m-2 text-primary">이메일</label>
+                <input type="text" class="form-control" id="email" name="email"
+                       placeholder="변경할 이메일을 입력해주세요.">
+            </div>
+        </div>
+        <div>
+            <label for="examTicketNo" class="m-2 text-primary">수험번호</label>
+            <small class="form-text text-danger">* 수험번호는 등록 후 수정할 수 없습니다.</small>
+            <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">
+                <input type="text" class="form-control" id="examTicketNo" name="examTicketNo"
+                       th:value="${userInfo.examTicketNo}" placeholder="수험번호를 입력해주세요.">
+            </th:block>
+            <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">
+                <input type="text" class="form-control" th:value="${userInfo.examTicketNo}" readonly>
+                <input type="hidden" id="examTicketNo" name="examTicketNo" th:value="${userInfo.examTicketNo}"/>
+            </th:block>
+        </div>
+        <div>
+            <label for="examTicket" class="m-2 text-primary">수험표</label>
+            <small class="form-text text-danger">* 수험표는 등록 후 수정할 수 없습니다.</small>
+            <input type="hidden" class="form-control" id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
+            <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">
+                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 이미지 첨부 기능으로 수험표를 업로드 해주세요.</div>
+                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 관리자가 수험번호와 수험표를 확인하여 승인 후, 서비스를 이용할 수 있습니다.</div>
+                <div class="w-100 my-2" id="examTicketDiv"></div>
+                <script>
+                    let Editor = toastui.Editor;
+                    let examTicket = new Editor({
+                        el: document.querySelector('#examTicketDiv'),
+                        height: '400px',
+                        initialValue: $('#examTicket').val(),
+                        initialEditType: 'wysiwyg'
+                    })
+                </script>
+            </th:block>
+            <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">
+                <div class="w-100 my-2" id="examTicketDiv"></div>
+                <script>
+                    let examTicket = toastui.Editor.factory({
+                        el: document.querySelector('#examTicketDiv'),
+                        viewer: true,
+                        height: '400px',
+                        initialValue: $('#examTicket').val(),
+                    })
+                </script>
+            </th:block>
+        </div>
+        <!--            <div class="my-4">-->
+        <!--                <h5>비밀번호 변경</h5>-->
+        <!--                <small id="emailHelp" class="form-text text-danger">* 비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.</small>-->
+        <!--                <div class="d-flex">-->
+        <!--                    <div class="form-group m-3 w-75">-->
+        <!--                        <label for="exampleInputPassword1" class="m-2 text-primary">비밀번호</label>-->
+        <!--                        <input type="password" class="form-control" id="exampleInputPassword1"-->
+        <!--                               placeholder="비밀번호를 입력해주세요.">-->
+        <!--                    </div>-->
+        <!--                    <div class="form-group m-3 w-75">-->
+        <!--                        <label for="exampleInputPassword1" class="m-2 text-primary">비밀번호 확인</label>-->
+        <!--                        <input type="password" class="form-control" id="exampleInputPassword1"-->
+        <!--                               placeholder="비밀번호를 다시 한번 입력해주세요.">-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--                <div style="float: right;">-->
+        <!--                    <button type="submit" class="btn btn-primary px-3 py-2">비밀번호 변경</button>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <div class="text-center m-3">
+            <button type="submit" class="btn btn-primary px-5 py-2" onclick="updateUserInfo();">프로필 수정</button>
+        </div>
+    </form>
 </div>
 <!-- [content] 영역 끝 -->
 

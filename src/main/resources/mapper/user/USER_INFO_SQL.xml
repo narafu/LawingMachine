@@ -74,15 +74,11 @@
 			 <if test="nickname != null and nickname != ''">
 				, NICKNAME = #{nickname}
 			 </if>
-			 <if test="examTicket != null and examTicket != ''">
-				, EXAM_TICKET = #{examTicket}
-			 </if>
-			 <if test="examTicketNo != null and examTicketNo != ''">
-				, EXAM_TICKET_NO = #{examTicketNo}
-			 </if>
-			 <if test="membershipCd != null and membershipCd != ''">
-				, MEMBERSHIP_CD = #{membershipCd}
-			 </if>
+			, EXAM_TICKET = #{examTicket}
+			, EXAM_TICKET_NO = #{examTicketNo}
+<!--			 <if test="membershipCd != null and membershipCd != ''">-->
+<!--				, MEMBERSHIP_CD = #{membershipCd}-->
+<!--			 </if>-->
 		WHERE USER_ID = #{userId}
 	</update>
 

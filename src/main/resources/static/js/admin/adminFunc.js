@@ -2,7 +2,7 @@
 function goBoardList() {
     let form = $('#boardForm');
     form.attr('method', 'get');
-    form.attr('action', '/admin/quiz/list');
+    form.attr('action', '/admin/board/quiz/list');
     form.attr('target', '');
     form.submit();
 }
@@ -10,7 +10,7 @@ function goBoardList() {
 function goBoardForm() {
     let form = $('#boardForm');
     form.attr('method', 'get');
-    form.attr('action', '/admin/quiz/inputForm');
+    form.attr('action', '/admin/board/quiz/inputForm');
     form.attr('target', '');
     form.submit();
 }
@@ -19,7 +19,7 @@ function goBoardInfo(quizMstrInfoSeq) {
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
     let form = $('#boardForm');
     form.attr('method', 'get');
-    form.attr('action', '/admin/quiz/infoView');
+    form.attr('action', '/admin/board/quiz/infoView');
     form.attr('target', '');
     form.submit();
 }

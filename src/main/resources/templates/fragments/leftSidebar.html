@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- [mypageSidebarFragment] 영역 시작 -->
+<div th:fragment="mypageSidebarFragment">
+	<ul class="nav nav-pills flex-column">
+		<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/myprofile"
+			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">내 프로필</a></li>
+		<th:block th:unless="${#strings.equals(session.sessionUser.membershipCd, '10')}">
+			<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote"
+				th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">오답노트</a></li>
+			<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult"
+				th:classappend="${#strings.equals(leftsidebarCd, '30')} ? 'active'">진단결과</a></li>
+		</th:block>
+	</ul>
+</div>
+<!-- [mypageSidebarFragment] 영역 끝 -->
+
+<!-- [boardSidebarFragment] 영역 시작 -->
+<div th:fragment="boardSidebarFragment">
+	<ul class="nav nav-pills flex-column">
+		<li class="nav-item m-2"><a class="nav-link py-3" href="/board/qna/list"
+			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">질문게시판</a></li>
+<!--		<li class="nav-item m-2"><a class="nav-link py-3" href="/board/free/list"-->
+<!--			th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">자유게시판</a></li>-->
+	</ul>
+</div>
+<!-- [boardSidebarFragment] 영역 끝 -->
+
+<!-- [adminBoardSidebarFragment] 영역 시작 -->
+<div th:fragment="adminBoardSidebarFragment">
+	<ul class="nav nav-pills flex-column">
+		<li class="nav-item m-2"><a class="nav-link py-3" href="/admin/board/quiz/list"
+			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">문제게시판</a></li>
+		<li class="nav-item m-2"><a class="nav-link py-3" href="/admin/board/approval/list"
+			th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">승인게시판</a></li>
+	</ul>
+</div>
+<!-- [adminBoardSidebarFragment] 영역 끝 -->
+
+</html>

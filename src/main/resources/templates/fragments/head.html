@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html>
 
-<!-- [head] 영역 시작 -->
-<head>
+<head th:fragment="headFragment">
     <meta charset="UTF-8"/>
     <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
 
@@ -14,6 +11,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
           integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- toast grid -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tui-grid/4.20.0/tui-grid.min.css"
+          integrity="sha512-60rLT79F+4hgsK/sYQXjUNHF4YMcFE0kZXPnxS5Bri4XmOmKR7GAtzbgM/N6xLoytYIOsYGPqLQpDONLDose9Q=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- toast pagination -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+
+    <!-- toast editor -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"/>
+
+    <!-- toast chart -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
 
     <!-- style -->
     <link rel="shortcut icon" href="#">
@@ -30,21 +41,20 @@
     <!-- jquery -->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+    <!-- toast grid js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tui-grid/4.20.0/tui-grid.min.js"
+            integrity="sha512-NRa/gYbXZtHQzKfaXaDUdMfh1D+kAJtBUWkOXrKLasZ1wJdSttfZrPnMk+reA2D6NzRh9v6lR1HGKavZit5vww=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- toast pagination js -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+
+    <!-- toast editor js -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+
+    <!-- toast chart js -->
+    <script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
+
     <!-- common-->
     <script th:src="@{/js/common/common.js}"></script>
-
 </head>
-
-<div class="text-center py-5 my-5">
-    <div>
-        <h1 class="display-1 text-primary">SUCCESS</h1>
-    </div>
-    <div>
-        <span class="d-block fs-5">인증되었습니다.</span>
-    </div>
-    <div class="my-5">
-        <button type="button" class="btn btn-primary btn-lg px-5 py-3" onclick="location.replace('/index');">홈으로
-        </button>
-    </div>
-</div>
-</html>

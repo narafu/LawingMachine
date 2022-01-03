@@ -51,6 +51,7 @@ mybatis:
 
 server:
   port: 8090
+  max-http-header-size: 400000
 
 # jpa:
 #   database-platform: org.hibernate.dialect.MariaDB103Dialect

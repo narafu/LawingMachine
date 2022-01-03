@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
+      layout:decorate="~{layouts/boardLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
 
     <form id="boardForm">
         <input type="hidden" th:field="${boardVO.content}"/>
         <input type="hidden" th:field="${boardVO.brdMstrInfoSeq}"/>
 
-        <div class="mt-5">
+        <div class="mt-4">
             <div class="row">
                 <div class="col">
                     <div class="border px-4 py-2 fw-bold" th:text="${boardVO.brdTypeNm}"></div>

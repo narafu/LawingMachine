@@ -1,8 +1,25 @@
 function updateUserInfo() {
+    let examTicketHtml = examTicket.getHTML();
+    // if(examTicketHtml.length > 100000) {
+    //     let url = '/modal/alert';
+    //     let modalId = 'examTicketAlert';
+    //     let modalText = '이미지 용량이 너무 큽니다.';
+    //     modal(url, modalId, modalText);
+    //     return;
+    // }
+    if(examTicketHtml == '<p><br></p>') {
+        $('#examTicket').val('');
+    } else {
+        $('#examTicket').val(examTicketHtml);
+    }
     let url = '/mypage/myprofile';
     let param = $('#myprofileForm').serialize();
     $.post(url, param, function (result) {
-        $('#myprofileForm').html(result);
+        alert(result['message']);
+        // let url = '/modal/alert';
+        // let modalId = 'quizNotYetAlert';
+        // let modalText = result['message'];
+        // modal(url, modalId, modalText);
     })
 }
 

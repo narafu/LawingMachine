@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- [head] 영역 시작 -->
+<head th:replace="fragments/head :: headFragment"></head>
+<!-- [head] 영역 끝 -->
+
+<body class="w-100 h-100">
+
+    <!-- header -->
+    <header th:replace="fragments/header :: headerFragment"></header>
+
+    <div class="row mt-5">
+        <!-- leftSidebar -->
+        <div class="col">
+            <div class="w-50 mx-auto">
+                <div class="" th:replace="fragments/leftSidebar :: mypageSidebarFragment"></div>
+            </div>
+        </div>
+        <!-- content -->
+        <div class="col-9">
+            <div class="w-75" layout:fragment="content"></div>
+        </div>
+    </div>
+
+    <!-- modal -->
+    <div id="modalDiv"></div>
+
+    <!-- footer 영역 시작 -->
+    <footer th:replace="fragments/footer :: footerFragment"></footer>
+
+    <!-- JS -->
+    <th:block layout:fragment="script"></th:block>
+
+</body>
+
+</html>

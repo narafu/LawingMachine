@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/defaultLayout}">
+      layout:decorate="~{layouts/boardLayout}">
 
 <!-- [content] 영역 시작 -->
-<div layout:fragment="content" class="container">
+<div layout:fragment="content">
+
+    <h4>질문게시판</h4>
 
     <form id="boardForm">
         <input type="hidden" name="offset" id="offset" th:value="${boardVO.offset}" />
@@ -12,7 +14,7 @@
         <input type="hidden" name="brdMstrInfoSeq" id="brdMstrInfoSeq" value="" />
     </form>
 
-    <div id="totalDiv"></div>
+    <div id="totalDiv" class="mt-4"></div>
     <div id="grid"></div>
     <div id="pagingDiv" class="tui-pagination"></div>
 
@@ -60,6 +62,9 @@
             });
 
             grid.on('click', (obj) => {
+                if(obj.rowKey == undefined) {
+                    return;
+                }
                 let brdMstrInfoSeq = grid.getValue(obj.rowKey, 'brdMstrInfoSeq');
                 goBoardInfo(brdMstrInfoSeq);
             })
@@ -71,7 +76,7 @@
 
             $('#offset').val(offset);
 
-            let url = '/board/list/ajax/';
+            let url = '/board/qna/list/ajax/';
             let data = $('#boardForm').serialize();
 
             $.get(url, data, function (result) {

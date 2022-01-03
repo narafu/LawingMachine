@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/board")
 public class AdminController {
 
     @Autowired
@@ -37,6 +37,7 @@ public class AdminController {
     @GetMapping("/quiz/list")
     public String boardList(QuizMstrInfoVO quizMstrInfoVO, Model model) {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
+        model.addAttribute("leftsidebarCd", "10");
         return "/view/admin/boardList";
     }
 

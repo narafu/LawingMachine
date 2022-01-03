@@ -13,14 +13,14 @@
         <div>
             <ul class="nav nav-pills">
                 <li class="nav-item mx-5"><a href="/training/exam/notice" class="nav-link">훈련하기</a></li>
-                <li class="nav-item mx-5"><a href="/board/list" class="nav-link">커뮤니티</a></li>
+                <li class="nav-item mx-5"><a href="/board/qna/list" class="nav-link">커뮤니티</a></li>
                 <th:block sec:authorize="isAuthenticated() == false">
                     <li class="nav-item mx-5"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item mx-5"><a href="/mypage/myprofile" class="nav-link">마이페이지</a></li>
                     <th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
-                        <li class="nav-item mx-5"><a href="/admin/quiz/list" class="nav-link">관리자</a></li>
+                        <li class="nav-item mx-5"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>
                     </th:block>
                     <li class="nav-item mx-5"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
                 </th:block>

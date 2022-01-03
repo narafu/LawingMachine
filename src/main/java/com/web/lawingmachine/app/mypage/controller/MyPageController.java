@@ -2,6 +2,7 @@ package com.web.lawingmachine.app.mypage.controller;
 
 import com.web.lawingmachine.app.common.service.BaseUtilService;
 import com.web.lawingmachine.app.common.vo.ModalVO;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
@@ -14,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -32,20 +34,23 @@ public class MyPageController {
 
     @GetMapping("/myprofile")
     public String myProfile(HttpServletRequest req, Model model) {
-
         SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
         UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
         model.addAttribute("userInfo", userInfo);
-
+        model.addAttribute("leftsidebarCd", "10");
         return "/view/mypage/myprofile";
     }
 
     @PostMapping("/myprofile")
-    public String updateUserInfo(UserInfoVO userInfoVO, Model model) {
-
-//        int resultCnt = userService.updateUserInfo(userInfoVO);
-
-        return "/view/mypage/myprofile :: #myprofileForm";
+    @ResponseBody
+    public ResultMessageVO updateUserInfo(UserInfoVO userInfoVO) {
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = userService.updateUserInfo(userInfoVO);
+        if (resultCnt > 0) {
+            result.setMessage("수정되었습니다.");
+            result.setResultCode("SUCCESS");
+        }
+        return result;
     }
 
     @GetMapping("/reviewNote")
@@ -58,6 +63,8 @@ public class MyPageController {
         // 공통코드(과목코드)
         List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
+
+        model.addAttribute("leftsidebarCd", "20");
 
         return "/view/mypage/reviewNote";
     }
@@ -77,7 +84,8 @@ public class MyPageController {
     }
 
     @GetMapping("/quizResult")
-    public String quizResult() {
+    public String quizResult(ModelMap model) {
+        model.addAttribute("leftsidebarCd", "30");
         return "/view/mypage/quizResult";
     }
 
