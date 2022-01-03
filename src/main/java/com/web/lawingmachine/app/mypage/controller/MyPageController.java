@@ -63,13 +63,13 @@ public class MyPageController {
     }
 
     @GetMapping("/reviewNote/data")
-    public String reviewNoteAjax(QuizMstrInfoVO param, Model model) {
+    public String reviewNoteData(QuizMstrInfoVO param, Model model) {
 
         // 과목명
         List<Map<String, String>> subjectList = quizService.selectSubjectList(param);
         model.addAttribute("subjectList", subjectList);
 
-        // 정답률(차트)
+        // 정답률 리스트
         List<QuizMstrInfoVO> quizResultRatioList = quizService.selectQuizResultRatioList(param);
         model.addAttribute("quizResultRatioList", quizResultRatioList);
 
