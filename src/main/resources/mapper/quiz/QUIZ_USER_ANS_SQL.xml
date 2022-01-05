@@ -57,7 +57,7 @@
             AND A.CONTENT LIKE CONCAT("%", #{schQuizCntnt}, "%")
         </if>
         <if test='schAnswerChk == "Y"'>
-            AND B.ANSWER_CHK = 'F'
+            AND B.ANSWER_CHK = 'X'
         </if>
         <if test='schUserChkCnfsd == "Y"'>
             AND B.USER_CHK_CNFSD = 'Y'

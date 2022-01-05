@@ -6,9 +6,6 @@
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content" class="container">
 
-    <form method="get" id="indexForm">
-    </form>
-
     <div class="row">
         <div class="col-5 mt-5">
             <div class="row d-flex justify-content-between">
@@ -36,7 +33,13 @@
                     </th:block>
                 </ul>
             </div>
-            <div class="d-flex">
+            <div class="d-flex" id="billboard">
+                <form method="get" id="indexForm">
+                    <input type="hidden" name="examGrpCd" value="10" id="examGrpCd"/>
+                    <input type="hidden" name="examYear" value="2022" id="examYear"/>
+                    <input type="hidden" name="examNo" value="1" id="examNo"/>
+                    <input type="hidden" name="subjectTypeCd" value="10" id="subjectTypeCd"/>
+                </form>
                 <table class="table">
                     <thead class="text-center">
                     <tr>
@@ -46,79 +49,16 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <span>신상은</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>100%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <span>스파르타</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>88.5%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>
-                            <span>코딩고고</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>85%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>
-                            <span>코딩클럽</span>
-                        </td>
-                        <td>84.2%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>
-                            <span>스파르따</span>
-                        </td>
-                        <td>80%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>
-                            <span>요요고고</span>
-                        </td>
-                        <td>79.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>
-                            <span>헬창</span>
-                        </td>
-                        <td>76%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>
-                            <span>너뷰브</span>
-                        </td>
-                        <td>75%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>
-                            <span>파이참참</span>
-                        </td>
-                        <td>74.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>
-                            <span>파이썬칩</span>
-                        </td>
-                        <td>72%</td>
-                    </tr>
+                        <th:block th:each="billBoard:${billBoardArr0}">
+                            <tr>
+                                <th scope="row" th:text="${billBoard.RANK}"></th>
+                                <td>
+                                    <span th:text="${billBoard.NICKNAME}"></span>
+                                    <img src="" alt="" style="height: 25px">
+                                </td>
+                                <td th:text="${billBoard.RESULT_CNT}"></td>
+                            </tr>
+                        </th:block>
                     </tbody>
                 </table>
                 <table class="table">
@@ -130,79 +70,16 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <span>신상은</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>100%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <span>스파르타</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>88.5%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>
-                            <span>코딩고고</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>85%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>
-                            <span>코딩클럽</span>
-                        </td>
-                        <td>84.2%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>
-                            <span>스파르따</span>
-                        </td>
-                        <td>80%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>
-                            <span>요요고고</span>
-                        </td>
-                        <td>79.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>
-                            <span>헬창</span>
-                        </td>
-                        <td>76%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>
-                            <span>너뷰브</span>
-                        </td>
-                        <td>75%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>
-                            <span>파이참참</span>
-                        </td>
-                        <td>74.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>
-                            <span>파이썬칩</span>
-                        </td>
-                        <td>72%</td>
-                    </tr>
+                        <th:block th:each="billBoard:${billBoardArr10}">
+                            <tr>
+                                <th scope="row" th:text="${billBoard.RANK}"></th>
+                                <td>
+                                    <span th:text="${billBoard.NICKNAME}"></span>
+                                    <img src="" alt="" style="height: 25px">
+                                </td>
+                                <td th:text="${billBoard.RESULT_CNT}"></td>
+                            </tr>
+                        </th:block>
                     </tbody>
                 </table>
                 <table class="table">
@@ -214,79 +91,16 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>
-                            <span>신상은</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>100%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>
-                            <span>스파르타</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>88.5%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>
-                            <span>코딩고고</span>
-                            <img src="" alt="" style="height: 25px">
-                        </td>
-                        <td>85%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>
-                            <span>코딩클럽</span>
-                        </td>
-                        <td>84.2%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>
-                            <span>스파르따</span>
-                        </td>
-                        <td>80%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>
-                            <span>요요고고</span>
-                        </td>
-                        <td>79.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>
-                            <span>헬창</span>
-                        </td>
-                        <td>76%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>
-                            <span>너뷰브</span>
-                        </td>
-                        <td>75%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>
-                            <span>파이참참</span>
-                        </td>
-                        <td>74.3%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>
-                            <span>파이썬칩</span>
-                        </td>
-                        <td>72%</td>
-                    </tr>
+                        <th:block th:each="billBoard:${billBoardArr20}">
+                            <tr>
+                                <th scope="row" th:text="${billBoard.RANK}"></th>
+                                <td>
+                                    <span th:text="${billBoard.NICKNAME}"></span>
+                                    <img src="" alt="" style="height: 25px">
+                                </td>
+                                <td th:text="${billBoard.RESULT_CNT}"></td>
+                            </tr>
+                        </th:block>
                     </tbody>
                 </table>
             </div>

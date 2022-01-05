@@ -4,7 +4,7 @@
 <mapper namespace="com.web.lawingmachine.app.training.mapper.QuizResultInfoMapper">
 
     <insert id="insertQuizResultInfo">
-        <selectKey keyProperty="quizResultInfoSeq" order="BEFORE">
+        <selectKey keyProperty="quizResultInfoSeq" order="BEFORE" resultType="String">
             SELECT IFNULL(MAX(QUIZ_RESULT_INFO_SEQ), 0) + 1 AS QUIZ_RESULT_INFO_SEQ FROM QUIZ_RESULT_INFO
         </selectKey>
         INSERT INTO QUIZ_RESULT_INFO (
@@ -14,7 +14,7 @@
             , EXAM_YEAR
             , EXAM_NO
             , USER_ID
-            , RESULT
+            , RESULT_CNT
             , DEL_YN
             , REG_TS
             , MDFY_TS
@@ -41,6 +41,31 @@
         FROM QUIZ_RESULT_INFO
         WHERE DEL_YN = 'N' AND USER_ID = #{userId}
         GROUP BY SUBJECT_TYPE_CD
+    </select>
+
+    <select id="selectQuizResultList" resultType="HashMap">
+        SELECT
+            RANK() OVER(ORDER BY RESULT_CNT DESC) AS RANK
+            , NICKNAME
+            , RESULT_CNT
+        FROM (
+            SELECT
+                (SELECT NICKNAME FROM USER_INFO WHERE USER_ID = A.USER_ID) AS NICKNAME
+                , SUM(RESULT_CNT) AS RESULT_CNT
+                , COUNT(*) OVER(PARTITION BY SUBJECT_TYPE_CD) AS CNT
+            FROM QUIZ_RESULT_INFO A
+            WHERE DEL_YN = 'N'
+                AND EXAM_GRP_CD = #{examGrpCd}
+                AND EXAM_YEAR = #{examYear}
+                AND EXAM_NO = #{examNo}
+                <if test="subjectTypeCd != null and subjectTypeCd != ''">
+                    AND SUBJECT_TYPE_CD = #{subjectTypeCd}
+                </if>
+            GROUP BY USER_ID
+        ) X
+        <if test="subjectTypeCd == null or subjectTypeCd == ''">
+            WHERE CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
+        </if>
     </select>
 
 </mapper>

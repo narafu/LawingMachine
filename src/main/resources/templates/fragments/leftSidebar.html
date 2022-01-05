@@ -6,9 +6,9 @@
 	<ul class="nav nav-pills flex-column">
 		<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/myprofile"
 			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">내 프로필</a></li>
+		<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote"
+			th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">오답노트</a></li>
 		<th:block th:unless="${#strings.equals(session.sessionUser.membershipCd, '10')}">
-			<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote"
-				th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">오답노트</a></li>
 			<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult"
 				th:classappend="${#strings.equals(leftsidebarCd, '30')} ? 'active'">진단결과</a></li>
 		</th:block>

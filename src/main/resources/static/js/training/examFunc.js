@@ -51,7 +51,7 @@ function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
     let data = $('#examMainForm').serialize();
 
     $.get(url, data, function (result) {
-
+        console.log(result);
         $('#quizMstrInfoDiv').replaceWith(result);
 
         // 진행률 반영
@@ -79,12 +79,13 @@ function getQuizNavAjax(quizMstrInfoSeq) {
         // active 스타일 반영
         let curSubjectTypeCd = $('#subjectTypeCd').val();
         $('#quizAnswerNavListDiv .quizNavTltDiv').each(function () {
-            let navSubjectTypeCd = $(this).find('.subjectTypeCd').val()
+            let navSubjectTypeCd = $(this).find('.subjectTypeCd').val();
             if (curSubjectTypeCd == navSubjectTypeCd) {
                 $(this).removeClass('text-primary');
                 $(this).addClass('bg-primary');
                 $(this).addClass('text-light');
             }
+            $('html,body').animate({ scrollTop: $('#examMainForm').offset().top }, 100);
         })
     });
 }

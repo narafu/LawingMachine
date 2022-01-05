@@ -10,6 +10,7 @@ public class QuizMstrInfoVO extends BaseVO {
 
     private String quizMstrInfoSeq;
     private String quizUserAnsSeq;
+    private String quizResultInfoSeq;
 
     private String examGrpCd;
     private String examGrpNm;
@@ -21,6 +22,7 @@ public class QuizMstrInfoVO extends BaseVO {
 
     private int srtNo;
     private String quizNo;
+    private int resultCnt;
 
     private String content;
     private String answer;

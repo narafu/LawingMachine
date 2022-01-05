@@ -95,11 +95,22 @@
                         $('#content').val(boardCntntHtml);
                     }
 
-                    let url = '/board/free/infoView/insert';
-                    let data = $('#boardForm').serialize();
-                    $.post(url, data, function (result) {
-                        goBoardList();
-                    });
+                    $.confirm({
+                        title: '',
+                        content: '등록하시겠습니까?',
+                        buttons: {
+                            '등록': function () {
+                                $.alert('등록되었습니다.');
+                                let url = '/board/free/infoView/insert';
+                                let data = $('#boardForm').serialize();
+                                $.post(url, data, function (result) {
+                                    goBoardList();
+                                });
+                            },
+                            '취소': function () {
+                            }
+                        }
+                    })
                 }
 
                 function updateBoardInfo(brdMstrInfoSeq) {
@@ -116,11 +127,23 @@
                     } else {
                         $('#content').val(boardCntntHtml);
                     }
-                    let url = '/board/free/infoView/update';
-                    let data = $('#boardForm').serialize();
-                    $.post(url, data, function (result) {
-                        goBoardInfo(brdMstrInfoSeq);
-                    });
+
+                    $.confirm({
+                        title: '',
+                        content: '저장하시겠습니까?',
+                        buttons: {
+                            '저장': function () {
+                                $.alert('저장되었습니다.');
+                                let url = '/board/free/infoView/update';
+                                let data = $('#boardForm').serialize();
+                                $.post(url, data, function (result) {
+                                    goBoardInfo(brdMstrInfoSeq);
+                                });
+                            },
+                            '취소': function () {
+                            }
+                        }
+                    })
                 }
             </script>
         </th:block>

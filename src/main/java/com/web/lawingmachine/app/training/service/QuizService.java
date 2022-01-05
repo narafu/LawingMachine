@@ -28,4 +28,6 @@ public interface QuizService {
     int insertQuizResultInfo(QuizMstrInfoVO param);
 
     int getQuizResultUserSubjectCnt(QuizMstrInfoVO param);
+
+    List<Map<String, String>> selectQuizResultList(QuizMstrInfoVO param);
 }

@@ -105,4 +105,9 @@ public class QuizServiceImpl implements QuizService {
     public int getQuizResultUserSubjectCnt(QuizMstrInfoVO param) {
         return quizResultInfoMapper.getQuizResultUserSubjectCnt(param);
     }
+
+    @Override
+    public List<Map<String, String>> selectQuizResultList(QuizMstrInfoVO param) {
+        return quizResultInfoMapper.selectQuizResultList(param);
+    }
 }

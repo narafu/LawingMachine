@@ -70,6 +70,7 @@
                 <h2 class="fs-5 mx-1 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">문제 해설</h2>
                 <div id="editorCmntr"></div>
                 <script>
+                    let Editor = toastui.Editor;
                     let editorCmntr = new Editor({
                         el: document.querySelector('#editorCmntr'),
                         height: '400px',
@@ -84,7 +85,7 @@
                     <div class="my-3 d-flex align-items-center">
                         <span class="fw-bold mx-1 fs-3" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">&#9312;</span>
                         <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|" value="1"/>
-                        <textarea class="w-100 px-3 py-2 mx-4" style="height:110px"
+                        <textarea class="w-100 px-3 py-2 mx-4 border" style="height:110px"
                                   th:name="|quizDtlList[${quizDtlInfoStat.index}].content|"
                                   th:text="${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].content}"></textarea>
                         <input type="hidden" class="quizDtlInfoSeq"
@@ -93,7 +94,7 @@
                     </div>
                     <div class="ml-5 my-3 d-flex align-items-center justify-content-end">
                         <button type="button" class="btn btn-primary">보기 해설</button>
-                        <textarea class="w-75 px-3 py-2 mx-4" style="height:100px"
+                        <textarea class="w-75 px-3 py-2 mx-4 border" style="height:100px"
                                   th:name="|quizDtlList[${quizDtlInfoStat.index}].cmntr|"
                                   th:text="${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].cmntr}"></textarea>
                     </div>
@@ -195,11 +196,22 @@
                         $('#cmntr').val(editorCmntrHtml);
                     }
 
-                    let url = '/admin/quiz/infoView/insert';
-                    let data = $('#boardForm').serialize();
-                    $.post(url, data, function (result) {
-                        goBoardList();
-                    });
+                    $.confirm({
+                        title: '',
+                        content: '등록하시겠습니까?',
+                        buttons: {
+                            '등록': function () {
+                                $.alert('등록되었습니다.');
+                                let url = '/admin/quiz/infoView/insert';
+                                let data = $('#boardForm').serialize();
+                                $.post(url, data, function (result) {
+                                    goBoardList();
+                                });
+                            },
+                            '취소': function () {
+                            }
+                        }
+                    })
                 }
 
                 function updateBoardInfo(quizMstrInfoSeq) {
@@ -224,12 +236,22 @@
                         $('#content').val(boardCntntHtml);
                     }
 
-                    let url = '/admin/quiz/infoView/update';
-                    let data = $('#boardForm').serialize();
-
-                    $.post(url, data, function (result) {
-                        goBoardInfo(quizMstrInfoSeq);
-                    });
+                    $.confirm({
+                        title: '',
+                        content: '저장하시겠습니까?',
+                        buttons: {
+                            '저장': function () {
+                                $.alert('저장되었습니다.');
+                                let url = '/admin/quiz/infoView/update';
+                                let data = $('#boardForm').serialize();
+                                $.post(url, data, function (result) {
+                                    goBoardInfo(quizMstrInfoSeq);
+                                });
+                            },
+                            '취소': function () {
+                            }
+                        }
+                    })
                 }
             </script>
         </th:block>

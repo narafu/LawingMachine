@@ -25,9 +25,20 @@ function goBoardInfo(quizMstrInfoSeq) {
 }
 
 function delBoardInfo() {
-    let url = '/admin/quiz/infoView/delete';
-    let data = $('#boardForm').serialize();
-    $.post(url, data, function (result) {
-        goBoardList();
-    });
+    $.confirm({
+        title: '',
+        content: '삭제하시겠습니까?',
+        buttons: {
+            '삭제': function () {
+                $.alert('삭제되었습니다.');
+                let url = '/admin/quiz/infoView/delete';
+                let data = $('#boardForm').serialize();
+                $.post(url, data, function (result) {
+                    goBoardList();
+                });
+            },
+            '취소': function () {
+            }
+        }
+    })
 }

@@ -1,11 +1,17 @@
 
 function getBillboardSubject(obj, subjectTypeCd) {
-    $('#schSubjectTypeCd').val(subjectTypeCd);
     $(obj).closest('ul').find('.active').removeClass('active');
     $(obj).closest('ul').find('li a').css('color', 'black');
     $(obj).addClass('active');
     $(obj).find('a').css('color', 'white');
-    // selectQuizResultData();
+
+    $('#subjectTypeCd').val(subjectTypeCd);
+    let url = '/index/billboard';
+    let data = $('#indexForm').serialize();
+
+    $.get(url, data, function (result) {
+        $('#billboard').replaceWith(result);
+    })
 }
 
 function goExamNoticePage() {
