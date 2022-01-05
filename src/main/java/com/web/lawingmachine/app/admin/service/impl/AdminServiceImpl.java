@@ -5,6 +5,8 @@ import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
 import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
 import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.user.mapper.UserInfoMapper;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private QuizMstrInfoMapper quizMstrInfoMapper;
+
     @Autowired
     private QuizDtlInfoMapper quizDtlInfoMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     @Override
     public List<QuizMstrInfoVO> selectQuizList(QuizMstrInfoVO quizMstrInfoVO) {
@@ -64,5 +70,15 @@ public class AdminServiceImpl implements AdminService {
             }
         }
         return resultCnt;
+    }
+
+    @Override
+    public List<UserInfoVO> selectApprovalList(UserInfoVO param) {
+        return userInfoMapper.selectApprovalList(param);
+    }
+
+    @Override
+    public int getApprovalListCnt(UserInfoVO param) {
+        return userInfoMapper.getApprovalListCnt(param);
     }
 }

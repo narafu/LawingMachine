@@ -42,3 +42,28 @@ function delBoardInfo() {
         }
     })
 }
+
+function goApprovalList() {
+    let form = $('#boardForm');
+    form.attr('method', 'get');
+    form.attr('action', '/admin/board/approval/list');
+    form.attr('target', '');
+    form.submit();
+}
+
+function goApprovalInfo(userId) {
+    $('#userId').val(userId);
+    let url = '/admin/board/approval/infoView';
+    let data = $('#boardForm').serialize();
+    $.get(url, data, function (result) {
+        $('#boardContent').html(result);
+    })
+}
+
+function approval() {
+
+}
+
+function multiApproval() {
+
+}

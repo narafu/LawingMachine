@@ -51,32 +51,36 @@
         <div>
             <label for="examTicket" class="m-2 text-primary">수험표</label>
             <small class="form-text text-danger">* 수험표는 등록 후 수정할 수 없습니다.</small>
-            <input type="hidden" class="form-control" id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
-            <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">
-                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 이미지 첨부 기능으로 수험표를 업로드 해주세요.</div>
-                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 관리자가 수험번호와 수험표를 확인하여 승인 후, 서비스를 이용할 수 있습니다.</div>
-                <div class="w-100 my-2" id="examTicketDiv"></div>
-                <script>
-                    let Editor = toastui.Editor;
-                    let examTicket = new Editor({
-                        el: document.querySelector('#examTicketDiv'),
-                        height: '400px',
-                        initialValue: $('#examTicket').val(),
-                        initialEditType: 'wysiwyg'
-                    })
-                </script>
-            </th:block>
-            <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">
-                <div class="w-100 my-2" id="examTicketDiv"></div>
-                <script>
-                    let examTicket = toastui.Editor.factory({
-                        el: document.querySelector('#examTicketDiv'),
-                        viewer: true,
-                        height: '400px',
-                        initialValue: $('#examTicket').val(),
-                    })
-                </script>
-            </th:block>
+            <div>
+                <input type="file" enctype="multipart/form-data" class="form-control"
+                    id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
+            </div>
+<!--            <input type="hidden" class="form-control" id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">-->
+<!--            <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">-->
+<!--                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 이미지 첨부 기능으로 수험표를 업로드 해주세요.</div>-->
+<!--                <div class="m-2 text-secondary"><i class="fas fa-asterisk"></i> 관리자가 수험번호와 수험표를 확인하여 승인 후, 서비스를 이용할 수 있습니다.</div>-->
+<!--                <div class="w-100 my-2" id="examTicketDiv"></div>-->
+<!--                <script>-->
+<!--                    let Editor = toastui.Editor;-->
+<!--                    let examTicket = new Editor({-->
+<!--                        el: document.querySelector('#examTicketDiv'),-->
+<!--                        height: '400px',-->
+<!--                        initialValue: $('#examTicket').val(),-->
+<!--                        initialEditType: 'wysiwyg'-->
+<!--                    })-->
+<!--                </script>-->
+<!--            </th:block>-->
+<!--            <th:block th:unless="${#strings.equals(userInfo.membershipCd, '10')}">-->
+<!--                <div class="w-100 my-2" id="examTicketDiv"></div>-->
+<!--                <script>-->
+<!--                    let examTicket = toastui.Editor.factory({-->
+<!--                        el: document.querySelector('#examTicketDiv'),-->
+<!--                        viewer: true,-->
+<!--                        height: '400px',-->
+<!--                        initialValue: $('#examTicket').val(),-->
+<!--                    })-->
+<!--                </script>-->
+<!--            </th:block>-->
         </div>
         <!--            <div class="my-4">-->
         <!--                <h5>비밀번호 변경</h5>-->

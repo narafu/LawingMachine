@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBoardLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content">
+
+    <div id="boardContent">
+        <h4>승인게시판</h4>
+
+        <form id="boardForm">
+            <input type="hidden" name="offset" id="offset" th:value="${userInfoVO.offset}" />
+            <input type="hidden" name="userId" id="userId" value="" />
+        </form>
+
+        <div id="totalDiv"></div>
+        <div class="mt-4" id="grid"></div>
+        <div id="pagingDiv" class="tui-pagination"></div>
+
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="multiApproval();">
+            <span>일괄승인</span>
+        </button>
+    </div>
+
+</div>
+<!-- [content] 영역 끝 -->
+
+<th:block layout:fragment="script">
+    <script th:src="@{/js/admin/adminFunc.js}"></script>
+    <script>
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            scrollX: false,
+            scrollY: false,
+            rowHeaders: ['checkbox'],
+            columns: [
+                { header: 'No', name: 'rno', width: 60, align: 'center'}
+                , { header: '회원구분', name: 'membershipNm', width: 120, align: 'center', filter: 'select'}
+                , { header: '닉네임', name: 'nickname', width: 200, align: 'center', filter: 'select'}
+                , { header: '유저명', name: 'userNm', width: 140, align: 'center', filter: 'select'}
+                , { header: '이메일', name: 'email', align: 'center', filter: 'select'}
+                , { header: '수험번호', name: 'examTicketNo', width: 200, align: 'center', filter: 'select'}
+            ]
+        });
+
+        $(function() {
+
+            tui.Grid.applyTheme('clean', {
+                row: {
+                    hover: { background: '#eee' }
+                },
+                cell: {
+                    header: { background: '#ccc', showHorizontalBorder: 'true'  },
+                    normal: { background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true' }
+                }
+            });
+
+            grid.on('click', (obj) => {
+                if(obj.rowKey == undefined) {
+                    return;
+                }
+                let userId = grid.getValue(obj.rowKey, 'userId');
+                goApprovalInfo(userId);
+            })
+
+            pageMove(0);
+        })
+
+        function pageMove(offset) {
+
+            $('#offset').val(offset);
+
+            let url = '/admin/board/approval/list/ajax/';
+            let data = $('#boardForm').serialize();
+
+            $.get(url, data, function (result) {
+
+                grid.resetData(result.list);
+
+                let options = {
+                    totalItems : result.total
+                    , itemsPerPage : result.pageSize
+                    , page : result.offset + 1
+                }
+
+                let pagination = new tui.Pagination('pagingDiv', options);
+
+                pagination.on('beforeMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+
+                pagination.on('afterMove', function (obj) {
+                    pageMove(obj.page - 1);
+                })
+            });
+        }
+    </script>
+</th:block>
+
+</html>

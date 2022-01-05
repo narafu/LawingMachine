@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin/board")
-public class AdminController {
+@RequestMapping("/admin/board/quiz")
+public class QuizController {
 
     @Autowired
     private BaseUtil baseUtil;
@@ -36,15 +36,15 @@ public class AdminController {
     @Autowired
     private QuizService quizService;
 
-    @GetMapping("/quiz/list")
+    @GetMapping("/list")
     public String boardList(QuizMstrInfoVO quizMstrInfoVO, Model model) {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
         model.addAttribute("leftsidebarCd", "10");
-        return "/view/admin/boardList";
+        return "/view/admin/quiz/boardList";
     }
 
     @ResponseBody
-    @GetMapping("/quiz/list/ajax")
+    @GetMapping("/list/ajax")
     public Map<String, Object> boardListAjax(QuizMstrInfoVO quizMstrInfoVO) {
 
         Map<String, Object> resultMap = new HashMap<>();
@@ -60,7 +60,7 @@ public class AdminController {
         return resultMap;
     }
 
-    @GetMapping("/quiz/inputForm")
+    @GetMapping("/inputForm")
     public String boardInputForm(QuizMstrInfoVO param, Model model) {
 
         // 연도 리스트
@@ -109,20 +109,20 @@ public class AdminController {
 
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/inputForm :: #boardContent";
+        return "/view/admin/quiz/inputForm :: #boardContent";
     }
 
-    @GetMapping("/quiz/infoView")
+    @GetMapping("/infoView")
     public String boardinfoView(QuizMstrInfoVO param, Model model) {
 
         QuizMstrInfoVO quizMstrInfoVO = adminService.getQuizInfo(param);
         quizMstrInfoVO.setQuizDtlList(quizService.selectQuizDtlList(param));
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/infoView :: #boardContent";
+        return "/view/admin/quiz/infoView :: #boardContent";
     }
 
-    @PostMapping("/quiz/infoView/insert")
+    @PostMapping("/infoView/insert")
     @ResponseBody
     public ResultMessageVO insertQuizMstrInfo(HttpServletRequest req, QuizMstrInfoVO param) {
 
@@ -143,7 +143,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/quiz/infoView/update")
+    @PostMapping("/infoView/update")
     @ResponseBody
     public ResultMessageVO updateQuizMstrInfo(QuizMstrInfoVO param) {
         ResultMessageVO result = new ResultMessageVO();
@@ -156,7 +156,7 @@ public class AdminController {
         return result;
     }
 
-    @RequestMapping("/quiz/infoView/delete")
+    @RequestMapping("/infoView/delete")
     @ResponseBody
     public ResultMessageVO delQuizMstrInfo(QuizMstrInfoVO param) {
 

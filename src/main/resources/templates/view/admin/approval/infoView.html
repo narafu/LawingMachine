@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBoardLayout}">
+
+<!-- [content] 영역 시작 -->
+<div layout:fragment="content">
+
+    <div id="boardContent">
+        <form class="d-grid gap-4" id="boardForm">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" th:field="${userInfo.userId}">
+            <div>
+                <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
+            </div>
+            <div>
+                <div class="d-flex justify-content-between d-grid gap-5">
+                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                        <span class="mb-2">닉네임</span>
+                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.nickname}"></span>
+                    </div>
+                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                        <span class="mb-2">이메일</span>
+                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.email}"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="examTicketNo" class="m-2 text-primary">수험번호</label>
+                <input type="text" class="form-control" th:value="${userInfo.examTicketNo}" readonly>
+                <input type="hidden" id="examTicketNo" name="examTicketNo" th:value="${userInfo.examTicketNo}"/>
+            </div>
+            <div>
+                <label for="examTicket" class="m-2 text-primary">수험표</label>
+                <div>
+                    <input type="file" enctype="multipart/form-data" class="form-control"
+                           id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
+                </div>
+            </div>
+            <div class="text-center m-3">
+<!--                <button type="submit" class="btn btn-primary px-5 py-2" onclick="updateUserInfo();">프로필 수정</button>-->
+            </div>
+        </form>
+
+        <div class="d-grid gap-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-lg btn-warning px-4 my-3 float-end fw-bold" onclick="approval()">승인</button>
+            <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goApprovalList()">목록</button>
+        </div>
+
+        <th:block layout:fragment="script">
+            <script th:src="@{/js/admin/adminFunc.js}"></script>
+        </th:block>
+    </div>
+
+</div>
+<!-- [content] 영역 끝 -->
+
+
+
+</html>
