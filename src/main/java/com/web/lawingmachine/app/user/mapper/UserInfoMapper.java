@@ -19,4 +19,6 @@ public interface UserInfoMapper {
     List<UserInfoVO> selectApprovalList(UserInfoVO param);
 
     int getApprovalListCnt(UserInfoVO param);
+
+    int updateMembershipCd(String userId, String membershipCd);
 }

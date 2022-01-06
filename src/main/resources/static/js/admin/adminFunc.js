@@ -1,4 +1,3 @@
-
 function goBoardList() {
     let form = $('#boardForm');
     form.attr('method', 'get');
@@ -61,9 +60,31 @@ function goApprovalInfo(userId) {
 }
 
 function approval() {
-
+    let userIdArr = [];
+    userIdArr.push($('#userId').val());
+    $.confirm({
+        content: '승인하시겠습니까?',
+        buttons: {
+            '승인': function () {
+                let url = '/admin/board/approval/infoView';
+                let data = {'userIdArr':userIdArr};
+                $.post(url, data, function () {
+                    $.alert('승인되었습니다!');
+                    goApprovalList();
+                });
+            },
+            '닫기':function () {
+            }
+        }
+    })
 }
 
-function multiApproval() {
-
+function multiApproval(obj) {
+    if (!$('input[type=checkbox]:checked').length) {
+        let url = '/modal/alert';
+        let modalId = 'multiApproval';
+        let modalText = '승인할 대상을 선택해주세요.';
+        modal(url, modalId, modalText);
+    } else {
+    }
 }

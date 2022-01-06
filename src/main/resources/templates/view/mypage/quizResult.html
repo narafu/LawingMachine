@@ -5,20 +5,97 @@
 
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
-    <div class="border">
-        <div class="fs-3 my-4 text-center">로잉머신 진단결과</div>
+    <form id="quizResultForm">
+        <input type="hidden" name="examGrpCd" value="10" id="examGrpCd"/>
+        <input type="hidden" name="examYear" value="2022" id="examYear"/>
+        <input type="hidden" name="examNo" value="1" id="examNo"/>
+    </form>
+    <div class="border px-5 py-4">
+        <div class="fs-3 my-4 fw-bold text-center">로잉머신 진단결과</div>
         <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">예비 변호사님, 시험을 치르느라 수고많으셨습니다.</div>
-        <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">시험결과 예비 변호사님은 제11회 변호사시험 빌보드에서 총
-            1232명 가운데 32등을 하셨습니다. 사례형에서 평균적으로 00점 이상을 맞는다면 이번 제 11회 변호사시험 합격을 기대해볼 수 있겠습니다.
+        <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">
+            시험결과 예비 변호사님은 제11회 변호사시험 빌보드에서 총
+            <span class="fw-bold text-danger" id="allCnt"></span>명 가운데 <span class="fw-bold text-danger" id="rank"></span>등을 하셨습니다.
+            사례형에서 평균적으로 00점 이상을 맞는다면 이번 제 11회 변호사시험 합격을 기대해볼 수 있겠습니다.
         </div>
-        <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">따라서 위 사항들을 종합하여 판단하건데 현재 예비 변호사님이 제
-            11회 변호사시험에서 합격할 가능성은 다소 어렵습니다.
+        <div class="fs-5 m-3" style="font-family: 'NEXON Lv1 Gothic OTF';">
+            따라서 위 사항들을 종합하여 판단하건데 현재 예비 변호사님이 제 11회 변호사시험에서 합격할 가능성은 다소 어렵습니다.
         </div>
-        <div class="fs-4 my-4 text-center">2022. 1. 13</div>
+        <div class="fs-4 mt-4 text-center fw-bold" id="regDt"></div>
+    </div>
+    <div class="border px-5 py-4 mt-5 calculator">
+        <div class="fs-3 my-4 fw-bold text-center">객관식 컷</div>
+        <div class="text-start">
+            <span class="fw-bold fs-4 align-middle"> [ </span>
+            <input type="text" class="m-1 text-center" style="width: 60px;" value="" id="cal-start"/>
+            <span>(합격커트라인)</span>
+            <span class="fw-bold fs-4 align-middle"> - </span>
+        </div>
+        <div class="text-center">
+            <span class="fw-bold fs-5 align-middle"> ( </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(헌법)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(행정법)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(형법)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(형소법 사례)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(공법)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <span>(형사법 기록)</span>
+        </div>
+        <div class="text-end">
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="175"/>
+            <span>(민사법 사례)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="87.5"/>
+            <span>(민사법 기록)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="80"/>
+            <span>(선택법 사례)</span>
+            <span class="fw-bold fs-5 align-middle"> ) </span>
+            <span class="fw-bold fs-4 align-middle"> ] </span>
+            <span class="fw-bold fs-4 align-middle"> / 2.5 </span>
+            <span>(객관식 1문제 점수)</span>
+        </div>
+        <div class="text-end">
+            <span class="fw-bold fs-3"> = </span>
+            <input type="text" class="m-1 text-center fw-bold fs-3" style="width: 120px; background-color: #eeeeee;" value="" id="cal-result" readonly/>
+        </div>
+        <div class="text-end">
+            <span>(객관식 문제 갯수)</span>
+        </div>
     </div>
 </div>
 <!-- [content] 영역 끝 -->
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/mypage/mypageFunc.js}"></script>
+    <script>
+        $(function () {
+            let url = '/mypage/quizResult/data';
+            let data = $('#quizResultForm').serialize();
+            $.get(url, data).done(function (result) {
+                $('#allCnt').text(result['ALL_CNT']);
+                $('#rank').text(result['RANK']);
+                $('#regDt').text(result['REG_DT']);
+            })
+        })
+        $('.calculator input').on('keyup', function () {
+            let result = parseInt($('#cal-start').val());
+            $('.calculator input').not(':first').not(':last').each(function (index, item) {
+                result = result - $(item).val();
+            })
+            console.log(result);
+            $('#cal-result').val(Math.ceil(result/2.5)) ;
+        })
+    </script>
 </th:block>

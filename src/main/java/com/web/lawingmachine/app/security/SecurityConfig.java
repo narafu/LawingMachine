@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .userInfoEndpoint()
             .userService(customOAuth2UserService)
         .and()
-            .defaultSuccessUrl("/loginSuccess")
+            .defaultSuccessUrl("/mypage/myprofile")
             .failureUrl("/loginFailure")
         .and()
             .exceptionHandling()

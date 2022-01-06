@@ -159,16 +159,13 @@ public class QuizController {
     @RequestMapping("/infoView/delete")
     @ResponseBody
     public ResultMessageVO delQuizMstrInfo(QuizMstrInfoVO param) {
-
         ResultMessageVO result = new ResultMessageVO();
         int resultCnt = adminService.delQuizMstrInfo(param);
-
         if (resultCnt > 0) {
             result.setMessage("삭제되었습니다.");
         } else {
             result.setMessage("오류가 발생하였습니다.");
         }
-
         return result;
     }
 }

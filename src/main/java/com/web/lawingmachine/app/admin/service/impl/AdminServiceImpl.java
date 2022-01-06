@@ -81,4 +81,9 @@ public class AdminServiceImpl implements AdminService {
     public int getApprovalListCnt(UserInfoVO param) {
         return userInfoMapper.getApprovalListCnt(param);
     }
+
+    @Override
+    public int updateMembershipCd(String userId, String membershipCd) {
+        return userInfoMapper.updateMembershipCd(userId, membershipCd);
+    }
 }

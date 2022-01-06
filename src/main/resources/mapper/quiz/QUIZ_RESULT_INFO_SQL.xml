@@ -46,13 +46,18 @@
     <select id="selectQuizResultList" resultType="HashMap">
         SELECT
             RANK() OVER(ORDER BY RESULT_CNT DESC) AS RANK
+            , USER_ID
             , NICKNAME
             , RESULT_CNT
+            , COUNT(*) as ALL_CNT
+            , REG_DT
         FROM (
             SELECT
                 (SELECT NICKNAME FROM USER_INFO WHERE USER_ID = A.USER_ID) AS NICKNAME
+                , USER_ID
                 , SUM(RESULT_CNT) AS RESULT_CNT
                 , COUNT(*) OVER(PARTITION BY SUBJECT_TYPE_CD) AS CNT
+                , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
             FROM QUIZ_RESULT_INFO A
             WHERE DEL_YN = 'N'
                 AND EXAM_GRP_CD = #{examGrpCd}

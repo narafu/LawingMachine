@@ -1,12 +1,14 @@
 package com.web.lawingmachine.app.admin.controller;
 
 import com.web.lawingmachine.app.admin.service.AdminService;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.user.service.UserService;
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -53,6 +55,22 @@ public class ApprovalController {
         UserInfoVO userInfo = userService.getUserInfo(userId);
         model.addAttribute("userInfo", userInfo);
         return "/view/admin/approval/infoView :: #boardContent";
+    }
+
+    @PostMapping("/infoView")
+    @ResponseBody
+    public ResultMessageVO approval(String[] userIdArr) {
+        ResultMessageVO result = new ResultMessageVO();
+        int resultCnt = 0;
+        for (String userId : userIdArr) {
+            resultCnt += adminService.updateMembershipCd(userId, "20");
+        }
+        if (resultCnt > 0) {
+            result.setMessage("승인되었습니다.");
+        } else {
+            result.setMessage("오류가 발생하였습니다.");
+        }
+        return result;
     }
 
 }

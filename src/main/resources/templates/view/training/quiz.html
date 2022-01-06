@@ -61,20 +61,29 @@
 
                             <div class="d-flex" style="font-family: 'GongGothicMedium';">
                                 <div class="form-check mx-3">
-                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"
-                                           id="userChkImprt"
-                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">
-                                    <label class="form-check-label" for="userChkImprt">중요</label>
+<!--                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"-->
+<!--                                           id="userChkImprt"-->
+<!--                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">-->
+<!--                                    <label class="form-check-label" for="userChkImprt">중요</label>-->
                                 </div>
                                 <div class="form-check mx-3">
-                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd"
-                                           id="userChkCnfsd"
-                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">
-                                    <label class="form-check-label" for="userChkCnfsd">헷갈림</label>
+<!--                                    <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd"-->
+<!--                                           id="userChkCnfsd"-->
+<!--                                           th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">-->
+<!--                                    <label class="form-check-label" for="userChkCnfsd">헷갈림</label>-->
                                 </div>
                             </div>
                         </div>
-                        <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>
+<!--                        <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>-->
+                        <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
+                        <div class="my-5 border border-primary px-3 py-2" id="quizCntntDiv"></div>
+                        <script>
+                            let quizCntntDiv = toastui.Editor.factory({
+                                el: document.querySelector('#quizCntntDiv'),
+                                viewer: true,
+                                initialValue: $('#content').val()
+                            })
+                        </script>
                     </div>
 
                     <div class="d-flex justify-content-between" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
@@ -85,7 +94,7 @@
                     <div class="d-grid gap-3">
                         <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
                             <div class="my-3 exDiv d-flex text-start">
-                                <i class="fas fa-eraser" onclick="eraser(this);"></i>
+<!--                                <i class="fas fa-eraser" onclick="eraser(this);"></i>-->
                                 <a class="list-group-item list-group-item-action mx-3"
                                    th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
                                    onclick="chkAnswer(this);">
@@ -210,6 +219,7 @@
         $(function () {
             getAjaxQuizMstrInfo();
         })
+    </script>
     </script>
 </th:block>
 

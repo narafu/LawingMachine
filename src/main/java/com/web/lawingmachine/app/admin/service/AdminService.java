@@ -23,4 +23,5 @@ public interface AdminService {
 
     int getApprovalListCnt(UserInfoVO param);
 
+    int updateMembershipCd(String userId, String membershipCd);
 }

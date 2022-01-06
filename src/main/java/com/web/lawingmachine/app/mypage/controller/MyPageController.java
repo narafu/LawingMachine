@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,7 +73,6 @@ public class MyPageController {
         // 공통코드(과목코드)
         List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
-
         model.addAttribute("leftsidebarCd", "20");
 
         return "/view/mypage/reviewNote";
@@ -93,9 +93,28 @@ public class MyPageController {
     }
 
     @GetMapping("/quizResult")
-    public String quizResult(ModelMap model) {
+    public String quizResult(QuizMstrInfoVO param, ModelMap model) {
         model.addAttribute("leftsidebarCd", "30");
         return "/view/mypage/quizResult";
+    }
+
+    @GetMapping("/quizResult/data")
+    @ResponseBody
+    public Map<String, String> quizResultData(HttpServletRequest req, QuizMstrInfoVO param, ModelMap model) {
+
+        Map<String, String> result = new HashMap<>();
+
+        SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+        String userId = sessionUser.getUserId();
+
+        List<Map<String, String>> quizResultList = quizService.selectQuizResultList(param);
+        for (Map<String, String> map : quizResultList) {
+            if (userId.equals(map.get("USER_ID"))) {
+                result = map;
+                break;
+            }
+        }
+        return result;
     }
 
     @RequestMapping("/quizResultInfoModal")

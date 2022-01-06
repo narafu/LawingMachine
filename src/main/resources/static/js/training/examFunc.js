@@ -51,7 +51,6 @@ function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
     let data = $('#examMainForm').serialize();
 
     $.get(url, data, function (result) {
-        console.log(result);
         $('#quizMstrInfoDiv').replaceWith(result);
 
         // 진행률 반영

@@ -60,6 +60,9 @@
                 if(obj.rowKey == undefined) {
                     return;
                 }
+                if(obj.columnName == '_checked') {
+                    return;
+                }
                 let userId = grid.getValue(obj.rowKey, 'userId');
                 goApprovalInfo(userId);
             })
