@@ -22,12 +22,12 @@ function getReviewNoteSubject(obj, subjectTypeCd) {
     $(obj).closest('ul').find('li a').css('color', 'black');
     $(obj).addClass('active');
     $(obj).find('a').css('color', 'white');
-    selectQuizResultData();
+    selectReviewNoteData();
 }
 
-function selectQuizResultData() {
+function selectReviewNoteData() {
     $.get('/mypage/reviewNote/data', $('#reviewNoteForm').serialize(), function (result) {
-        $('#quizResultData').html(result);
+        $('#reviewNoteData').html(result);
     })
 }
 

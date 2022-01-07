@@ -89,7 +89,7 @@ public class MyPageController {
         List<QuizMstrInfoVO> quizResultRatioList = quizService.selectQuizResultRatioList(param);
         model.addAttribute("quizResultRatioList", quizResultRatioList);
 
-        return "/view/mypage/quizResultData";
+        return "/view/mypage/reviewNoteData";
     }
 
     @GetMapping("/quizResult")

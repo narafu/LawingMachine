@@ -27,39 +27,39 @@
         <div class="fs-3 my-4 fw-bold text-center">객관식 컷</div>
         <div class="text-start">
             <span class="fw-bold fs-4 align-middle"> [ </span>
-            <input type="text" class="m-1 text-center" style="width: 60px;" value="" id="cal-start"/>
+            <input type="text" class="m-1 text-center" style="width: 60px;" value="" id="cal-start" maxlength="4"/>
             <span>(합격커트라인)</span>
             <span class="fw-bold fs-4 align-middle"> - </span>
         </div>
         <div class="text-center">
             <span class="fw-bold fs-5 align-middle"> ( </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(헌법)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(행정법)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(형법)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(형소법 사례)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(공법)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="50"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(형사법 기록)</span>
         </div>
         <div class="text-end">
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="175"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="175" maxlength="4"/>
             <span>(민사법 사례)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="87.5"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="87.5" maxlength="4"/>
             <span>(민사법 기록)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="80"/>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="80" maxlength="4"/>
             <span>(선택법 사례)</span>
             <span class="fw-bold fs-5 align-middle"> ) </span>
             <span class="fw-bold fs-4 align-middle"> ] </span>
@@ -94,7 +94,6 @@
             $('.calculator input').not(':first').not(':last').each(function (index, item) {
                 result = result - $(item).val();
             })
-            console.log(result);
             $('#cal-result').val(Math.ceil(result/2.5)) ;
         })
     </script>
