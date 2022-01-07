@@ -60,17 +60,6 @@ server:
   port: 8090
   max-http-header-size: 400000
 
-# jpa:
-#   database-platform: org.hibernate.dialect.MariaDB103Dialect
-#   properties:
-#     hibernate:
-#       format_sql: true
-#       hbm2ddl.auto: update
-#       implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-#       physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-#   open-in-view: false
-#   show-sql: true
-
 logging:
   pattern:
     console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
