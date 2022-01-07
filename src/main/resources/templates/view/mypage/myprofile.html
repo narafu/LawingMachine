@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/mypageLayout}">
 
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
 
-    <form class="d-grid gap-4" id="myprofileForm">
+    <form class="d-grid gap-4" id="myprofileForm" enctype="multipart/form-data">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <input type="hidden" th:field="${userInfo.userId}">
         <div>
@@ -53,7 +53,7 @@
             <small class="form-text text-danger">* 수험표는 등록 후 수정할 수 없습니다.</small>
             <div>
                 <input type="file" enctype="multipart/form-data" class="form-control"
-                    id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
+                    id="examTicket" name="examTicketFile" th:value="${userInfo.examTicket}">
             </div>
 <!--            <input type="hidden" class="form-control" id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">-->
 <!--            <th:block th:if="${#strings.equals(userInfo.membershipCd, '10')}">-->

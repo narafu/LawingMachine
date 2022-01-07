@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: local
+    active: was
   servlet:
     multipart:
       enabled: true # 멀티파트 업로드 지원여부 (default: true)
@@ -111,6 +111,6 @@ spring:
     activate:
       on-profile: was
   datasource:
-    url: jdbc:mysql://rowingmachine.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/rowing_db?autoReconnect=true
+    url: jdbc:mariadb://lawingmachine-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
     username: root
     password: root1234
