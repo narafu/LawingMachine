@@ -14,7 +14,7 @@ public class UserInfoVO extends BaseVO {
     private String email;
     private String mobile;
     private int loginCnt;
-    private String membershipCd;
+    private String membershipCd = "20";
     private String membershipNm;
     private String examTicket;
     private String examTicketPath;

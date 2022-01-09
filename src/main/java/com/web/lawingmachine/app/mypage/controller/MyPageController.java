@@ -164,20 +164,26 @@ public class MyPageController {
 
     @GetMapping("/quizResult/data")
     @ResponseBody
-    public Map<String, String> quizResultData(HttpServletRequest req, QuizMstrInfoVO param) {
+    public Map<String, Object> quizResultData(HttpServletRequest req, QuizMstrInfoVO param) {
 
-        Map<String, String> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
         SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
         String userId = sessionUser.getUserId();
 
-        List<Map<String, String>> quizResultList = quizService.selectQuizResultList(param);
-        for (Map<String, String> map : quizResultList) {
+        List<Map<String, Object>> quizResultList = quizService.selectQuizResultList(param);
+        for (Map<String, Object> map : quizResultList) {
             if (userId.equals(map.get("USER_ID"))) {
                 result = map;
                 break;
             }
         }
+
+        List<Map<String, Object>> quizResultInfo = quizService.getquizResultInfo(userId);
+        for (Map<String, Object> map : quizResultInfo) {
+            result.put((String) map.get("SUBJECT_TYPE_CD"), map.get("RESULT_CNT"));
+        }
+
         return result;
     }
 

@@ -13,5 +13,7 @@ public interface QuizResultInfoMapper {
 
     int getQuizResultUserSubjectCnt(QuizMstrInfoVO param);
 
-    List<Map<String, String>> selectQuizResultList(QuizMstrInfoVO param);
+    List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param);
+
+    List<Map<String, Object>> getquizResultInfo(String userId);
 }

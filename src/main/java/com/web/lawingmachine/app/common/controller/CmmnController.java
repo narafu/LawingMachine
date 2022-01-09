@@ -36,7 +36,7 @@ public class CmmnController {
     @GetMapping(value = {"/index/billboard"})
     public String selectQuizResultData(QuizMstrInfoVO param, Model model) {
         // 빌보드
-        List<Map<String, String>> billBoardList = quizService.selectQuizResultList(param);
+        List<Map<String, Object>> billBoardList = quizService.selectQuizResultList(param);
         Object[] arr = billBoardList.toArray();
         int size = 10;
         for (int i = 0; i < arr.length; i += size) {

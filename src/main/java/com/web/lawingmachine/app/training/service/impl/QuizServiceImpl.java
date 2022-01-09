@@ -107,7 +107,12 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<Map<String, String>> selectQuizResultList(QuizMstrInfoVO param) {
+    public List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param) {
         return quizResultInfoMapper.selectQuizResultList(param);
+    }
+
+    @Override
+    public List<Map<String, Object>> getquizResultInfo(String userId) {
+        return quizResultInfoMapper.getquizResultInfo(userId);
     }
 }
