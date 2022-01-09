@@ -19,6 +19,4 @@ public interface BrdMstrInfoMapper {
     int delBoardInfo(BoardVO param);
 
     int updateBoardInfo(BoardVO param);
-
-    int insertBrdViews(BoardVO param);
 }

@@ -2,10 +2,8 @@ package com.web.lawingmachine.app.board.vo;
 
 import com.web.lawingmachine.app.common.vo.BaseVO;
 import lombok.Data;
-import org.apache.ibatis.type.Alias;
 
 @Data
-@Alias("BoardVO")
 public class BoardVO extends BaseVO {
 
     private String brdMstrInfoSeq;

@@ -1,5 +1,6 @@
-package com.web.lawingmachine.app.security;
+package com.web.lawingmachine.app.config;
 
+import com.web.lawingmachine.app.security.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

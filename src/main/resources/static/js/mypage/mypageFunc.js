@@ -1,18 +1,50 @@
+function uploadImage() {
+
+    if (!$("#imageInput").val()) {
+        return;
+    }
+
+    var header = $("meta[name='_csrf_header']").attr('content');
+    var token = $("meta[name='_csrf']").attr('content');
+
+    let url = '/mypage/myprofile/uploadImage';
+    let formData = new FormData();
+    formData.append("examTicketFile", $("#imageInput")[0].files[0]); // input 추가
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+            let image = result['value'];
+            console.log(image);
+            $("#examTicket").attr("src", image);
+        },
+        error: function (result) {
+            alert(result['message']);
+        }
+    });
+}
+
 function updateUserInfo() {
-    // let examTicketHtml = examTicket.getHTML();
-    // if(examTicketHtml == '<p><br></p>') {
-    //     $('#examTicket').val('');
-    // } else {
-    //     $('#examTicket').val(examTicketHtml);
-    // }
+
+    // 이미지 업로드
+    uploadImage();
+
     let url = '/mypage/myprofile';
-    let param = $('#myprofileForm').serialize();
-    $.post(url, param, function (result) {
-        alert(result['message']);
-        // let url = '/modal/alert';
-        // let modalId = 'quizNotYetAlert';
-        // let modalText = result['message'];
-        // modal(url, modalId, modalText);
+    let data = $('#myprofileForm').serialize();
+    $.post(url, data, function (result) {
+        let url = '/modal/alert';
+        let modalId = 'updateUserInfo';
+        let modalText = result['message'];
+        modal(url, modalId, modalText);
+        $.get('/mypage/myprofile');
     })
 }
 
@@ -57,7 +89,7 @@ function quizResultInfoModal(obj, quizMstrInfoSeq) {
 
 function toggleCmntr() {
     $('#cmntrDiv').slideToggle();
-    $('html,body').animate({ scrollTop: $('#cmntrDiv').offset().top }, 100);
+    $('html,body').animate({scrollTop: $('#cmntrDiv').offset().top}, 100);
 }
 
 function toggleDtlCmntr(obj) {

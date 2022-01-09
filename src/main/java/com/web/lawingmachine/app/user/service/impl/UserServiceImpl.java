@@ -36,4 +36,9 @@ public class UserServiceImpl implements UserService {
         return userInfoMapper.updateLoginUserInfo(userInfoVO);
     }
 
+    @Override
+    public int uploadImage(String examTicketPath, String filename, String userId) {
+        return userInfoMapper.uploadImage(examTicketPath, filename, userId);
+    }
+
 }

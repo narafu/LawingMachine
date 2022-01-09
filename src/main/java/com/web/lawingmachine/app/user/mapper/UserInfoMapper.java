@@ -2,6 +2,7 @@ package com.web.lawingmachine.app.user.mapper;
 
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface UserInfoMapper {
     int getApprovalListCnt(UserInfoVO param);
 
     int updateMembershipCd(String userId, String membershipCd);
+
+    int uploadImage(@Param("examTicketPath") String examTicketPath, @Param("examTicket") String filename, @Param("userId") String userId);
 }

@@ -8,7 +8,7 @@
 			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">내 프로필</a></li>
 <!--		<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/reviewNote"-->
 <!--			th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">오답노트</a></li>-->
-		<th:block th:unless="${#strings.equals(session.sessionUser.membershipCd, '10') and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
+		<th:block th:if="${not #strings.equals(userInfo.membershipCd, '10') or #strings.equals(userInfo.role, 'ROLE_ADMIN')}">
 			<li class="nav-item m-2"><a class="nav-link py-3" href="/mypage/quizResult"
 				th:classappend="${#strings.equals(leftsidebarCd, '30')} ? 'active'">진단결과</a></li>
 		</th:block>

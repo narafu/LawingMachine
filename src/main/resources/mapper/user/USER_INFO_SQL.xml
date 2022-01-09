@@ -50,6 +50,7 @@
 			, PASSWORD
 			, NICKNAME
 			, EXAM_TICKET
+			, EXAM_TICKET_PATH
 			, EXAM_TICKET_NO
 			, MEMBERSHIP_CD
 			,
@@ -74,11 +75,17 @@
 			 <if test="nickname != null and nickname != ''">
 				, NICKNAME = #{nickname}
 			 </if>
+			<if test="examTicketNo != null and examTicketNo != ''">
+				, EXAM_TICKET_NO = #{examTicketNo}
+			</if>
+		WHERE USER_ID = #{userId}
+	</update>
+
+	<update id="uploadImage">
+		UPDATE USER_INFO SET
+			MDFY_TS = current_timestamp()
 			, EXAM_TICKET = #{examTicket}
-			, EXAM_TICKET_NO = #{examTicketNo}
-<!--			 <if test="membershipCd != null and membershipCd != ''">-->
-<!--				, MEMBERSHIP_CD = #{membershipCd}-->
-<!--			 </if>-->
+			, EXAM_TICKET_PATH = #{examTicketPath}
 		WHERE USER_ID = #{userId}
 	</update>
 
@@ -97,6 +104,7 @@
 			, NICKNAME
 			, EMAIL
 			, EXAM_TICKET
+			, EXAM_TICKET_PATH
 			, EXAM_TICKET_NO
 			, MEMBERSHIP_CD
 			,

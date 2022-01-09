@@ -8,4 +8,5 @@ public class ResultMessageVO {
     private String message;
     private int resultCnt;
     private String resultCode;
+    private String value;
 }

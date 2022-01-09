@@ -12,4 +12,5 @@ public interface UserService {
 
     int updateLoginUserInfo(UserInfoVO userInfoVO);
 
+    int uploadImage(String examTicketPath, String filename, String userId);
 }
