@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: local
+    active: was
   thymeleaf:
     cache: false
   security:
@@ -56,15 +56,14 @@ server:
 logging:
   pattern:
     console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
-    file: "%-4relative [%thread] %-5level %logger{35} - %msg%n"
-  #  logback:
-  #    rollingpolicy:
-  #      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}_%i.zip"
-  #  file:
-  #    name: logs
-  #    max-history: 7
-  #    max-size: 5KB
-  #    total-size-cap: 1MB
+    logback:
+      rollingpolicy:
+        file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}_%i.zip"
+    file:
+      name: logs
+      max-history: 7
+      max-size: 5KB
+      total-size-cap: 1MB
   level:
     root: INFO
     com.web.lawingmachine: DEBUG
@@ -93,6 +92,24 @@ spring:
 
 ---
 
+# dev
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  servlet:
+    multipart:
+      location: /home/ec2-user/app/LawingMachine # 업로드된 파일의 임시 저장 공간
+      max-file-size: 100MB # 파일의 최대 사이즈 (default: 1MB)
+      max-request-size: 100MB # 요청의 최대 사이즈 (default: 10MB)
+  datasource:
+    url: jdbc:mariadb://lawingmachine-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
+    username: root
+    password: root1234
+
+---
+
 # was
 
 spring:
@@ -101,12 +118,10 @@ spring:
       on-profile: was
   servlet:
     multipart:
-      #      enabled: true # 멀티파트 업로드 지원여부 (default: true)
-      #      file-size-threshold: 1MB #  파일이 메모리에 기록되는 임계값 (default: 0B)
       location: /home/ec2-user/app/LawingMachine # 업로드된 파일의 임시 저장 공간
       max-file-size: 100MB # 파일의 최대 사이즈 (default: 1MB)
       max-request-size: 100MB # 요청의 최대 사이즈 (default: 10MB)
   datasource:
-    url: jdbc:mariadb://lawingmachine-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
+    url: jdbc:mariadb://lawingmachine-db.cipovbn5uz6l.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
     username: root
     password: root1234
