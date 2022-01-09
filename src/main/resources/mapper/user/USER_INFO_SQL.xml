@@ -40,7 +40,7 @@
 		)
 	</insert>
 	
-	<select id="getUserInfo" resultType="UserInfoVO">
+	<select id="getUserInfo" resultType="com.web.lawingmachine.app.user.vo.UserInfoVO">
 		SELECT
 			USER_INFO_SEQ
 			, USER_ID
@@ -96,7 +96,7 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
-	<select id="selectApprovalList" resultType="UserInfoVO">
+	<select id="selectApprovalList" resultType="com.web.lawingmachine.app.user.vo.UserInfoVO">
 		SELECT
 			ROW_NUMBER () OVER(ORDER BY MDFY_TS DESC) AS RNO
 			, USER_ID
