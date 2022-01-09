@@ -106,6 +106,7 @@
 			, EXAM_TICKET
 			, EXAM_TICKET_PATH
 			, EXAM_TICKET_NO
+			, CASE WHEN ISNULL(EXAM_TICKET) THEN 'N' ELSE 'Y' END AS EXAM_TICKET_YN
 			, MEMBERSHIP_CD
 			,
 			<include refid="util.getComnCodeNm">

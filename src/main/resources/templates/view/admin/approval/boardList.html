@@ -10,15 +10,16 @@
         <h4>승인게시판</h4>
 
         <form id="boardForm">
-            <input type="hidden" name="offset" id="offset" th:value="${userInfoVO.offset}" />
-            <input type="hidden" name="userId" id="userId" value="" />
+            <input type="hidden" name="offset" id="offset" th:value="${userInfoVO.offset}"/>
+            <input type="hidden" name="userId" id="userId" value=""/>
         </form>
 
         <div id="totalDiv"></div>
         <div class="mt-4" id="grid"></div>
         <div id="pagingDiv" class="tui-pagination"></div>
 
-        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center" onclick="multiApproval();">
+        <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end d-grid gap-2 d-flex align-items-center"
+                onclick="multiApproval();">
             <span>일괄승인</span>
         </button>
     </div>
@@ -35,32 +36,33 @@
             scrollY: false,
             rowHeaders: ['checkbox'],
             columns: [
-                { header: 'No', name: 'rno', width: 60, align: 'center'}
-                , { header: '회원구분', name: 'membershipNm', width: 120, align: 'center', filter: 'select'}
-                , { header: '닉네임', name: 'nickname', width: 200, align: 'center', filter: 'select'}
-                , { header: '유저명', name: 'userNm', width: 140, align: 'center', filter: 'select'}
-                , { header: '이메일', name: 'email', align: 'center', filter: 'select'}
-                , { header: '수험번호', name: 'examTicketNo', width: 200, align: 'center', filter: 'select'}
+                {header: 'No', name: 'rno', width: 60, align: 'center'}
+                , {header: '회원구분', name: 'membershipNm', width: 120, align: 'center', filter: 'select'}
+                , {header: '닉네임', name: 'nickname', width: 200, align: 'center', filter: 'select'}
+                , {header: '유저명', name: 'userNm', width: 140, align: 'center', filter: 'select'}
+                , {header: '이메일', name: 'email', align: 'center', filter: 'select'}
+                , {header: '수험번호', name: 'examTicketNo', width: 200, align: 'center', filter: 'select'}
+                , {header: '수험표', name: 'examTicketYn', width: 100, align: 'center', filter: 'select'}
             ]
         });
 
-        $(function() {
+        $(function () {
 
             tui.Grid.applyTheme('clean', {
                 row: {
-                    hover: { background: '#eee' }
+                    hover: {background: '#eee'}
                 },
                 cell: {
-                    header: { background: '#ccc', showHorizontalBorder: 'true'  },
-                    normal: { background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true' }
+                    header: {background: '#ccc', showHorizontalBorder: 'true'},
+                    normal: {background: '#fbfbfb', border: '#086972', showHorizontalBorder: 'true'}
                 }
             });
 
             grid.on('click', (obj) => {
-                if(obj.rowKey == undefined) {
+                if (obj.rowKey == undefined) {
                     return;
                 }
-                if(obj.columnName == '_checked') {
+                if (obj.columnName == '_checked') {
                     return;
                 }
                 let userId = grid.getValue(obj.rowKey, 'userId');
@@ -82,9 +84,9 @@
                 grid.resetData(result.list);
 
                 let options = {
-                    totalItems : result.total
-                    , itemsPerPage : result.pageSize
-                    , page : result.offset + 1
+                    totalItems: result.total
+                    , itemsPerPage: result.pageSize
+                    , page: result.offset + 1
                 }
 
                 let pagination = new tui.Pagination('pagingDiv', options);

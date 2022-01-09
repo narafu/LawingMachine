@@ -60,23 +60,27 @@ function goApprovalInfo(userId) {
 }
 
 function approval() {
+
     let userIdArr = [];
     userIdArr.push($('#userId').val());
-    $.confirm({
-        content: '승인하시겠습니까?',
-        buttons: {
-            '승인': function () {
-                let url = '/admin/board/approval/infoView';
-                let data = {'userIdArr':userIdArr};
-                $.post(url, data, function () {
-                    $.alert('승인되었습니다!');
-                    goApprovalList();
-                });
+    let url = '/admin/board/approval/infoView';
+    let data = {'userIdArr': userIdArr};
+    var header = $("meta[name='_csrf_header']").attr('content');
+    var token = $("meta[name='_csrf']").attr('content');
+
+    if (confirm("승인하시겠습니까?")) {
+        var request = $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
             },
-            '닫기':function () {
-            }
-        }
-    })
+        });
+        request.done(function (result) {
+            alert(result['message']);
+        });
+    }
 }
 
 function multiApproval(obj) {
@@ -86,5 +90,6 @@ function multiApproval(obj) {
         let modalText = '승인할 대상을 선택해주세요.';
         modal(url, modalId, modalText);
     } else {
+
     }
 }

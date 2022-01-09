@@ -19,6 +19,7 @@ public class UserInfoVO extends BaseVO {
     private String examTicket;
     private String examTicketPath;
     private String examTicketNo;
+    private String examTicketYn;
     private String role = "ROLE_USER";
 
     private String password;

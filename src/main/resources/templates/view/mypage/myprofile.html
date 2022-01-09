@@ -73,7 +73,8 @@
                                id="imageInput" name="examTicketFile" th:value="${userInfo.examTicket}">
                     </form>
                 </th:block>
-                <img class="w-100 my-3" alt="수험표" th:src="${userInfo.examTicketPath}" id="examTicketImg">
+                <img class="w-100 my-3" th:if="${not #strings.isEmpty(userInfo.examTicketPath)}"
+                    alt="수험표" th:src="${userInfo.examTicketPath}" id="examTicketImg">
             </div>
         </div>
     </form>

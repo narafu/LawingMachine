@@ -26,24 +26,29 @@
                 </div>
             </div>
             <div>
-                <label for="examTicketNo" class="m-2 text-primary">수험번호</label>
-                <input type="text" class="form-control" th:value="${userInfo.examTicketNo}" readonly>
-                <input type="hidden" id="examTicketNo" name="examTicketNo" th:value="${userInfo.examTicketNo}"/>
-            </div>
-            <div>
-                <label for="examTicket" class="m-2 text-primary">수험표</label>
-                <div>
-                    <input type="file" enctype="multipart/form-data" class="form-control"
-                           id="examTicket" name="examTicket" th:value="${userInfo.examTicket}">
+                <div class="d-flex justify-content-between d-grid gap-5">
+                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                        <span class="mb-2">수험번호</span>
+                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.examTicketNo}"></span>
+                    </div>
+                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
+                        <span class="mb-2">핸드폰번호</span>
+                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.mobile}"></span>
+                    </div>
                 </div>
             </div>
-            <div class="text-center m-3">
-<!--                <button type="submit" class="btn btn-primary px-5 py-2" onclick="updateUserInfo();">프로필 수정</button>-->
+            <div class="d-flex justify-content-between d-grid gap-5"
+                 th:if="${not #strings.isEmpty(userInfo.examTicketPath)}">
+                <div class="form-group w-100">
+                    <label for="examTicketImg" class="text-primary fs-5 fw-bold mt-4">수험표</label>
+                    <img class="w-100 my-3" alt="수험표" th:src="${userInfo.examTicketPath}" id="examTicketImg">
+                </div>
             </div>
         </form>
 
         <div class="d-grid gap-2 d-flex justify-content-end">
-            <button type="button" class="btn btn-lg btn-warning px-4 my-3 float-end fw-bold" onclick="approval()">승인</button>
+            <button type="button" th:if="${#strings.equals(userInfo.membershipCd, 10)}"
+                    class="btn btn-lg btn-warning px-4 my-3 float-end fw-bold" onclick="approval()">승인</button>
             <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goApprovalList()">목록</button>
         </div>
 
