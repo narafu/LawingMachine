@@ -3,7 +3,7 @@
 
 <mapper namespace="com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper">
 
-	<select id="selectQuizDtlList" resultType="QuizDtlInfoVO">
+	<select id="selectQuizDtlList" resultType="com.web.lawingmachine.app.training.vo.QuizDtlInfoVO">
 		SELECT
 			ROW_NUMBER() OVER(ORDER BY A.SRT_NO) AS RNO
 			, A.QUIZ_MSTR_INFO_SEQ

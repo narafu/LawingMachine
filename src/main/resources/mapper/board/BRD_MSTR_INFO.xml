@@ -8,7 +8,7 @@
 		AND BRD_TYPE_CD = #{brdTypeCd}
 	</sql>
 	
-	<select id="selectBoardList" resultType="BoardVO">
+	<select id="selectBoardList" resultType="com.web.lawingmachine.app.board.vo.BoardVO">
 		SELECT
 			ROW_NUMBER() OVER(ORDER BY BRD_MSTR_INFO_SEQ DESC) AS RNO
 			, BRD_MSTR_INFO_SEQ
@@ -43,7 +43,7 @@
 		<include refid="selectBoardList-where"/>
 	</select>
 
-	<select id="getBoardInfo" resultType="BoardVO">
+	<select id="getBoardInfo" resultType="com.web.lawingmachine.app.board.vo.BoardVO">
 		SELECT
 			BRD_MSTR_INFO_SEQ
 			, BRD_TYPE_CD

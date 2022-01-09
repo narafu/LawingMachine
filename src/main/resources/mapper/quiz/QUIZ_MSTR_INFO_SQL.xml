@@ -3,7 +3,7 @@
 
 <mapper namespace="com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper">
 
-    <select id="selectAjaxQuizNavList" resultType="QuizMstrInfoVO">
+    <select id="selectAjaxQuizNavList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
             ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
              , A.QUIZ_MSTR_INFO_SEQ
@@ -41,7 +41,7 @@
         ORDER BY A.SRT_NO;
     </select>
 
-    <select id="selectQuizSubjectUserList" resultType="QuizMstrInfoVO">
+    <select id="selectQuizSubjectUserList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
                A.GRP_DTL_NM      AS SUBJECT_TYPE_NM
              , A.GRP_DTL_CD      AS SUBJECT_TYPE_CD
@@ -82,7 +82,7 @@
           AND SUBJECT_TYPE_CD = #{subjectTypeCd}
     </select>
 
-    <select id="getQuizMstrInfo" resultType="QuizMstrInfoVO">
+    <select id="getQuizMstrInfo" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
             A.QUIZ_MSTR_INFO_SEQ
             , A.EXAM_YEAR
@@ -135,7 +135,7 @@
         AND DEL_YN = 'N'
     </sql>
 
-    <select id="selectQuizList" resultType="QuizMstrInfoVO">
+    <select id="selectQuizList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
             ROW_NUMBER() OVER(ORDER BY REG_TS DESC) AS RNO
             , QUIZ_MSTR_INFO_SEQ
@@ -228,7 +228,7 @@
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
     </update>
 
-    <select id="getQuizInfo" resultType="QuizMstrInfoVO">
+    <select id="getQuizInfo" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT QUIZ_MSTR_INFO_SEQ
             , EXAM_GRP_CD
             ,

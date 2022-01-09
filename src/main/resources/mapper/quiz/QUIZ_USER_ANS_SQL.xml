@@ -67,7 +67,7 @@
         </if>
     </sql>
 
-    <select id="selectQuizResultRatioList" resultType="QuizMstrInfoVO">
+    <select id="selectQuizResultRatioList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
             A.QUIZ_MSTR_INFO_SEQ
              , A.SUBJECT_TYPE_CD
