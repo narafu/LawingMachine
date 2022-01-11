@@ -40,7 +40,7 @@ public class QuizController {
     public String boardList(QuizMstrInfoVO quizMstrInfoVO, Model model) {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
         model.addAttribute("leftsidebarCd", "10");
-        return "/view/admin/quiz/boardList";
+        return "view/admin/quiz/boardList";
     }
 
     @ResponseBody
@@ -109,7 +109,7 @@ public class QuizController {
 
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/quiz/inputForm :: #boardContent";
+        return "view/admin/quiz/inputForm :: #boardContent";
     }
 
     @GetMapping("/infoView")
@@ -119,7 +119,7 @@ public class QuizController {
         quizMstrInfoVO.setQuizDtlList(quizService.selectQuizDtlList(param));
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "/view/admin/quiz/infoView :: #boardContent";
+        return "view/admin/quiz/infoView :: #boardContent";
     }
 
     @PostMapping("/infoView/insert")

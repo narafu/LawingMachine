@@ -49,7 +49,7 @@ public class MyPageController {
         UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("leftsidebarCd", "10");
-        return "/view/mypage/myprofile";
+        return "view/mypage/myprofile";
     }
 
     @PostMapping("/myprofile/uploadImage")
@@ -136,7 +136,7 @@ public class MyPageController {
         model.addAttribute("CommLst002", CommLst002);
         model.addAttribute("leftsidebarCd", "20");
 
-        return "/view/mypage/reviewNote";
+        return "view/mypage/reviewNote";
     }
 
     @GetMapping("/reviewNote/data")
@@ -150,7 +150,7 @@ public class MyPageController {
         List<QuizMstrInfoVO> quizResultRatioList = quizService.selectQuizResultRatioList(param);
         model.addAttribute("quizResultRatioList", quizResultRatioList);
 
-        return "/view/mypage/reviewNoteData";
+        return "view/mypage/reviewNoteData";
     }
 
     @GetMapping("/quizResult")
@@ -159,7 +159,7 @@ public class MyPageController {
         UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("leftsidebarCd", "30");
-        return "/view/mypage/quizResult";
+        return "view/mypage/quizResult";
     }
 
     @GetMapping("/quizResult/data")

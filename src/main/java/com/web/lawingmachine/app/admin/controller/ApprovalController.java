@@ -27,7 +27,7 @@ public class ApprovalController {
     public String boardList(UserInfoVO userInfoVO, Model model) {
         model.addAttribute("userInfoVO", userInfoVO);
         model.addAttribute("leftsidebarCd", "20");
-        return "/view/admin/approval/boardList";
+        return "view/admin/approval/boardList";
     }
 
     @ResponseBody
@@ -51,7 +51,7 @@ public class ApprovalController {
     public String myProfile(String userId, Model model) {
         UserInfoVO userInfo = userService.getUserInfo(userId);
         model.addAttribute("userInfo", userInfo);
-        return "/view/admin/approval/infoView :: #boardContent";
+        return "view/admin/approval/infoView :: #boardContent";
     }
 
     @PostMapping("/infoView")

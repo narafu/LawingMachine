@@ -33,7 +33,7 @@ public class FreeBoardController {
     public String boardList(BoardVO boardVO, Model model) {
         model.addAttribute("boardVO", boardVO);
         model.addAttribute("leftsidebarCd", "10");
-        return "/view/board/boardList";
+        return "view/board/boardList";
     }
 
     @ResponseBody
@@ -71,7 +71,7 @@ public class FreeBoardController {
 
         model.addAttribute("boardVO", boardVO);
 
-        return "/view/board/inputForm :: #boardContent";
+        return "view/board/inputForm :: #boardContent";
     }
 
     @GetMapping("/infoView")
@@ -90,7 +90,7 @@ public class FreeBoardController {
             resultCnt = boardService.insertBrdViews(param);
         }
 
-        return "/view/board/infoView :: #boardContent";
+        return "view/board/infoView :: #boardContent";
     }
 
     @PostMapping("/infoView/insert")
