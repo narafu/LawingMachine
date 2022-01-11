@@ -65,7 +65,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
             userInfoVO.setNickname(attributes.getName());
             userInfoVO.setMobile(attributes.getMobile());
             userInfoVO.setLoginCnt(1);
-            userInfoVO.setMembershipCd("10");
             userService.insertUserInfo(userInfoVO);
         } else {
             userService.updateLoginUserInfo(userInfoVO);

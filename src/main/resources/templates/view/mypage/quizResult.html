@@ -10,7 +10,7 @@
         <input type="hidden" name="examYear" value="2022" id="examYear"/>
         <input type="hidden" name="examNo" value="1" id="examNo"/>
     </form>
-    <div class="border px-5 py-4" style="font-family: 'NEXON Lv1 Gothic OTF';">
+    <div class="border px-5 py-4" style="font-family: 'NEXON Lv1 Gothic OTF';" id="quizResultY">
         <div class="fs-3 my-4 fw-bold text-center">로잉머신 진단결과</div>
         <p class="fs-5 m-3" >예비 변호사 <span class="fw-bold text-primary nickname"></span>님, 제 11회 변호사시험을 치르느라 수고많으셨습니다.</p>
         <p class="fs-5 m-3">
@@ -28,6 +28,10 @@
             매우 높습니다/높습니다/보통입니다/어렵습니다/다소 어렵습니다.
         </p>
         <div class="fs-4 mt-4 text-center fw-bold" id="regDt"></div>
+    </div>
+
+    <div class="border px-5 py-4" style="font-family: 'NEXON Lv1 Gothic OTF';" id="quizResultN">
+        <p class="fs-5 m-3" >로잉머신 진단결과는 모든 과목을 제출한 이후 확인할 수 있습니다.</p>
     </div>
 
     <div class="border px-5 py-4 mt-5" id="happCalculator">
@@ -314,7 +318,6 @@
             let url = '/mypage/quizResult/data';
             let data = $('#quizResultForm').serialize();
             $.get(url, data).done(function (result) {
-                console.log(result)
                 $('.nickname').text(result['NICKNAME']);
                 $('#allCnt').text(result['ALL_CNT']);
                 $('#rank').text(result['RANK']);
@@ -328,7 +331,14 @@
                 let myPoint = result['RESULT_CNT'] * 2.5;
                 let myTotalPoint = avg + myPoint
 
-                $('.myTotalPoint').text(myTotalPoint);
+                if (result['RESULT_CNT']) {
+                    $('.myTotalPoint').text(myTotalPoint);
+                    $('#quizResultY').show();
+                    $('#quizResultN').hide();
+                } else {
+                    $('#quizResultY').hide();
+                    $('#quizResultN').show();
+                }
 
                 if(cut10 > myTotalPoint) {
                     $('#result10th').text("불합격")

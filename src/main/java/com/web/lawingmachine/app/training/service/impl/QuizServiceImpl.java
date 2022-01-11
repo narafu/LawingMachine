@@ -48,11 +48,11 @@ public class QuizServiceImpl implements QuizService {
         QuizMstrInfoVO quizMstrInfoVO = quizMstrInfoMapper.getQuizMstrInfo(param);
 
         // 전체 문제 갯수
-        int quizTotalCnt = quizMstrInfoMapper.getQuizTotalCnt(quizMstrInfoVO);
+        int quizTotalCnt = quizMstrInfoMapper.getQuizTotalCnt(param);
         quizMstrInfoVO.setQuizTotalCnt(quizTotalCnt);
 
         // 푼 문제 갯수
-        int quizEndCnt = quizMstrInfoMapper.getQuizEndCnt(quizMstrInfoVO);
+        int quizEndCnt = quizMstrInfoMapper.getQuizEndCnt(param);
         quizMstrInfoVO.setQuizEndCnt(quizEndCnt);
 
         List<QuizDtlInfoVO> quizDtlList = quizDtlInfoMapper.selectQuizDtlList(quizMstrInfoVO);
