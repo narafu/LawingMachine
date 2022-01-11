@@ -139,7 +139,7 @@
             </th:block>
             <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
                 <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" th:onclick="goBoardInfo([[${quizMstrInfoVO.quizMstrInfoSeq}]])">취소</button>
-                <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="updateBoardInfo([[${quizMstrInfoVO.quizMstrInfoSeq}]])">저장</button>
+                <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" th:onclick="updateBoardInfo([[${quizMstrInfoVO.quizMstrInfoSeq}]])">저장</button>
             </th:block>
         </div>
 
@@ -147,90 +147,90 @@
             <script th:src="@{/js/admin/adminFunc.js}"></script>
             <script>
 
-                function insertBoardInfo() {
+                    function insertBoardInfo() {
 
-                    let modalUrl = '/modal/alert';
-                    let modalId = 'insertBoardInfo';
+                        let modalUrl = '/modal/alert';
+                        let modalId = 'insertBoardInfo';
 
-                    if(!$('#examYear').val()) {
-                        let modalText = '시험년도를 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if(!$('#examGrpCd').val()) {
-                        let modalText = '시험구분을 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if(!$('#examNo').val()) {
-                        let modalText = '시험회차를 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if(!$('#subjectTypeCd').val()) {
-                        let modalText = '시험과목을 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if(!$('[name=answer]:checked').val()) {
-                        let modalText = '정답을 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    let editorCntntHtml = editorCntnt.getHTML();
-                    if(editorCntntHtml == '<p><br></p>') {
-                        $('#content').val('');
-                    } else {
-                        $('#content').val(editorCntntHtml);
-                    }
-
-                    let editorCmntrHtml = editorCmntr.getHTML();
-                    if(editorCmntrHtml == '<p><br></p>') {
-                        $('#cmntr').val('');
-                    } else {
-                        $('#cmntr').val(editorCmntrHtml);
-                    }
-
-                    $.confirm({
-                        title: '',
-                        content: '등록하시겠습니까?',
-                        buttons: {
-                            '등록': function () {
-                                $.alert('등록되었습니다.');
-                                let url = '/admin/quiz/infoView/insert';
-                                let data = $('#boardForm').serialize();
-                                $.post(url, data, function (result) {
-                                    goBoardList();
-                                });
-                            },
-                            '취소': function () {
-                            }
+                        if(!$('#examYear').val()) {
+                            let modalText = '시험년도를 선택해주세요.';
+                            modal(modalUrl, modalId, modalText);
+                            return;
                         }
-                    })
-                }
+
+                        if(!$('#examGrpCd').val()) {
+                            let modalText = '시험구분을 선택해주세요.';
+                            modal(modalUrl, modalId, modalText);
+                            return;
+                        }
+
+                        if(!$('#examNo').val()) {
+                            let modalText = '시험회차를 선택해주세요.';
+                            modal(modalUrl, modalId, modalText);
+                            return;
+                        }
+
+                        if(!$('#subjectTypeCd').val()) {
+                            let modalText = '시험과목을 선택해주세요.';
+                            modal(modalUrl, modalId, modalText);
+                            return;
+                        }
+
+                        if(!$('[name=answer]:checked').val()) {
+                            let modalText = '정답을 선택해주세요.';
+                            modal(modalUrl, modalId, modalText);
+                            return;
+                        }
+
+                        let editorCntntHtml = editorCntnt.getHTML();
+                        if(editorCntntHtml == '<p><br></p>') {
+                            $('#content').val('');
+                        } else {
+                            $('#content').val(editorCntntHtml);
+                        }
+
+                        let editorCmntrHtml = editorCmntr.getHTML();
+                        if(editorCmntrHtml == '<p><br></p>') {
+                            $('#cmntr').val('');
+                        } else {
+                            $('#cmntr').val(editorCmntrHtml);
+                        }
+
+                        $.confirm({
+                            title: '',
+                            content: '등록하시겠습니까?',
+                            buttons: {
+                                '등록': function () {
+                                    $.alert('등록되었습니다.');
+                                    let url = '/admin/quiz/infoView/insert';
+                                    let data = $('#boardForm').serialize();
+                                    $.post(url, data, function (result) {
+                                        goBoardList();
+                                    });
+                                },
+                                '취소': function () {
+                                }
+                            }
+                        })
+                    }
 
                 function updateBoardInfo(quizMstrInfoSeq) {
 
                     let editorCntntHtml = editorCntnt.getHTML();
-                    if(editorCntntHtml == '<p><br></p>') {
+                    if (editorCntntHtml == '<p><br></p>') {
                         $('#content').val('');
                     } else {
                         $('#content').val(editorCntntHtml);
                     }
 
                     let editorCmntrHtml = editorCmntr.getHTML();
-                    if(editorCmntrHtml == '<p><br></p>') {
+                    if (editorCmntrHtml == '<p><br></p>') {
                         $('#cmntr').val('');
                     } else {
                         $('#cmntr').val(editorCmntrHtml);
                     }
 
-                    if(boardCntntHtml == '<p><br></p>') {
+                    if (boardCntntHtml == '<p><br></p>') {
                         $('#content').val('');
                     } else {
                         $('#content').val(boardCntntHtml);
@@ -246,7 +246,7 @@
                                 let data = $('#boardForm').serialize();
                                 $.post(url, data, function (result) {
                                     goBoardInfo(quizMstrInfoSeq);
-                                });
+                                })
                             },
                             '취소': function () {
                             }
