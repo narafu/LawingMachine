@@ -18,7 +18,7 @@
                     <li class="nav-item mx-5"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
-                    <li class="nav-item mx-5"><a href="/mypage/myprofile" class="nav-link">마이페이지</a></li>
+                    <li class="nav-item mx-5"><a href="/mypage/quizResult" class="nav-link">마이페이지</a></li>
                     <th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
 <!--                        <li class="nav-item mx-5"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>-->
                     </th:block>

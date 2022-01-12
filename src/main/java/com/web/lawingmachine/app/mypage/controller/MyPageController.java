@@ -48,7 +48,7 @@ public class MyPageController {
 		SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
 		UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
 		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("leftsidebarCd", "10");
+		model.addAttribute("leftsidebarCd", "30");
 		return "view/mypage/myprofile";
 	}
 
@@ -159,7 +159,7 @@ public class MyPageController {
 		SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
 		UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
 		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("leftsidebarCd", "30");
+		model.addAttribute("leftsidebarCd", "10");
 		return "view/mypage/quizResult";
 	}
 
