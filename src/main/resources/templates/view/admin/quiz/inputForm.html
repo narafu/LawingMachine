@@ -56,8 +56,8 @@
                 <h2 class="fs-5 mx-1 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">문제</h2>
                 <div id="editorCntnt"></div>
                 <script>
-                    let Editor = toastui.Editor;
-                    let editorCntnt = new Editor({
+                    var Editor = toastui.Editor;
+                    var editorCntnt = new Editor({
                         el: document.querySelector('#editorCntnt'),
                         height: '400px',
                         initialValue: $('#content').val(),
@@ -70,8 +70,7 @@
                 <h2 class="fs-5 mx-1 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF';">문제 해설</h2>
                 <div id="editorCmntr"></div>
                 <script>
-                    let Editor = toastui.Editor;
-                    let editorCmntr = new Editor({
+                    var editorCmntr = new Editor({
                         el: document.querySelector('#editorCmntr'),
                         height: '400px',
                         initialValue: $('#cmntr').val(),
@@ -203,10 +202,12 @@
                                 '등록': function () {
                                     $.alert('등록되었습니다.');
                                     let url = '/admin/quiz/infoView/insert';
-                                    let data = $('#boardForm').serialize();
-                                    $.post(url, data, function (result) {
-                                        goBoardList();
-                                    });
+                                    $('#boardForm').attr('action', url);
+                                    $('#boardForm').submit();
+//                                    let data = $('#boardForm').serialize();
+//                                    $.post(url, data, function (result) {
+//                                        goBoardList();
+//                                    });
                                 },
                                 '취소': function () {
                                 }
@@ -228,12 +229,6 @@
                         $('#cmntr').val('');
                     } else {
                         $('#cmntr').val(editorCmntrHtml);
-                    }
-
-                    if (boardCntntHtml == '<p><br></p>') {
-                        $('#content').val('');
-                    } else {
-                        $('#content').val(boardCntntHtml);
                     }
 
                     $.confirm({

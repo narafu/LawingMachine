@@ -341,7 +341,9 @@
             
             $.get(url, data).done(function (result) {
             	setQuizResultMsg(result);
-            	calTblTotal($('#calTblTotal'));
+            	if (result['RESULT_CNT']) {
+            		calTblTotal($('#calTblTotal'));
+            	}
             })
         })
         

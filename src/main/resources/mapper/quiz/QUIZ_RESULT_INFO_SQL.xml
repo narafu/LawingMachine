@@ -40,7 +40,6 @@
         SELECT COUNT(*)
         FROM QUIZ_RESULT_INFO
         WHERE DEL_YN = 'N' AND USER_ID = #{userId}
-        GROUP BY SUBJECT_TYPE_CD
     </select>
 
     <select id="selectQuizResultList" resultType="HashMap">
