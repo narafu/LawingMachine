@@ -238,10 +238,13 @@
                             '저장': function () {
                                 $.alert('저장되었습니다.');
                                 let url = '/admin/quiz/infoView/update';
-                                let data = $('#boardForm').serialize();
-                                $.post(url, data, function (result) {
-                                    goBoardInfo(quizMstrInfoSeq);
-                                })
+                                $('#boardForm').attr('action', url);
+                                $('#boardForm').attr('method', 'post');
+                                $('#boardForm').submit();
+//                                let data = $('#boardForm').serialize();
+//                                $.post(url, data, function (result) {
+//                                    goBoardInfo(quizMstrInfoSeq);
+//                                })
                             },
                             '취소': function () {
                             }
