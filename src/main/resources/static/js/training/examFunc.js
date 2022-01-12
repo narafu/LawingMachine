@@ -180,6 +180,7 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
             //     $('#modalDiv .modal').modal('hide');
             // }
             if (resultYn == 'Y') {
+                getAjaxQuizMstrInfo(quizMstrInfoSeq);
                 let url = '/modal/alert';
                 let modalId = 'lstQuizAlert';
                 let modalText = '마지막 문제입니다. <br> 모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.';
@@ -207,7 +208,8 @@ function quizResultConfirm() {
 function moveResultPage() {
     let form = $('#examMainForm');
     $('#subjectTypeCd').val('');
-    form.attr('action', '/mypage/reviewNote');
+    // form.attr('action', '/mypage/reviewNote');
+    form.attr('action', '/mypage/quizResult'); // 임시
     form.attr('target', '');
     form.submit();
 }

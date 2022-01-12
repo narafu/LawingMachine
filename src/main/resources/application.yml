@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: was
+    active: local
   thymeleaf:
     cache: false
 
@@ -24,11 +24,6 @@ logging:
     logback:
       rollingpolicy:
         file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}_%i.zip"
-    file:
-      name: logs
-      max-history: 7
-      max-size: 5KB
-      total-size-cap: 1MB
   level:
     root: INFO
     com.web.lawingmachine: DEBUG

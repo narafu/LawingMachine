@@ -5,13 +5,15 @@
 
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
+
     <form id="quizResultForm">
         <input type="hidden" name="examGrpCd" value="10" id="examGrpCd"/>
         <input type="hidden" name="examYear" value="2022" id="examYear"/>
         <input type="hidden" name="examNo" value="1" id="examNo"/>
     </form>
+    
     <div class="border px-5 py-4" style="font-family: 'NEXON Lv1 Gothic OTF';" id="quizResultY">
-        <div class="fs-3 my-4 fw-bold text-center">로잉머신 진단결과</div>
+        <h1 class="fs-3 my-4 fw-bold text-center">로잉머신 진단결과</h1>
         <p class="fs-5 m-3" >예비 변호사 <span class="fw-bold text-primary nickname"></span>님, 제 11회 변호사시험을 치르느라 수고많으셨습니다.</p>
         <p class="fs-5 m-3">
             시험결과 예비 변호사 <span class="fw-bold text-primary nickname"></span>님은 로잉머신의 제 11회 변호사시험 빌보드에서
@@ -24,8 +26,9 @@
             제 8호 변호사시험 기준으로 <span class="fw-bold text-danger" id="result8th"></span>입니다.
         </p>
         <p class="fs-5 m-3">
-            따라서 위 사항들을 종합하여 판단하건데 현재 예비 변호사 <span class="fw-bold text-dark nickname"></span>님이 제 11회 변호사시험에서 합격할 가능성은
-            매우 높습니다/높습니다/보통입니다/어렵습니다/다소 어렵습니다.
+            따라서 위 사항들을 종합하여 판단하건데,<br/>
+            현재 예비 변호사 <span class="fw-bold text-dark nickname"></span>님이 제 11회 변호사시험에서 합격할 가능성은
+            <span class="fw-bold text-dark" id="resultMsg"></span>
         </p>
         <div class="fs-4 mt-4 text-center fw-bold" id="regDt"></div>
     </div>
@@ -35,33 +38,33 @@
     </div>
 
     <div class="border px-5 py-4 mt-5" id="happCalculator">
-        <div class="fs-3 my-4 fw-bold text-center">행복회로 계산기</div>
+        <h1 class="fs-3 my-4 fw-bold text-center">행복회로 계산기</h1>
         <div class="row mt-5">
             <div class="col border-primary">
-                <div onkeyup="calTblTotal(this)">
-                    <h5 class="fw-bold">1. 선택형 점수 입력</h5>
-                    <table class="text-center table table-striped m-3">
+                <div id="calTblTotal" onkeyup="calTblTotal(this)">
+                    <h5 class="fw-bold mx-3">1. 선택형 점수 입력</h5>
+                    <table class="text-center table table-sm table-striped m-3">
                         <thead>
                             <tr>
                                 <th class="col-4">과목명</th>
-                                <th class="col">내 갯수</th>
-                                <th class="col-3">만점</th>
+                                <th class="col-4">내 갯수</th>
+                                <th class="col-4">만점</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>공법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="2"/></td>
+                                <td><input type="text" id="subjectCd_70" class="w-50 text-center fw-bold" maxlength="2"/></td>
                                 <td>/ 40개</td>
                             </tr>
                             <tr>
                                 <td>형사법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="2"/></td>
+                                <td><input type="text" id="subjectCd_80" class="w-50 text-center fw-bold" maxlength="2"/></td>
                                 <td>/ 40개</td>
                             </tr>
                             <tr>
                                 <td>민사법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="2"/></td>
+                                <td><input type="text" id="subjectCd_90" class="w-50 text-center fw-bold" maxlength="2"/></td>
                                 <td>/ 70개</td>
                             </tr>
                         </tbody>
@@ -71,108 +74,109 @@
                     </div>
                 </div>
                 <div class="mt-5" onkeyup="calTblTotal(this)">
-                    <h5 class="fw-bold">2. 기록형 점수 입력</h5>
-                    <table class="text-center table table-striped m-3">
+                    <h5 class="fw-bold mx-3">2. 기록형 점수 입력</h5>
+                    <table class="text-center table table-sm table-striped m-3">
                         <thead>
                             <tr>
                                 <th class="col-4">과목명</th>
-                                <th class="col">내 갯수</th>
-                                <th class="col-3">만점</th>
+                                <th class="col-4">내 점수</th>
+                                <th class="col-4">만점</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>공법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                                <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                                 <td>/ 100점</td>
                             </tr>
                             <tr>
                                 <td>형사법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                                <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                                 <td>/ 100점</td>
                             </tr>
                             <tr>
                                 <td>민사법</td>
-                                <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                                <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                                 <td>/ 100점</td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="text-center fw-bold">
-                        총점 : <span class="total">0</span>개
+                        총점 : <span class="total">150</span>점
                     </div>
                 </div>
             </div>
             <div class="col border-primary" onkeyup="calTblTotal(this)">
-                <h5 class="fw-bold">3. 사례형 점수 입력</h5>
-                <table class="text-center table table-striped m-3">
+                <h5 class="fw-bold mx-3">3. 사례형 점수 입력</h5>
+                <table class="text-center table table-sm table-striped m-3">
                     <thead>
                         <tr>
                             <th class="col-4">과목명</th>
-                            <th class="col">내 갯수</th>
-                            <th class="col-3">만점</th>
+                            <th class="col-4">내 점수</th>
+                            <th class="col-4">만점</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>공법 1문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>공법 2문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>형사법 1문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>형사법 2문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>민사법 1문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
-                            <td>/ 100점</td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="75"/></td>
+                            <td>/ 150점</td>
                         </tr>
                         <tr>
                             <td>민사법 2문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>민사법 3문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="50"/></td>
                             <td>/ 100점</td>
                         </tr>
                         <tr>
                             <td>선택법 1문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="40"/></td>
                             <td>/ 80점</td>
                         </tr>
                         <tr>
                             <td>선택법 2문</td>
-                            <td><input type="text" class="w-50 text-center" maxlength="3"/></td>
+                            <td><input type="text" class="w-50 text-center" maxlength="3" value="40"/></td>
                             <td>/ 80점</td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="text-center fw-bold">
-                    총점 : <span class="total">0</span>점
+                    총점 : <span class="total">455</span>점
                 </div>
             </div>
-            <div class="col border-primary">
-                <h5 class="fw-bold">4. 합격 기대가능성</h5>
-                <table class="text-center table table-striped m-3">
+            <div class="col-5 border-primary">
+                <h5 class="fw-bold mx-3">4. 합격 기대가능성</h5>
+                <table class="text-center table table-sm table-striped m-3">
                     <thead>
                         <tr>
-                            <th class="col-4">역대 시험</th>
+                            <th class="col">역대 시험</th>
                             <th class="col">내 점수</th>
-                            <th class="col-3">합격선</th>
+                            <th class="col">합격선</th>
+                            <th class="col">합격여부</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -180,76 +184,87 @@
                             <td>제 11회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>???</td>
+                            <td id="myPassYn" class="fw-bold">???</td>
                         </tr>
                         <tr>
                             <td>제 10회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>895.85</span>
+                                <span class="examCut">895.85</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 9회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>900.29</span>
+                                <span class="examCut">900.29</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 8회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>905.55</span>
+                                <span class="examCut">905.55</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 7회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>881.9</span>
+                                <span class="examCut">881.9</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 6회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>889.91</span>
+                                <span class="examCut">889.91</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 5회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>862.37</span>
+                                <span class="examCut">862.37</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 4회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>838.5</span>
+                                <span class="examCut">838.5</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 3회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>793.7</span>
+                                <span class="examCut">793.7</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 2회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>762..3</span>
+                                <span class="examCut">762..3</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                         <tr>
                             <td>제 1회</td>
                             <td><span class="myTotalPoint">0</span>점</td>
                             <td>
-                                <span>720.46</span>
+                                <span class="examCut">720.46</span>
                             </td>
+                            <td class="myPassYn"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -258,54 +273,60 @@
     </div>
 
     <div class="border px-5 py-4 mt-5 calculator">
-        <div class="fs-3 my-4 fw-bold text-center">객관식 컷</div>
+        <h1 class="fs-3 my-4 fw-bold text-center">객컷 계산기</h1>
         <div class="text-start">
             <span class="fw-bold fs-4 align-middle"> [ </span>
-            <input type="text" class="m-1 text-center" style="width: 60px;" value="" id="cal-start" maxlength="4"/>
-            <span>(합격커트라인)</span>
+            <input type="text" class="m-1 text-center" style="width: 60px;" value="900" id="cal-start" maxlength="4"/>
+            <span>(예상 합격커트라인)</span>
             <span class="fw-bold fs-4 align-middle"> - </span>
         </div>
-        <div class="text-center">
+        <div class="mx-5">
             <span class="fw-bold fs-5 align-middle"> ( </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
-            <span>(헌법)</span>
+            <span>(공법 1문)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
-            <span>(행정법)</span>
+            <span>(공법 2문)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
-            <span>(형법)</span>
+            <span>(형사법 1문)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
-            <span>(형소법 사례)</span>
+            <span>(형사법 2문)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+        </div>
+        <div class="text-center">
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
-            <span>(공법)</span>
+            <span>(공법 기록)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
             <span>(형사법 기록)</span>
-        </div>
-        <div class="text-end">
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
-            <input type="text" class="m-1 text-center" style="width: 50px;" value="175" maxlength="4"/>
-            <span>(민사법 사례)</span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="75" maxlength="4"/>
+            <span>(민사법 1문)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
+            <span>(민사법 2문)</span>
+            <span class="fw-bold fs-5 m-1 align-middle"> + </span>
+        </div>
+        <div class="text-center mx-5">
+            <input type="text" class="m-1 text-center" style="width: 50px;" value="50" maxlength="4"/>
+            <span>(민사법 3문)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="87.5" maxlength="4"/>
             <span>(민사법 기록)</span>
             <span class="fw-bold fs-5 m-1 align-middle"> + </span>
             <input type="text" class="m-1 text-center" style="width: 50px;" value="80" maxlength="4"/>
-            <span>(선택법 사례)</span>
+            <span>(선택법)</span>
             <span class="fw-bold fs-5 align-middle"> ) </span>
             <span class="fw-bold fs-4 align-middle"> ] </span>
             <span class="fw-bold fs-4 align-middle"> / 2.5 </span>
             <span>(객관식 1문제 점수)</span>
         </div>
         <div class="text-end">
-            <span class="fw-bold fs-3"> = </span>
-            <input type="text" class="m-1 text-center fw-bold fs-3" style="width: 120px; background-color: #eeeeee;" value="" id="cal-result" readonly/>
-        </div>
-        <div class="text-end">
-            <span>(객관식 문제 갯수)</span>
+            <span class="fw-bold fs-3 align-middle"> = </span>
+            <input type="text" class="m-1 text-center fw-bold fs-3" style="width: 90px; background-color: #eeeeee;" id="cal-result" value="103" readonly/>
+            <span>(객컷)</span>
         </div>
     </div>
 </div>
@@ -317,48 +338,56 @@
         $(function () {
             let url = '/mypage/quizResult/data';
             let data = $('#quizResultForm').serialize();
+            
             $.get(url, data).done(function (result) {
-                $('.nickname').text(result['NICKNAME']);
-                $('#allCnt').text(result['ALL_CNT']);
-                $('#rank').text(result['RANK']);
-                $('#regDt').text(result['REG_DT']);
-
-                // 점수계산
-                let cut10 = 895.85;
-                let cut9 = 900.29;
-                let cut8 = 905.55;
-                let avg = 175 + 87.5 + 80;
-                let myPoint = result['RESULT_CNT'] * 2.5;
-                let myTotalPoint = avg + myPoint
-
-                if (result['RESULT_CNT']) {
-                    $('.myTotalPoint').text(myTotalPoint);
-                    $('#quizResultY').show();
-                    $('#quizResultN').hide();
-                } else {
-                    $('#quizResultY').hide();
-                    $('#quizResultN').show();
-                }
-
-                if(cut10 > myTotalPoint) {
-                    $('#result10th').text("불합격")
-                } else {
-                    $('#result10th').text("합격")
-                }
-
-                if(cut9 > myTotalPoint) {
-                    $('#result9th').text("불합격")
-                } else {
-                    $('#result9th').text("합격")
-                }
-
-                if(cut8 > myTotalPoint) {
-                    $('#result8th').text("불합격")
-                } else {
-                    $('#result8th').text("합격")
-                }
+            	setQuizResultMsg(result);
+            	calTblTotal($('#calTblTotal'));
             })
         })
+        
+		function setQuizResultMsg(result) {
+		
+			$('.nickname').text(result['NICKNAME']);
+			$('#allCnt').text(result['ALL_CNT']);
+			$('#rank').text(result['RANK']);
+			$('#regDt').text(result['REG_DT']);
+			
+			$('#subjectCd_70').val(result['subjectCd_70']);
+			$('#subjectCd_80').val(result['subjectCd_80']);
+			$('#subjectCd_90').val(result['subjectCd_90']);
+			
+			// 점수계산
+			let cut10 = 895.85;
+			let cut9 = 900.29;
+			let cut8 = 905.55;
+			let avg = 175 + 87.5 + 80;
+			let myPoint = result['RESULT_CNT'] * 2.5;
+			let myTotalPoint = avg + myPoint
+			
+			if (result['RESULT_CNT']) {
+			    $('.myTotalPoint').text(myTotalPoint);
+			    $('#quizResultY').show();
+			    $('#quizResultN').hide();
+			} else {
+			    $('#quizResultY').hide();
+			    $('#quizResultN').show();
+			}
+
+			let count = 0;
+			if(myTotalPoint < cut10) { $('#result10th').text("불합격"); }
+			else { $('#result10th').text("합격"); count++; }
+			
+			if(myTotalPoint < cut9) { $('#result9th').text("불합격"); }
+			else { $('#result9th').text("합격"); count++; }
+			
+			if(myTotalPoint < cut8) { $('#result8th').text("불합격"); }
+			else { $('#result8th').text("합격"); count++; }
+			
+			if(count >= 3) { $('#resultMsg').text('높습니다.'); }
+			else if(count == 2) { $('#resultMsg').text('다소 높습니다.'); }
+			else if(count == 1) { $('#resultMsg').text('다소 낮습니다.'); }
+			else if(count == 0) { $('#resultMsg').text('낮습니다.'); }
+		}
 
         function calTblTotal(obj) {
             let total = 0;
@@ -372,11 +401,32 @@
 
             let myTotal = 0;
             $(obj).closest('#happCalculator').find('input').each(function (index, item) {
-                let temp = $(item).val();
-                if(temp == '' || temp == undefined) { temp = 0 }
-                myTotal += parseInt(temp);
+                let temp = parseFloat($(item).val());
+                if(isNaN(temp)) { temp = 0 }
+                if(index < 3) { temp = temp * 2.5 }
+                myTotal += temp;
             })
             $(obj).closest('#happCalculator').find('.myTotalPoint').text(myTotal);
+            
+           	let count = 0;
+            $('#happCalculator .myTotalPoint').not(':first').each(function(index, item) {
+            	let selectedTr = $(item).closest('tr');
+            	let mypoint = $(item).text();
+            	let examCut = selectedTr.find('.examCut').text();
+            	if(mypoint > examCut) {
+	            	selectedTr.find('.myPassYn').text('합격');
+	            	selectedTr.find('.myPassYn').css('color', 'blue');
+	            	count++;
+            	} else {
+	            	selectedTr.find('.myPassYn').text('불합격');
+	            	selectedTr.find('.myPassYn').css('color', 'red');
+            	}
+            })
+            
+            if(count >= 4) { $('#myPassYn').text('높음'); $('#myPassYn').css('color', 'blue'); }
+            else if(count == 3) { $('#myPassYn').text('다소높음'); $('#myPassYn').css('color', 'blue'); }
+            else if(count == 2) { $('#myPassYn').text('다소낮음'); $('#myPassYn').css('color', 'red'); }
+            else { $('#myPassYn').text('낮음'); $('#myPassYn').css('color', 'red'); }
         }
 
         $('.calculator input').on('keyup', function () {
