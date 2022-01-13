@@ -34,9 +34,11 @@ function setQuizResultMsg(result) {
 	if (result['RESULT_CNT']) {
 		$('.myTotalPoint').text(myTotalPoint);
 		$('#quizResultY').show();
+		$('#happCalculator').show();
 		$('#quizResultN').hide();
 	} else {
 		$('#quizResultY').hide();
+		$('#happCalculator').hide();
 		$('#quizResultN').show();
 	}
 

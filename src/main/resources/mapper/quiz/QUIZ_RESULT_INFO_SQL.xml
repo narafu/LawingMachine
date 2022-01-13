@@ -49,14 +49,14 @@
             , USER_ID
             , NICKNAME
             , RESULT_CNT
-            , ALL_CNT
+            , COUNT(*) as ALL_CNT
             , REG_DT
         FROM (
             SELECT
                 (SELECT NICKNAME FROM USER_INFO WHERE USER_ID = A.USER_ID) AS NICKNAME
                 , USER_ID
                 , SUM(RESULT_CNT) AS RESULT_CNT
-                , COUNT(*) AS ALL_CNT
+                , COUNT(*) AS CNT
                 , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
             FROM QUIZ_RESULT_INFO A
             WHERE DEL_YN = 'N'
@@ -69,7 +69,7 @@
             GROUP BY USER_ID
         ) X
         <if test="subjectTypeCd == null or subjectTypeCd == ''">
-            WHERE ALL_CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
+            WHERE CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
         </if>
     </select>
 

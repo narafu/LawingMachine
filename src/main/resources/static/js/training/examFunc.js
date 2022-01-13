@@ -1,6 +1,11 @@
 window.onload = function () {
 
-    let duration = 60 * 30;
+//	let quizCnt = $('#quizAnswerNavListDiv .sideNavDiv').length;
+	let quizTime = 70;
+	if($('#subjectTypeCd').val() == '90') {
+		quizTime = 120;
+	}
+    let duration = 60 * quizTime;
     let timer = $('#count-down-timer');
     let min = parseInt(duration / 60);
     let sec = parseInt(duration % 60);
