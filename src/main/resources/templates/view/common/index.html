@@ -25,7 +25,7 @@
             <div class="text-center fs-1 my-4" style="font-family: 'KOTRA_BOLD-Bold';">제11회 변호사시험 빌보드</div>
             <div>
                 <ul class="nav nav-pills m-1">
-                    <li class="nav-item" onclick="getBillboardSubject(this);">
+                    <li class="nav-item" id="billBoardTotal" onclick="getBillboardSubject(this);">
                         <a class="nav-link" href="#"
                            th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">종합</a>
                     </li>
@@ -123,6 +123,9 @@
 
 <th:block layout:fragment="script">
     <script th:src="@{/js/common/indexFunc.js}"></script>
+    <script>
+    	$('#billBoardTotal').trigger('click');
+    </script>
 </th:block>
 
 

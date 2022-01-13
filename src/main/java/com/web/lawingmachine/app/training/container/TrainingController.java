@@ -121,7 +121,7 @@ public class TrainingController {
         // 공통코드(과목코드)
         List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
         int totalSubjectCnt = CommLst002.size();
-        int userSubjectCnt = quizService.getQuizResultUserSubjectCnt(param);
+        int userSubjectCnt = quizService.getQuizResultUserSubjectCnt(param).size();
 
         // 전과목 제출했을 경우
         if (totalSubjectCnt == userSubjectCnt) {

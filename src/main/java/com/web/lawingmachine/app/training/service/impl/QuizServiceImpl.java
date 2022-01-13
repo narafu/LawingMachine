@@ -1,14 +1,19 @@
 package com.web.lawingmachine.app.training.service.impl;
 
-import com.web.lawingmachine.app.training.mapper.*;
-import com.web.lawingmachine.app.training.service.QuizService;
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
+import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
+import com.web.lawingmachine.app.training.mapper.QuizResultInfoMapper;
+import com.web.lawingmachine.app.training.mapper.QuizUserAnsDtlMapper;
+import com.web.lawingmachine.app.training.mapper.QuizUserAnsMapper;
+import com.web.lawingmachine.app.training.service.QuizService;
+import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
 
 
 @Service
@@ -102,7 +107,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public int getQuizResultUserSubjectCnt(QuizMstrInfoVO param) {
+    public List<Map<String, Object>> getQuizResultUserSubjectCnt(QuizMstrInfoVO param) {
         return quizResultInfoMapper.getQuizResultUserSubjectCnt(param);
     }
 
