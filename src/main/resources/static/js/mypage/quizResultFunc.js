@@ -14,7 +14,7 @@ $(function() {
 function setQuizResultMsg(result) {
 
 	$('.nickname').text(result['NICKNAME']);
-	$('#allCnt').text(result['ALL_CNT']);
+	$('#memberTotalCnt').text(result['memberTotalCnt']);
 	$('#rank').text(result['RANK']);
 	$('#regDt').text(result['REG_DT']);
 

@@ -32,4 +32,6 @@ public interface QuizService {
     List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param);
 
     List<Map<String, Object>> getquizResultInfo(String userId);
+
+	int getMemberTotalCnt(QuizMstrInfoVO param);
 }

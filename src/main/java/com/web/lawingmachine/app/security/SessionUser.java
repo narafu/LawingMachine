@@ -1,10 +1,11 @@
 package com.web.lawingmachine.app.security;
 
 
-import com.web.lawingmachine.app.user.vo.UserInfoVO;
-import lombok.Data;
-
 import java.io.Serializable;
+
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
+
+import lombok.Data;
 
 @Data
 public class SessionUser implements Serializable {

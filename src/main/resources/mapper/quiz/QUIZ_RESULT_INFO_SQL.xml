@@ -49,7 +49,6 @@
             , USER_ID
             , NICKNAME
             , RESULT_CNT
-            , COUNT(*) as ALL_CNT
             , REG_DT
         FROM (
             SELECT
@@ -71,6 +70,20 @@
         <if test="subjectTypeCd == null or subjectTypeCd == ''">
             WHERE CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
         </if>
+    </select>
+    
+    <select id="getMemberTotalCnt" resultType="int">
+    	SELECT COUNT(*) AS MEMBER_CNT
+    	FROM (
+	    	SELECT COUNT(*) AS QUIZ_CNT
+	    	FROM QUIZ_RESULT_INFO
+	        WHERE DEL_YN = 'N'
+	            AND EXAM_GRP_CD = #{examGrpCd}
+	            AND EXAM_YEAR = #{examYear}
+	            AND EXAM_NO = #{examNo}
+	        GROUP BY USER_ID
+        ) X
+        WHERE QUIZ_CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
     </select>
 
     <select id="getquizResultInfo" resultType="HashMap">

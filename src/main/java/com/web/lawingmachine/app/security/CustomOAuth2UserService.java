@@ -1,7 +1,10 @@
 package com.web.lawingmachine.app.security;
 
-import com.web.lawingmachine.app.user.service.UserService;
-import com.web.lawingmachine.app.user.vo.UserInfoVO;
+import java.util.Collections;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -14,9 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Collections;
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {

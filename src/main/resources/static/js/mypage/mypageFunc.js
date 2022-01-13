@@ -44,8 +44,8 @@ function updateUserInfo() {
         let modalId = 'updateUserInfo';
         let modalText = result['message'];
         modal(url, modalId, modalText);
-        $.get('/mypage/myprofile');
     })
+    
 }
 
 function getReviewNoteSubject(obj, subjectTypeCd) {

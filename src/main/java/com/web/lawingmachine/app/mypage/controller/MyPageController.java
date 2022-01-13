@@ -191,7 +191,10 @@ public class MyPageController {
 		for (Map<String, Object> map : quizResultInfo) {
 			result.put("subjectCd_" + (String) map.get("SUBJECT_TYPE_CD"), map.get("RESULT_CNT"));
 		}
-
+		
+		int memberTotalCnt = quizService.getMemberTotalCnt(param);
+		result.put("memberTotalCnt", memberTotalCnt);
+		
 		return result;
 	}
 

@@ -1,8 +1,8 @@
 package com.web.lawingmachine.app.security;
 
-import lombok.Data;
-
 import java.util.Map;
+
+import lombok.Data;
 
 @Data
 public class OAuthAttributes {
