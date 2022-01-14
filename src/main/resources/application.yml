@@ -15,7 +15,7 @@ mybatis:
     mapUnderscoreToCamelCase: true
 
 server:
-  port: 8090
+  port: 80
   max-http-header-size: 400000
 
 logging:
@@ -115,6 +115,10 @@ spring:
     oauth2:
       client:
         registration:
+          google:
+            client-id: 225634132446-k44mneq5c4ivqf9v2vhsij7skns3h9o5.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
           naver:
             client-id: V_33F7A6ziMHh6lBxXTO
             client-secret: fMw1QBocH_
