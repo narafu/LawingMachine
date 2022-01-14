@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/adminBoardLayout}">
+<html xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/adminBoardLayout}">
 
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
 
     <div id="boardContent">
         <form id="boardForm">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
-            <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
-            <input type="hidden" th:field="${quizMstrInfoVO.cmntr}"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}" />
+            <input type="hidden" th:field="${quizMstrInfoVO.content}" />
+            <input type="hidden" th:field="${quizMstrInfoVO.cmntr}" />
 
             <div class="row mb-5">
                 <div class="col">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examYear}">
                         <option value="">시험년도 선택</option>
                         <th:block th:each=examYear:${examYearArr}>
-                            <option th:value="${examYear}" th:text="${examYear}"
-                                    th:selected="${#strings.equals(examYear, quizMstrInfoVO.examYear)}"/>
+                            <option th:value="${examYear}" th:text="${examYear}" th:selected="${#strings.equals(examYear, quizMstrInfoVO.examYear)}"/>
                         </th:block>
                     </select>
                 </div>
@@ -195,25 +193,35 @@
                             $('#cmntr').val(editorCmntrHtml);
                         }
 
-                        $.confirm({
-                            title: '',
-                            content: '등록하시겠습니까?',
-                            buttons: {
-                                '등록': function () {
-                                    $.alert('등록되었습니다.');
-                                    let url = '/admin/quiz/infoView/insert';
-                                    $('#boardForm').attr('action', url);
-                                    $('#boardForm').submit();
+                        let url = '/admin/quiz/infoView/insert';
+                        let data = $('#boardForm').serialize();
+                        common.ajax.post(url, data, function(result) {
+                        	common.modal.alert(result['message']);
+                        	if(result['resultCode'] == 'SUCCESS') {
+                        		location.href('/admin/board/quiz/list');
+                        	}
+                        })
+                    }
+
+//                        $.confirm({
+//                            title: '',
+//                            content: '등록하시겠습니까?',
+//                            buttons: {
+//                                '등록': function () {
+//                                    $.alert('등록되었습니다.');
+//                                    let url = '/admin/quiz/infoView/insert';
+//                                    $('#boardForm').attr('action', url);
+//                                    $('#boardForm').submit();
 //                                    let data = $('#boardForm').serialize();
 //                                    $.post(url, data, function (result) {
 //                                        goBoardList();
 //                                    });
-                                },
-                                '취소': function () {
-                                }
-                            }
-                        })
-                    }
+//                                },
+//                                '취소': function () {
+//                                }
+//                            }
+//                        })
+//                    }
 
                 function updateBoardInfo(quizMstrInfoSeq) {
 
@@ -231,20 +239,48 @@
                         $('#cmntr').val(editorCmntrHtml);
                     }
 
-                    $.confirm({
-                        title: '',
-                        content: '저장하시겠습니까?',
-                        buttons: {
-                            '저장': function () {
-                                $.alert('저장되었습니다.');
-                                let url = '/admin/quiz/infoView/update';
-                                $('#boardForm').attr('action', url);
-                                $('#boardForm').attr('method', 'post');
-                                $('#boardForm').submit();
+//                    $.confirm({
+//                        title: '',
+//                        content: '저장하시겠습니까?',
+//                        buttons: {
+//                            '저장': function () {
+//                                $.alert('저장되었습니다.');
+//                                let url = '/admin/quiz/infoView/update';
+//                                $('#boardForm').attr('action', url);
+//                                $('#boardForm').attr('method', 'post');
+//                                $('#boardForm').submit();
 //                                let data = $('#boardForm').serialize();
 //                                $.post(url, data, function (result) {
 //                                    goBoardInfo(quizMstrInfoSeq);
 //                                })
+//                            },
+//                            '취소': function () {
+//                            }
+//                        }
+//                    })
+                }
+
+                function delBoardInfo() {
+                    var header = $("meta[name='_csrf_header']").attr('content');
+                    var token = $("meta[name='_csrf']").attr('content');
+                    $.confirm({
+                        title: '',
+                        content: '삭제하시겠습니까?',
+                        buttons: {
+                            '삭제': function () {
+                                let url = '/admin/quiz/infoView/delete';
+                                let data = $('#boardForm').serialize();
+                                var request = $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    data: data,
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader(header, token);
+                                    },
+                                });
+                                request.done(function (result) {
+                                    $.alert(result['message']);
+                                });
                             },
                             '취소': function () {
                             }
@@ -253,6 +289,7 @@
                 }
             </script>
         </th:block>
+
     </div>
 </div>
 <!-- [content] 영역 끝 -->

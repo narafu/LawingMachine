@@ -23,34 +23,6 @@ function goBoardInfo(quizMstrInfoSeq) {
     })
 }
 
-function delBoardInfo() {
-    var header = $("meta[name='_csrf_header']").attr('content');
-    var token = $("meta[name='_csrf']").attr('content');
-    $.confirm({
-        title: '',
-        content: '삭제하시겠습니까?',
-        buttons: {
-            '삭제': function () {
-                let url = '/admin/quiz/infoView/delete';
-                let data = $('#boardForm').serialize();
-                var request = $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader(header, token);
-                    },
-                });
-                request.done(function (result) {
-                    $.alert(result['message']);
-                });
-            },
-            '취소': function () {
-            }
-        }
-    })
-}
-
 function goApprovalList() {
     let form = $('#boardForm');
     form.attr('method', 'get');

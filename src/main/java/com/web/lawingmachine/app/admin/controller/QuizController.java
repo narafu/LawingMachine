@@ -134,8 +134,10 @@ public class QuizController {
         int resultCnt = adminService.insertQuizMstrInfo(param);
 
         if (resultCnt > 0) {
+        	result.setResultCode("SUCCESS");
             result.setMessage("등록되었습니다.");
         } else {
+        	result.setResultCode("FAIL");
             result.setMessage("오류가 발생하였습니다.");
         }
 
