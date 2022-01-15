@@ -275,8 +275,11 @@
             </div>
         </div>
         <div class="text-end">
-			<small class="form-text text-danger mx-4">
+			<small class="text-danger mx-4" style="display:block">
 				* 점수를 입력하여 합격 기대가능성을 예측해보세요.
+			</small>
+			<small class="text-danger mx-4" style="display:block">
+				* 합격 기대가능성(높음/다소높음/보통/다소낮음/낮음)은 합격선이 900점대로 수렴하기 시작한 최근 5개년 변호사시험을 기준으로 판단합니다.
 			</small>
         </div>
     </div>
@@ -337,6 +340,9 @@
             <input type="text" class="m-1 text-center fw-bold fs-3" style="width: 90px; background-color: #eeeeee;" id="cal-result" value="103" readonly/>
             <span>(객컷)</span>
         </div>
+		<small class="text-center text-danger">
+			* 점수를 입력하여 객컷을 계산해보세요.
+		</small>
     </div>
 </div>
 <!-- [content] 영역 끝 -->
