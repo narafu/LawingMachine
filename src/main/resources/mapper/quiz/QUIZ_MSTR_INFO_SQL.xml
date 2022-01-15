@@ -61,7 +61,7 @@
     </select>
 
     <select id="getQuizEndCnt" resultType="int">
-        SELECT COUNT(*)
+        SELECT COUNT(DISTINCT A.QUIZ_MSTR_INFO_SEQ)
         FROM QUIZ_MSTR_INFO A,
              QUIZ_USER_ANS B
         WHERE 1 = 1
