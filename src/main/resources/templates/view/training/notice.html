@@ -15,7 +15,7 @@
         <form id="examMainForm" method="get">
             <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
             <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 1 : quizMstrInfoVO.examNo}" id="examNo"/>
+            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 11 : quizMstrInfoVO.examNo}" id="examNo"/>
             <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}" id="subjectTypeCd"/>
             <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}" id="quizMstrInfoSeq"/>
             <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}" id="quizUserAnsSeq"/>
