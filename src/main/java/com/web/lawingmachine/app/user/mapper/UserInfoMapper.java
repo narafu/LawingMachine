@@ -24,4 +24,6 @@ public interface UserInfoMapper {
     int updateMembershipCd(String userId, String membershipCd);
 
     int uploadImage(@Param("examTicketPath") String examTicketPath, @Param("examTicket") String filename, @Param("userId") String userId);
+
+	int updateMembershipCd(UserInfoVO userInfoVO);
 }

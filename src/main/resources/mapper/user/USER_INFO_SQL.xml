@@ -80,6 +80,13 @@
 			</if>
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<update id="updateMembershipCd">
+		UPDATE USER_INFO SET
+			MEMBERSHIP_CD = #{membershipCd}
+			, MDFY_TS = current_timestamp()
+		WHERE USER_ID = #{userId}
+	</update>
 
 	<update id="uploadImage">
 		UPDATE USER_INFO SET
