@@ -5,24 +5,30 @@
 
     <select id="selectAjaxQuizNavList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
-            ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
-             , A.QUIZ_MSTR_INFO_SEQ
-             , B.QUIZ_USER_ANS_SEQ
-             , A.SUBJECT_TYPE_CD
-             , A.SRT_NO
-             , B.USER_ANSWER
-        FROM QUIZ_MSTR_INFO A
-                 LEFT JOIN (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) B
-                           ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
-        WHERE 1 = 1
-          AND A.DEL_YN = 'N'
-          AND A.EXAM_GRP_CD = #{examGrpCd}
-          AND A.EXAM_YEAR = #{examYear}
-          AND A.EXAM_NO = #{examNo}
-        <if test="subjectTypeCd != null and subjectTypeCd != ''">
-            AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
-        </if>
-        ORDER BY A.SUBJECT_TYPE_CD, A.SRT_NO
+            ROW_NUMBER() OVER(PARTITION BY SUBJECT_TYPE_CD ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS RNO
+            , X.*
+        FROM (
+            SELECT
+                 A.QUIZ_MSTR_INFO_SEQ
+                 , B.QUIZ_USER_ANS_SEQ
+                 , A.SUBJECT_TYPE_CD
+                 , A.SRT_NO
+                 , B.USER_ANSWER
+                 , ROW_NUMBER() OVER(PARTITION BY A.QUIZ_MSTR_INFO_SEQ) AS ERR_CHK
+            FROM QUIZ_MSTR_INFO A
+                     LEFT JOIN (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) B
+                               ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
+            WHERE 1 = 1
+              AND A.DEL_YN = 'N'
+              AND A.EXAM_GRP_CD = #{examGrpCd}
+              AND A.EXAM_YEAR = #{examYear}
+              AND A.EXAM_NO = #{examNo}
+            <if test="subjectTypeCd != null and subjectTypeCd != ''">
+                AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
+            </if>
+            ) X
+        WHERE ERR_CHK = 1
+        ORDER BY SUBJECT_TYPE_CD, SRT_NO
     </select>
 
     <select id="selectQuizSubjectList" resultType="HashMap">
@@ -38,14 +44,14 @@
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
         GROUP BY SUBJECT_TYPE_CD, A.GRP_DTL_NM
-        ORDER BY A.SRT_NO;
+        ORDER BY A.SRT_NO
     </select>
 
     <select id="selectQuizSubjectUserList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT
                A.GRP_DTL_NM      AS SUBJECT_TYPE_NM
              , A.GRP_DTL_CD      AS SUBJECT_TYPE_CD
-             , COUNT(*)          AS QUIZ_TOTAL_CNT
+             , COUNT(DISTINCT B.QUIZ_MSTR_INFO_SEQ) AS QUIZ_TOTAL_CNT
              , USER_ID AS USER_ID
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B LEFT JOIN
@@ -57,7 +63,7 @@
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
         GROUP BY SUBJECT_TYPE_CD, A.GRP_DTL_NM
-        ORDER BY A.SRT_NO;
+        ORDER BY A.SRT_NO
     </select>
 
     <select id="getQuizEndCnt" resultType="int">

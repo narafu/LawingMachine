@@ -26,7 +26,7 @@
             , #{examYear}
             , #{examNo}
             , #{userId}
-            , (SELECT COUNT(*) FROM (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId} AND ANSWER_CHK = 'O' AND DEL_YN = 'N') A, QUIZ_MSTR_INFO B
+            , (SELECT COUNT(*) FROM (SELECT DISTINCT QUIZ_MSTR_INFO_SEQ FROM QUIZ_USER_ANS WHERE USER_ID = #{userId} AND ANSWER_CHK = 'O' AND DEL_YN = 'N') A, QUIZ_MSTR_INFO B
                 WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
                    AND B.SUBJECT_TYPE_CD = #{subjectTypeCd} AND B.EXAM_GRP_CD = #{examGrpCd} AND EXAM_YEAR = #{examYear} AND EXAM_NO = #{examNo}
             )
