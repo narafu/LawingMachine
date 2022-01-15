@@ -15,7 +15,7 @@ mybatis:
     mapUnderscoreToCamelCase: true
 
 server:
-  port: 8090
+  port: 8080
   max-http-header-size: 400000
 
 logging:
@@ -65,13 +65,13 @@ spring:
             client-secret: q_k0N99pXC
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8090/login/oauth2/code/naver
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
           kakao:
             client-id: 61be32318f4b710d766a19da871ffb9e
             client-secret: a2a6ee78a07186fd65bea5bef4a8aa6c
             client-name: kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8090/login/oauth2/code/kakao
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
             client-authentication-method: POST
         provider:
           naver:
@@ -115,18 +115,22 @@ spring:
     oauth2:
       client:
         registration:
+          google:
+            client-id: 225634132446-k44mneq5c4ivqf9v2vhsij7skns3h9o5.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
           naver:
             client-id: V_33F7A6ziMHh6lBxXTO
             client-secret: fMw1QBocH_
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: http://3.38.225.49:8090/login/oauth2/code/naver
+            redirect-uri: http://lawingmachine.com/login/oauth2/code/naver
           kakao:
             client-id: 61be32318f4b710d766a19da871ffb9e
             client-secret: a2a6ee78a07186fd65bea5bef4a8aa6c
             client-name: kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://3.38.225.49:8090/login/oauth2/code/kakao
+            redirect-uri: http://lawingmachine.com/login/oauth2/code/kakao
             client-authentication-method: POST
         provider:
           naver:
