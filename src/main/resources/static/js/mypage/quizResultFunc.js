@@ -35,11 +35,11 @@ function setQuizResultMsg(result) {
 		$('.myTotalPoint').text(myTotalPoint);
 		$('#quizResultY').show();
 		$('#happCalculator').show();
-		$('#quizResultN').hide();
+		$('.quizResultN').hide();
 	} else {
 		$('#quizResultY').hide();
 		$('#happCalculator').hide();
-		$('#quizResultN').show();
+		$('.quizResultN').show();
 	}
 
 	let count = 0;
