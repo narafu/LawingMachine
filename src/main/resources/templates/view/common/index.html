@@ -7,21 +7,20 @@
 <div layout:fragment="content" class="container">
 
     <div class="row">
-        <div class="col-5 mt-5">
+        <div class="col-lg p-5">
             <div class="row d-flex justify-content-between">
                 <p class="bg-primary text-light text-center rounded-pill px-4 py-2 my-5" style="font-size: 1.4rem;">똑똑하게 점수를 올리고 싶다면</p>
                 <p class="lead m-3 my-5" style="font-size: 3rem; font-family: 'KOTRA_BOLD-Bold'">변호사 될 때까지<br/>로잉머신 v1.0</p>
                 <p class="m-3 " style="font-size: 1.25rem; font-family: 'KOTRA_BOLD-Bold'">합격은 기계적인 반복학습 끝에 얻을 수 있습니다.<br/>로잉머신으로 문제를 관리하고 반복하세요!</p>
                 <th:block sec:authorize="isAuthenticated() == false">
-                    <button class="btn btn-lg btn-primary m-3 px-5 py-3 my-5" th:onclick="goLoginPage()">제 11회 변호사시험 문제 풀기</button>
+                    <button class="btn btn-lg btn-primary px-5 py-3 my-5" th:onclick="goLoginPage()">제 11회 변호사시험 문제 풀기</button>
                 </th:block>
                 <th:block sec:authorize="isAuthenticated()">
-                    <button class="btn btn-lg btn-primary m-3 px-5 py-3 my-5" th:onclick="goExamNoticePage([[${session.sessionUser.membershipCd}]])">제 11회 변호사시험 문제 풀기</button>
+                    <button class="btn btn-lg btn-primary px-5 py-3 my-5" th:onclick="goExamNoticePage([[${session.sessionUser.membershipCd}]])">제 11회 변호사시험 문제 풀기</button>
                 </th:block>
             </div>
         </div>
-        <div class="col-1"></div>
-        <div class="col-6 px-5 mt-5">
+        <div class="col-lg p-5">
             <div class="text-center fs-1 my-4" style="font-family: 'KOTRA_BOLD-Bold';">제11회 변호사시험 빌보드</div>
             <div>
                 <ul class="nav nav-pills m-1">

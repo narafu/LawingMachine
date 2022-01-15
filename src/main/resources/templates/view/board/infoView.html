@@ -22,17 +22,19 @@
                     <div class="col">
                         <div class="rounded-pill border border-primary text-primary px-4 py-2 text-center" >
                             <span th:text="|공감: ${boardVO.likeTotalCnt}|"></span>
-                            <span class="text-dark mx-3"> | </span>
-                            <span th:text="|조회수: ${boardVO.viewCnt}|"></span>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="rounded-pill border border-primary text-primary px-4 py-2 text-center" th:text="|등록일: ${boardVO.regDt}|"></div>
+                        <div class="rounded-pill border border-primary text-primary px-4 py-2 text-center" th:text="|조회수: ${boardVO.viewCnt}|"></div>
                     </div>
+                </div>
+                
+                <div class="my-3 text-end" >
+	                <th:block th:text="${boardVO.regTs}"/>
                 </div>
 
                 <div class="my-3">
-                    <div class="border px-4 py-2" th:text="${boardVO.title}"></div>
+                    <div class="border px-4 py-2" th:text="|제목 : ${boardVO.title}|"></div>
                 </div>
 
                 <div class="border px-4 py-3" id="boardCntnt"></div>

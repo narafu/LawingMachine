@@ -12,17 +12,19 @@
     <!-- header -->
     <header th:replace="fragments/header :: headerFragment"></header>
 
-    <div class="row mt-5">
-        <!-- leftSidebar -->
-        <div class="col">
-            <div class="w-50 mx-auto">
-                <div th:replace="fragments/leftSidebar :: adminBoardSidebarFragment"></div>
-            </div>
-        </div>
-        <!-- content -->
-        <div class="col-9">
-            <div class="w-75" layout:fragment="content"></div>
-        </div>
+   	<div class="container">
+ 	   <div class="row">
+	        <!-- leftSidebar -->
+	        <div class="col-lg">
+	            <div class="m-5">
+         	       <div th:replace="fragments/leftSidebar :: adminBoardSidebarFragment"></div>
+	            </div>
+	        </div>
+	        <!-- content -->
+	        <div class="col-lg-9">
+	            <div class="m-5" layout:fragment="content"></div>
+	        </div>
+    	</div>
     </div>
 
     <!-- modal -->
