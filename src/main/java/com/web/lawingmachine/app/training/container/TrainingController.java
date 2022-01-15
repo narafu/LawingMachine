@@ -127,7 +127,7 @@ public class TrainingController {
         if (totalSubjectCnt == userSubjectCnt) {
             UserInfoVO userInfoVO = new UserInfoVO();
             userInfoVO.setUserId(sessionUser.getUserId());
-            userInfoVO.setMembershipCd("20"); // 빌보드회원
+            userInfoVO.setMembershipCd("30"); // 빌보드회원
             userService.updateUserInfo(userInfoVO);
         }
 
