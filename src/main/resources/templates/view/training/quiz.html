@@ -76,6 +76,8 @@
 <!--                        <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>-->
                         <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
                         <div class="my-5 border border-primary px-3 py-2" id="quizCntntDiv"></div>
+                        <img th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, '70') and #strings.equals(quizMstrInfoVO.srtNo, '36')}"
+                        	style="width:100vh;" src="/images/table_70_36.png" alt="참고">
                         <script>
                             let quizCntntDiv = toastui.Editor.factory({
                                 el: document.querySelector('#quizCntntDiv'),
