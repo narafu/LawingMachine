@@ -128,7 +128,7 @@ public class TrainingController {
             UserInfoVO userInfoVO = new UserInfoVO();
             userInfoVO.setUserId(sessionUser.getUserId());
             userInfoVO.setMembershipCd("30"); // 빌보드회원
-            userService.updateUserInfo(userInfoVO);
+            userService.updateMembershipCd(userInfoVO);
         }
 
         return result;
