@@ -33,12 +33,10 @@ function setQuizResultMsg(result) {
 	// 진단결과 예측
 	if (result['RESULT_CNT']) {
 		$('.myTotalPoint').text(myTotalPoint);
-		$('#quizResultY').show();
-		$('#happCalculator').show();
+		$('.quizResultY').show();
 		$('.quizResultN').hide();
 	} else {
-		$('#quizResultY').hide();
-		$('#happCalculator').hide();
+		$('.quizResultY').hide();
 		$('.quizResultN').show();
 	}
 
