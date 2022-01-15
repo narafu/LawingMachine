@@ -33,10 +33,15 @@
 	}
 	
 	function goExamNoticePage() {
-	    let form = $('#examMainForm');
-	    form.attr('method', 'get');
-	    form.attr('target', '');
-	    form.attr('action', '/training/exam/notice');
-	    form.submit();
+		let url = '/training/exam/result';
+		let param = $('#examMainForm').serialize();
+		$.post(url, param, function (result) {
+			// result == success
+		    let form = $('#examMainForm');
+		    form.attr('method', 'get');
+		    form.attr('target', '');
+		    form.attr('action', '/training/exam/notice');
+		    form.submit();
+		})
 	}
 </script>
