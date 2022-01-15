@@ -129,10 +129,4 @@
 		FROM USER_INFO
 	</select>
 
-	<update id="updateMembershipCd">
-		UPDATE USER_INFO SET
-			MEMBERSHIP_CD = #{membershipCd}
-		WHERE USER_ID = #{userId}
-	</update>
-
 </mapper>
