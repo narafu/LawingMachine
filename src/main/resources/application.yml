@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: was
+    active: dev
   thymeleaf:
     cache: false
 
@@ -67,8 +67,8 @@ spring:
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/naver
           kakao:
-            client-id: 61be32318f4b710d766a19da871ffb9e
-            client-secret: a2a6ee78a07186fd65bea5bef4a8aa6c
+            client-id: a29beb7e4322a745cc6623d79102faee
+            client-secret: b3cbca2f5e4008b44f5608c21a8de28e
             client-name: kakao
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/kakao
