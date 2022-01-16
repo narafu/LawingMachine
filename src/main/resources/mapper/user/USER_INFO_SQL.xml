@@ -122,6 +122,8 @@
 				<property name="grpDtlNm" value="MEMBERSHIP_NM"/>
 			</include>
 		FROM USER_INFO
+		LIMIT #{pageSize}
+		OFFSET #{offset}
 	</select>
 
 	<select id="getApprovalListCnt" resultType="int">

@@ -20,18 +20,16 @@
                     <div class="col">
                         <div class="rounded-pill border border-primary text-primary px-4 py-2 fw-bold text-center" th:text="${boardVO.subjectTypeNm}"></div>
                     </div>
-                    <div class="col">
+                    <!--<div class="col">
                         <div class="rounded-pill border border-primary text-primary px-4 py-2 text-center" >
                             <span th:text="|공감: ${boardVO.likeTotalCnt}|"></span>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="rounded-pill border border-primary text-primary px-4 py-2 text-center" th:text="|조회수: ${boardVO.viewCnt}|"></div>
-                    </div>
+                    </div>-->
                 </div>
                 
-                <div class="my-3 text-end" >
-	                <th:block th:text="${boardVO.regTs}"/>
+                <div class="d-flex justify-content-between my-3">
+                    <div class="text-primary" th:text="|조회수: ${boardVO.viewCnt}|"></div>
+                    <div th:text="${boardVO.regTs}"></div>
                 </div>
 
                 <div class="my-3">
