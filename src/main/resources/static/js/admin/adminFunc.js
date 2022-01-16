@@ -1,7 +1,5 @@
 function goBoardList() {
-	$('#boardForm input').each(function() {
-		$(this).val('');
-	})
+    $('#content').val('');
     let form = $('#boardForm');
     form.attr('method', 'get');
     form.attr('action', '/admin/board/quiz/list');

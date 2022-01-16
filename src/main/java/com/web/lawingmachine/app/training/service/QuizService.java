@@ -25,8 +25,6 @@ public interface QuizService {
 
     List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId);
 
-    int insertQuizResultInfo(QuizMstrInfoVO param);
-
     List<Map<String, Object>> getQuizResultUserSubjectCnt(QuizMstrInfoVO param);
 
     List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param);
@@ -34,4 +32,8 @@ public interface QuizService {
     List<Map<String, Object>> getquizResultInfo(String userId);
 
 	int getMemberTotalCnt(QuizMstrInfoVO param);
+
+    int mergeQuizResultInfo(QuizMstrInfoVO param);
+
+    int getQuizResultListCnt(QuizMstrInfoVO param);
 }

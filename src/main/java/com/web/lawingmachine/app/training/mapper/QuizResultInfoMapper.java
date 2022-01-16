@@ -18,4 +18,10 @@ public interface QuizResultInfoMapper {
     List<Map<String, Object>> getquizResultInfo(String userId);
 
 	int getMemberTotalCnt(QuizMstrInfoVO param);
+
+    int updateQuizResultInfo(QuizMstrInfoVO param);
+
+    QuizMstrInfoVO getQuizResultInfo(QuizMstrInfoVO param);
+
+    int getQuizResultListCnt(QuizMstrInfoVO param);
 }

@@ -10,6 +10,7 @@
         <form id="boardForm">
             <input type="hidden" th:field="${boardVO.content}"/>
             <input type="hidden" th:field="${boardVO.brdMstrInfoSeq}"/>
+            <input type="hidden" name="offset" id="offset" th:value="${param.offset}" />
 
             <div class="mt-4">
                 <div class="row">

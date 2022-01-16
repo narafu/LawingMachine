@@ -116,7 +116,7 @@ public class TrainingController {
         SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
         param.setUserId(sessionUser.getUserId());
 
-        int resultCnt = quizService.insertQuizResultInfo(param);
+        int resultCnt = quizService.mergeQuizResultInfo(param);
 
         // 공통코드(과목코드)
         List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
