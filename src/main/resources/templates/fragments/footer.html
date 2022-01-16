@@ -2,7 +2,9 @@
 <html lang="ko" xmlns:th="http://thymeleaf.org">
 	
 	<footer th:fragment="footerFragment" style="height: 200px">
-		<div></div>
+		<div>
+			<input type="hidden" th:value="${@environment.getProperty('spring.profiles.active')}" id="activeEnvir"></input>
+		</div>
 	</footer>
 
 </html>
