@@ -46,7 +46,7 @@
         WHERE QUIZ_RESULT_INFO_SEQ = #{quizResultInfoSeq}
     </update>
 
-    <select id="getQuizResultInfo" resultType="QuizMstrInfoVO">
+    <select id="getQuizResultInfo" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
         SELECT QUIZ_RESULT_INFO_SEQ
         FROM QUIZ_RESULT_INFO
         WHERE DEL_YN = 'N'
