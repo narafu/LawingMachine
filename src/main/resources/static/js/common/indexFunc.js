@@ -24,10 +24,8 @@ function goLoginPage() {
 function goExamNoticePage(membershipCd) {
 
     if (membershipCd == 10) {
-        let url = '/modal/alert';
-        let modalId = 'membershipCd';
-        let modalText = '마이페이지에서 수험번호와 수험표 인증 후 이용할 수 있습니다.';
-        modal(url, modalId, modalText);
+		let message = '마이페이지에서 수험번호와 수험표 인증 후 이용할 수 있습니다.';
+		common_modal_alert(message)
         return;
     }
 

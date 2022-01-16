@@ -30,19 +30,15 @@ function updateUserInfo() {
 
     // 이미지 업로드
     uploadImage();
-
-    let url = '/mypage/myprofile';
-    let data = $('#myprofileForm').serialize();
-    $.post(url, data, function (result) {
-		common.modal.alert(result.message, function() {
-			location.reload();
-		})
-//        let url = '/modal/alert';
-//        let modalId = 'updateUserInfo';
-//        let modalText = result['message'];
-//        modal(url, modalId, modalText);
-    })
     
+    // 프로필 업데이트
+    common_modal_confirm('저장하시겠습니까?', function() {
+	    $.post('/mypage/myprofile', $('#myprofileForm').serialize(), function (result) {
+	        common_modal_alert(result.message, function() {
+				location.reload();
+			})
+		})
+	});
 }
 
 function getReviewNoteSubject(obj, subjectTypeCd) {

@@ -136,20 +136,8 @@ function goQuiz(obj) {
             let prevQuizMstrInfoSeq = $('.quizMstrInfoSeq:eq(' + quizIndex + ')').val();
             quizAnsSave(prevQuizMstrInfoSeq, 'N', 'N');
         } else {
-            // if (mobileYn) {
-            // alert('첫 번째 문제입니다.');
-            // } else {
-            //     let url = '/quiz/modal/firstPageModal';
-            //     $.ajax(url).done(function (modalHtml) {
-            //         $('#modalDiv').html(modalHtml);
-            //         let firstPageModal = new bootstrap.Modal(document.getElementById('firstPageModal'));
-            //         firstPageModal.show();
-            //     })
-            // }
-            let url = '/modal/alert';
-            let modalId = 'fstQuizAlert';
-            let modalText = '첫 번째 문제입니다.';
-            modal(url, modalId, modalText);
+            let message = '첫 번째 문제입니다.';
+            common_modal_alert(message);
         }
     }
 
@@ -158,16 +146,7 @@ function goQuiz(obj) {
         let lastQuizMstrInfoSeq = $('.quizMstrInfoSeq:last').val();
 
         if (quizMstrInfoSeq == lastQuizMstrInfoSeq) {
-            // if (mobileYn) {
             quizAnsSave(quizMstrInfoSeq, 'N', 'Y');
-            // } else {
-            //     let url = '/quiz/modal/lastPageModal?quizMstrInfoSeq=' + quizMstrInfoSeq;
-            //     $.ajax(url).done(function (modalHtml) {
-            //         $('#modalDiv').html(modalHtml);
-            //         let lastPageModal = new bootstrap.Modal(document.getElementById('lastPageModal'));
-            //         lastPageModal.show();
-            //     })
-            // }
         } else {
             quizIndex++;
             let nextQuizMstrInfoSeq = $('.quizMstrInfoSeq:eq(' + quizIndex + ')').val();
@@ -181,23 +160,16 @@ function quizAnsSave(quizMstrInfoSeq, modalYn, resultYn) {
     let param = $('#examMainForm').serialize();
     $.post(url, param, function (result) {
         if (result) {
-            // if (modalYn == 'Y') {
-            //     $('#modalDiv .modal').modal('hide');
-            // }
             if (resultYn == 'Y') {
                 getAjaxQuizMstrInfo(quizMstrInfoSeq);
-                let url = '/modal/alert';
-                let modalId = 'lstQuizAlert';
-                let modalText = '마지막 문제입니다. <br> 모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.';
-                modal(url, modalId, modalText);
+                let message = '마지막 문제입니다. <br> 모든 문제의 정답을 입력하면 [제출하기]가 활성화됩니다.';
+                common_modal_alert(message);
             } else {
                 getAjaxQuizMstrInfo(quizMstrInfoSeq);
             }
         } else {
-            let url = '/modal/alert';
-            let modalId = 'fstQuizAlert';
-            let modalText = '오류가 발생하였습니다.';
-            modal(url, modalId, modalText);
+            let message = '오류가 발생하였습니다.';
+            common_modal_alert(message);
         }
     });
 }
@@ -220,8 +192,6 @@ function moveResultPage() {
 }
 
 function quizNotYetAlert() {
-    let url = '/modal/alert';
-    let modalId = 'quizNotYetAlert';
-    let modalText = '아직 풀지 않은 문제가 있습니다.';
-    modal(url, modalId, modalText);
+    let message = '아직 풀지 않은 문제가 있습니다.';
+    common_modal_alert(message);
 }
