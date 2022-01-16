@@ -10,6 +10,7 @@
         <form id="boardForm">
             <input type="hidden" th:field="${quizMstrInfoVO.quizMstrInfoSeq}"/>
             <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
+            <input type="hidden" name="offset" id="offset" th:value="${param.offset}" />
 
             <div class="row mt-4" style="font-family: 'NEXON Lv1 Gothic OTF';">
                 <div class="col text-center">

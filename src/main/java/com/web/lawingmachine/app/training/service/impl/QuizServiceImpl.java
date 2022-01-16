@@ -1,19 +1,14 @@
 package com.web.lawingmachine.app.training.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizResultInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizUserAnsDtlMapper;
-import com.web.lawingmachine.app.training.mapper.QuizUserAnsMapper;
+import com.web.lawingmachine.app.training.mapper.*;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -102,8 +97,15 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public int insertQuizResultInfo(QuizMstrInfoVO param) {
-        return quizResultInfoMapper.insertQuizResultInfo(param);
+    public int mergeQuizResultInfo(QuizMstrInfoVO param) {
+        int resultCnt = 0;
+        QuizMstrInfoVO quizMstrInfoVO = quizResultInfoMapper.getQuizResultInfo(param);
+        if (quizMstrInfoVO == null) {
+            resultCnt = quizResultInfoMapper.insertQuizResultInfo(param);
+        } else {
+            resultCnt = quizResultInfoMapper.updateQuizResultInfo(quizMstrInfoVO);
+        }
+        return resultCnt;
     }
 
     @Override
@@ -113,7 +115,14 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param) {
+        param.setOffset(param.getOffset() * 20);
+        param.setPageSize(20);
         return quizResultInfoMapper.selectQuizResultList(param);
+    }
+
+    @Override
+    public int getQuizResultListCnt(QuizMstrInfoVO param) {
+        return quizResultInfoMapper.getQuizResultListCnt(param);
     }
 
     @Override
@@ -121,8 +130,8 @@ public class QuizServiceImpl implements QuizService {
         return quizResultInfoMapper.getquizResultInfo(userId);
     }
 
-	@Override
-	public int getMemberTotalCnt(QuizMstrInfoVO param) {
-		return quizResultInfoMapper.getMemberTotalCnt(param);
-	}
+    @Override
+    public int getMemberTotalCnt(QuizMstrInfoVO param) {
+        return quizResultInfoMapper.getMemberTotalCnt(param);
+    }
 }

@@ -36,12 +36,39 @@
         )
     </insert>
 
+    <update id="updateQuizResultInfo">
+        UPDATE QUIZ_RESULT_INFO SET
+            RESULT_CNT = (SELECT COUNT(*) FROM (SELECT DISTINCT QUIZ_MSTR_INFO_SEQ FROM QUIZ_USER_ANS WHERE USER_ID = #{userId} AND ANSWER_CHK = 'O' AND DEL_YN = 'N') A, QUIZ_MSTR_INFO B
+                          WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
+                            AND B.SUBJECT_TYPE_CD = #{subjectTypeCd} AND B.EXAM_GRP_CD = #{examGrpCd} AND EXAM_YEAR = #{examYear} AND EXAM_NO = #{examNo}
+            )
+            , MDFY_TS = CURRENT_TIMESTAMP
+        WHERE QUIZ_RESULT_INFO_SEQ = #{quizResultInfoSeq}
+    </update>
+
+    <select id="getQuizResultInfo" resultType="QuizMstrInfoVO">
+        SELECT QUIZ_RESULT_INFO_SEQ
+        FROM QUIZ_RESULT_INFO
+        WHERE DEL_YN = 'N'
+            AND SUBJECT_TYPE_CD = #{subjectTypeCd}
+            AND EXAM_GRP_CD = #{examGrpCd}
+            AND EXAM_YEAR = #{examYear}
+            AND EXAM_NO = #{examNo}
+            AND USER_ID = #{userId}
+    </select>
+
     <select id="getQuizResultUserSubjectCnt" resultType="Hashmap">
         SELECT COUNT(*), USER_ID
         FROM QUIZ_RESULT_INFO
         WHERE DEL_YN = 'N' AND USER_ID = #{userId}
         GROUP BY SUBJECT_TYPE_CD
     </select>
+
+    <sql id="selectQuizResultList-where">
+        <if test="subjectTypeCd == null or subjectTypeCd == ''">
+            AND CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
+        </if>
+    </sql>
 
     <select id="selectQuizResultList" resultType="HashMap">
         SELECT
@@ -67,9 +94,31 @@
                 </if>
             GROUP BY USER_ID
         ) X
-        <if test="subjectTypeCd == null or subjectTypeCd == ''">
-            WHERE CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
-        </if>
+        WHERE 1 = 1
+        <include refid="selectQuizResultList-where"/>
+        LIMIT #{pageSize}
+        OFFSET #{offset}
+    </select>
+
+    <select id="getQuizResultListCnt" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM (
+            SELECT
+                COUNT(*) AS CNT
+                 , USER_ID
+            FROM QUIZ_RESULT_INFO A
+            WHERE DEL_YN = 'N'
+                AND EXAM_GRP_CD = #{examGrpCd}
+                AND EXAM_YEAR = #{examYear}
+                AND EXAM_NO = #{examNo}
+            <if test="subjectTypeCd != null and subjectTypeCd != ''">
+                AND SUBJECT_TYPE_CD = #{subjectTypeCd}
+            </if>
+            GROUP BY USER_ID
+        ) X
+        WHERE 1 = 1
+        <include refid="selectQuizResultList-where"/>
     </select>
     
     <select id="getMemberTotalCnt" resultType="int">

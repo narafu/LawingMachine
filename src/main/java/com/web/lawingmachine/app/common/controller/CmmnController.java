@@ -35,14 +35,20 @@ public class CmmnController {
 
     @GetMapping(value = {"/index/billboard"})
     public String selectQuizResultData(QuizMstrInfoVO param, Model model) {
+
         // 빌보드
         List<Map<String, Object>> billBoardList = quizService.selectQuizResultList(param);
         Object[] arr = billBoardList.toArray();
+
         int size = 10;
         for (int i = 0; i < arr.length; i += size) {
             Object[] billBoardArr = Arrays.copyOfRange(arr, i, Math.min(arr.length, i + size));
             model.addAttribute("billBoardArr" + i, billBoardArr);
         }
+
+        int total = quizService.getQuizResultListCnt(param);
+        model.addAttribute("total", total);
+
         return "view/common/index :: #billboard";
     }
 

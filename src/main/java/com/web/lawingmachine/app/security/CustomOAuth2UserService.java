@@ -1,10 +1,7 @@
 package com.web.lawingmachine.app.security;
 
-import java.util.Collections;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,8 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.web.lawingmachine.app.user.service.UserService;
-import com.web.lawingmachine.app.user.vo.UserInfoVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
 
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -85,10 +83,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 			if("dev".contentEquals(active)) {
 				userInfoVO.setRole("ROLE_ADMIN");
 			}
-			
-			// ver 1.0
-			userInfoVO.setMembershipCd("20");
-			
+
 			userService.insertUserInfo(userInfoVO);
 		
 		} else {
