@@ -12,7 +12,6 @@ public class ModalVO {
 
 	private String modalFunc;
 
-	private String actBtnText = "저장";
+	private String actBtnText;
 	private String clsBtnText = "닫기";
-	private String okBtnText = "확인";
 }

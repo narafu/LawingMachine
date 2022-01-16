@@ -136,6 +136,9 @@ public class MyPageController {
 	public String reviewNote(HttpServletRequest req, QuizMstrInfoVO quizMstrInfoVO, Model model) {
 
 		SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
+		UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
+		model.addAttribute("userInfo", userInfo);
+
 		quizMstrInfoVO.setUserId(sessionUser.getUserId());
 		model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 

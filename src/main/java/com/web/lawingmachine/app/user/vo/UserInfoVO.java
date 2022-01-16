@@ -14,13 +14,13 @@ public class UserInfoVO extends BaseVO {
     private String email;
     private String mobile;
     private int loginCnt;
-    private String membershipCd = "20";
+    private String membershipCd;
     private String membershipNm;
     private String examTicket;
     private String examTicketPath;
     private String examTicketNo;
     private String examTicketYn;
-    private String role = "ROLE_USER";
+    private String role;
 
     private String password;
     private int takeRev;

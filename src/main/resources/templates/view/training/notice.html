@@ -81,10 +81,8 @@
             $('.quizNavTltDiv').click(function () {
 
                 if($(this).hasClass('disable')) {
-                    let url = '/modal/alert';
-                    let modalId = 'quizNotYetAlert';
-                    let modalText = '이미 응시한 과목입니다. 다시 응시할 수 없습니다.';
-                    modal(url, modalId, modalText);
+                    let message = '이미 응시한 과목입니다. 다시 응시할 수 없습니다.';
+                    common_modal_alert(message);
                     return;
                 }
 

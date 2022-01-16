@@ -25,13 +25,13 @@
             <div>
                 <ul class="nav nav-pills m-1">
                     <li class="nav-item" id="billBoardTotal" onclick="getBillboardSubject(this);">
-                        <a class="nav-link" href="#"
+                        <a href="javascript:void(0)" class="nav-link"
                            th:classappend="${#strings.isEmpty(schSubjectTypeCd)} ? 'active'">종합</a>
                     </li>
                     <th:block th:each="Comm002:${CommLst002}">
                         <li class="nav-item"
                             th:onclick="getBillboardSubject(this, [[${Comm002.cmmnDtlCd}]])">
-                            <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
+                            <a href="javascript:void(0)" class="nav-link" th:text="${Comm002.cmmnDtlNm}"
                                th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
                         </li>
                     </th:block>

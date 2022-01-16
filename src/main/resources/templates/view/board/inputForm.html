@@ -61,98 +61,16 @@
         </div>
 
         <th:block layout:fragment="script">
-            <script th:src="@{/js/board/boardFunc.js}"></script>
             <script>
-                let Editor = toastui.Editor;
-                let boardCntnt = new Editor({
+                var Editor = toastui.Editor;
+                var boardCntnt = new Editor({
                     el: document.querySelector('#boardCntnt'),
                     height: '400px',
                     initialValue: $('#content').val(),
                     initialEditType: 'wysiwyg'
                 })
-
-                function insertBoardInfo() {
-
-                    let modalUrl = '/modal/alert';
-                    let modalId = 'insertBoardInfo';
-
-                    if (!$('#brdTypeCd').val()) {
-                        let modalText = '게시판을 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if (!$('#subjectTypeCd').val()) {
-                        let modalText = '과목을 선택해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    if (!$('#title').val()) {
-                        let modalText = '제목을 입력해주세요.';
-                        modal(modalUrl, modalId, modalText);
-                        return;
-                    }
-
-                    let boardCntntHtml = boardCntnt.getHTML();
-                    if (boardCntntHtml == '<p><br></p>') {
-                        $('#content').val('');
-                    } else {
-                        $('#content').val(boardCntntHtml);
-                    }
-
-                    $.confirm({
-                        title: '',
-                        content: '등록하시겠습니까?',
-                        buttons: {
-                            '등록': function () {
-                                $.alert('등록되었습니다.');
-                                let url = '/board/free/infoView/insert';
-                                let data = $('#boardForm').serialize();
-                                $.post(url, data, function (result) {
-                                    goBoardList();
-                                });
-                            },
-                            '취소': function () {
-                            }
-                        }
-                    })
-                }
-
-                function updateBoardInfo(brdMstrInfoSeq) {
-
-                    let boardCntntHtml = boardCntnt.getHTML();
-
-                    if (boardCntntHtml == '<p><br></p>') {
-                        $('#content').val('');
-                    } else {
-                        $('#content').val(boardCntntHtml);
-                    }
-
-                    if (boardCntntHtml == '<p><br></p>') {
-                        $('#content').val('');
-                    } else {
-                        $('#content').val(boardCntntHtml);
-                    }
-
-                    $.confirm({
-                        title: '',
-                        content: '저장하시겠습니까?',
-                        buttons: {
-                            '저장': function () {
-                                $.alert('저장되었습니다.');
-                                let url = '/board/free/infoView/update';
-                                let data = $('#boardForm').serialize();
-                                $.post(url, data, function (result) {
-                                    goBoardInfo(brdMstrInfoSeq);
-                                })
-                            },
-                            '취소': function () {
-                            }
-                        }
-                    })
-                }
             </script>
+            <script th:src="@{/js/board/boardFunc.js}"></script>
         </th:block>
     </div>
 
