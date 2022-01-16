@@ -39,6 +39,7 @@
                     </th:block>
                 </ul>
             </div>
+            <small class="form-text text-danger">* [종합]빌보드는 모든 과목을 제출한 경우만, 등록됩니다.</small>
             <div class="d-flex" id="billboard">
                 <form method="get" id="indexForm">
                     <input type="hidden" name="offset" id="offset" th:value="${#strings.defaultString(param.offset, 0)}" />
@@ -113,10 +114,15 @@
     <!--            </button>-->
     <!--        </div>-->
 
+    <hr>
     <div class="text-center">
-        <hr>
-        Copyright LawingMachine All rights reserved
+        <div>Copyright LawingMachine All rights reserved</div>
+        <div>lawingmachine.info@gmail.com</div>
+        <!--<a href="https://pf.kakao.com/_xiscPb" class="text-end">
+            <img class="w-25" src="/images/kakao_channel.png" alt="카카오톡 채널 문의"/>
+        </a>-->
     </div>
+
 </div>
 <!-- [content] 영역 끝 -->
 

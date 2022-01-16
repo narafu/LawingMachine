@@ -11,52 +11,58 @@
 
     <!-- main -->
     <div class="row">
-	    <div class="col-xl mt-5">
-	
-	        <form id="examMainForm" method="get">
-	            <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
-	            <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-	            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 11 : quizMstrInfoVO.examNo}" id="examNo"/>
-	            <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}" id="subjectTypeCd"/>
-	            <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}" id="quizMstrInfoSeq"/>
-	            <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}" id="quizUserAnsSeq"/>
-	            <input type="hidden" name="userAnswer" th:value="${quizMstrInfoVO.userAnswer}" id="userAnswer"/>
-	
-	            <div class="w-100" th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
-	            	<img class="w-100 px-5" style="max-height:70vh;" src="/images/notice.png" alt="주의사항">
-	                <!-- <h1>주의사항</h1>
-	                <p class="fs-4 mt-5">시험은 실제 시험과 같은 조건으로 진행됩니다.</p>
-	                <p class="fs-4">정확한 데이터를 위해 <strong>시험은 <span class="text-danger">한 번만</span> 응시할 수 있습니다.</strong></p>
-	                <p class="fs-4"><strong>중간에 시험을 중단하면, <span class="text-danger">재응시할 수 없습니다.</span></strong></p>
-	                <p class="fs-4">시험을 <span class="text-danger fw-bold">[제출]</span>한 경우만, 빌보드 데이터에 등록됩니다.</p>
-	                <p class="fs-4 text-decoration-underline">제출하지 않고 중단된 시험은 재응시 할 수 없으며, 빌보드에 등록되지 않습니다.</p>
-	                <p class="fs-4">오른쪽 메뉴에서 응시할 과목을 선택해주세요.</p> -->
-	            </div>
-	
-	        </form>
-	    </div>
-	
-	    <!-- sidebar -->
-	    <div class="col-xl-4 mt-5">
-	        <div class="d-grid gap-5" id="quizAnswerNavListDiv">
-	            <!-- <h5 class="mx-3 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">공법</h5> -->
-	            <div>
-	                <th:block th:each="subjectNavInfo:${quizSubjectNaviUserList}">
-	                    <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
-	                        <div class="quizNavTltDiv my-5 px-4 py-3 h5 fw-bold rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
-	                             th:classappend="${(not #strings.isEmpty(subjectNavInfo.userId) and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN') ? 'disable' : '')
+        <div class="col-xl mt-5">
+
+            <form id="examMainForm" method="get">
+                <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
+                <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
+                <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 11 : quizMstrInfoVO.examNo}"
+                       id="examNo"/>
+                <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}"
+                       id="subjectTypeCd"/>
+                <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}"
+                       id="quizMstrInfoSeq"/>
+                <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}"
+                       id="quizUserAnsSeq"/>
+                <input type="hidden" name="userAnswer" th:value="${quizMstrInfoVO.userAnswer}" id="userAnswer"/>
+                <input type="hidden" th:value="${session.sessionUser.role}" id="userRole"/>
+
+                <div class="w-100" th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
+                    <img class="w-100 px-5" style="max-height:70vh;" src="/images/notice.png" alt="주의사항">
+                    <!-- <h1>주의사항</h1>
+                    <p class="fs-4 mt-5">시험은 실제 시험과 같은 조건으로 진행됩니다.</p>
+                    <p class="fs-4">정확한 데이터를 위해 <strong>시험은 <span class="text-danger">한 번만</span> 응시할 수 있습니다.</strong></p>
+                    <p class="fs-4"><strong>중간에 시험을 중단하면, <span class="text-danger">재응시할 수 없습니다.</span></strong></p>
+                    <p class="fs-4">시험을 <span class="text-danger fw-bold">[제출]</span>한 경우만, 빌보드 데이터에 등록됩니다.</p>
+                    <p class="fs-4 text-decoration-underline">제출하지 않고 중단된 시험은 재응시 할 수 없으며, 빌보드에 등록되지 않습니다.</p>
+                    <p class="fs-4">오른쪽 메뉴에서 응시할 과목을 선택해주세요.</p> -->
+                </div>
+
+            </form>
+        </div>
+
+        <!-- sidebar -->
+        <div class="col-xl-4 mt-5">
+            <div class="d-grid gap-5" id="quizAnswerNavListDiv">
+                <!-- <h5 class="mx-3 text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">공법</h5> -->
+                <div>
+                    <th:block th:each="subjectNavInfo:${quizSubjectNaviUserList}">
+                        <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
+                            <div class="quizNavTltDiv my-5 px-4 py-3 h5 fw-bold rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
+                                 th:classappend="${(not #strings.isEmpty(subjectNavInfo.userId) and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN') ? 'disable' : '')
 	                             + (not #strings.isEmpty(subjectNavInfo.userId) and not #strings.equals(session.sessionUser.role, 'ROLE_ADMIN') ? ' text-decoration-line-through' : '')}"
-	                             style="font-family: 'NEXON Lv1 Gothic OTF Light';">
-	                            <span class='subjectNm' th:text="${subjectNavInfo.subjectTypeNm}"></span>
-	                            <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.subjectTypeCd}"></span>
-	                            <span th:text="|총 ${subjectNavInfo.quizTotalCnt}문제|"></span>
-	                            <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
-	                        </div>
-	                    </th:block>
-	                </th:block>
-	            </div>
-	        </div>
-	    </div>
+                                 style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                                <span class='subjectNm' th:text="${subjectNavInfo.subjectTypeNm}"></span>
+                                <span class='subjectCd' style="display: none;"
+                                      th:text="${subjectNavInfo.subjectTypeCd}"></span>
+                                <span th:text="|총 ${subjectNavInfo.quizTotalCnt}문제|"></span>
+                                <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -80,23 +86,24 @@
 
             $('.quizNavTltDiv').click(function () {
 
-                if($(this).hasClass('disable')) {
-                    let message = '이미 응시한 과목입니다. 다시 응시할 수 없습니다.';
-                    common_modal_alert(message);
-                    return;
-                }
-
+                let message;
                 let subjectNm = $(this).find('.subjectNm').text();
                 let subjectCd = $(this).find('.subjectCd').text();
                 $('#subjectTypeCd').val(subjectCd);
 
-                let url = '/modal/quizStartConfirm';
-                let modalId = 'quizStartConfirm';
-                let modalText = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
-                let actBtnText = '시작';
+                if ($(this).hasClass('disable')) {
+                    message = '이미 응시한 과목입니다. 다시 응시할 수 없습니다.';
+                    common_modal_alert(message);
+                    return;
+                } else if($('#userRole').val() == 'ROLE_ADMIN') {
+                    message = '관리자입니다.';
+                } else {
+                    message = subjectNm + '을 응시하시겠습니까? 주의사항을 꼭 확인해주세요!';
+                }
 
-                modal(url, modalId, modalText, actBtnText);
-
+                common_modal_confirm(message, function () {
+					goExamPage();
+                }, '시작', '닫기');
             })
         })
     </script>

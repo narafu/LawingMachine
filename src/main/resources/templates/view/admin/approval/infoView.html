@@ -9,6 +9,7 @@
     <div id="boardContent">
         <form class="d-grid gap-4" id="boardForm">
             <input type="hidden" th:field="${userInfo.userId}">
+            <input type="hidden" name="offset" id="offset" th:value="${param.offset}" />
             <div>
                 <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
             </div>
