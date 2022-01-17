@@ -14,19 +14,26 @@
 	        </div>
 	        <div class="col-lg">
 	            <ul class="nav nav-pills float-end mt-3">
+					<li class="nav-item mx-4"><a href="https://blog.naver.com/archilawyer/222623584164" target='_blank' class="nav-link">제작배경</a></li>
                     <th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
 	                    <th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
-							<li class="nav-item mx-5"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>
-							<li class="nav-item mx-5"><a href="/training/exam/notice" class="nav-link">훈련하기</a></li>
-							<li class="nav-item mx-5"><a href="/board/free/list" class="nav-link">커뮤니티</a></li>
+							<li class="nav-item mx-4"><a href="/training/exam/notice" class="nav-link">훈련하기</a></li>
+							<li class="nav-item mx-4"><a href="/board/free/list" class="nav-link">커뮤니티</a></li>
 	                    </th:block>
                     </th:block>
 	                <th:block sec:authorize="isAuthenticated() == false">
-	                    <li class="nav-item mx-5"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
+	                    <li class="nav-item mx-4"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
 	                </th:block>
 	                <th:block sec:authorize="isAuthenticated()">
-	                    <li class="nav-item mx-5"><a href="/mypage/quizResult" class="nav-link">마이페이지</a></li>
-	                    <li class="nav-item mx-5"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
+	                    <li class="nav-item mx-4"><a href="/mypage/quizResult" class="nav-link">마이페이지</a></li>
+	                </th:block>
+					<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
+						<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
+							<li class="nav-item mx-4"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>
+						</th:block>
+					</th:block>
+	                <th:block sec:authorize="isAuthenticated()">
+	                    <li class="nav-item mx-4"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
 	                </th:block>
 	            </ul>
 	        </div>

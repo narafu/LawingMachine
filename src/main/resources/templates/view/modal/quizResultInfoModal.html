@@ -98,16 +98,13 @@
 </div>
 
 <script>
-	function updateQuizInfoChk() {
-		let url = '/training/exam/userAnswer';
-		let param = $('#quizResultModalForm').serialize();
-		$.post(url, param, function (result) {
-			if (result) {
-				let url = '/modal/alert';
-				let modalId = 'lstQuizAlert';
-				let modalText = '수정되었습니다.';
-				modal(url, modalId, modalText);
-			}
-		})
-	}
+    function updateQuizInfoChk() {
+        let url = '/training/exam/userAnswer';
+        let param = $('#quizResultModalForm').serialize();
+        $.post(url, param).done(function (result) {
+            if (result) {
+                common_modal_alert('수정되었습니다.');
+            }
+        })
+    }
 </script>
