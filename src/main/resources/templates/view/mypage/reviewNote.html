@@ -34,9 +34,9 @@
             <!--                        <a href="" style="text-decoration: none;"><i class="fas fa-print fa-2x"></i></a>-->
             <!--                    </div>-->
         </div>
-        <div class="mt-4">
+        <div class="mt-2">
             <div class="row mx-2">
-                <div id="quizSchChkDiv" class="col-md-6 row align-middle">
+                <div id="quizSchChkDiv" class="col-md-6 row align-items-center">
                     <!--                            <div class="form-check form-check-inline">-->
                     <!--                                <input class="form-check-input" type="checkbox" id="schAllChk" name="schAllChk"-->
                     <!--                                       value="Y" onclick="selectReviewNoteData()" checked="true">-->
@@ -61,11 +61,11 @@
                     </div>
                 </div>
                 <div class="col-md row">
-                    <div class="col-md-8">
+                    <div class="col-md-8 my-1">
                         <input class="form-control" type="search" placeholder="문제 검색" id="schQuizCntnt"
                                aria-label="Search" name="schQuizCntnt" th:value="${quizMstrInfoVO.schQuizCntnt}">
                     </div>
-                    <div class="col-md">
+                    <div class="col-md my-1">
                         <button class="btn btn-outline-success" onclick="selectReviewNoteData()"><i class="fas fa-search"></i></button>
                         <button class="btn btn-outline-success" onclick="searchclear();">clear</button>
                     </div>

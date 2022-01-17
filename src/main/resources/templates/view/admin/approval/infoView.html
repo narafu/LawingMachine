@@ -14,26 +14,42 @@
                 <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
             </div>
             <div>
-                <div class="d-flex justify-content-between d-grid gap-5">
-                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                        <span class="mb-2">닉네임</span>
-                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.nickname}"></span>
+                <div class="row">
+                    <div class="border border-primary px-4 py-2 rounded m-3 col-md">
+                        <div class="mb-2">
+                            <span class="fw-bold text-primary">닉네임</span>
+                        </div>
+                        <div>
+                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.nickname}"></span>
+                        </div>
                     </div>
-                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                        <span class="mb-2">이메일</span>
-                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.email}"></span>
+                    <div class="border border-primary px-4 py-2 rounded m-3 col-md">
+                        <div class="mb-2">
+                            <span class="fw-bold text-primary">이메일</span>
+                        </div>
+                        <div>
+                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.email}"></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="d-flex justify-content-between d-grid gap-5">
-                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                        <span class="mb-2">수험번호</span>
-                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.examTicketNo}"></span>
+                <div class="row">
+                    <div class="border border-primary px-4 py-2 rounded m-3 col-md">
+                        <div class="mb-2">
+                            <span class="fw-bold text-primary">수험번호</span>
+                        </div>
+                        <div>
+                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.examTicketNo}"></span>
+                        </div>
                     </div>
-                    <div class="bg-primary text-light w-100 px-4 py-2 rounded d-flex flex-column">
-                        <span class="mb-2">핸드폰번호</span>
-                        <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.mobile}"></span>
+                    <div class="border border-primary px-4 py-2 rounded m-3 col-md">
+                        <div class="mb-2">
+                            <span class="fw-bold text-primary">핸드폰번호</span>
+                        </div>
+                        <div>
+                            <span style="font-family: 'NEXON Lv1 Gothic OTF Light';" th:text="${userInfo.mobile}"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,7 +62,7 @@
             </div>
         </form>
 
-        <div class="d-grid gap-2 d-flex justify-content-end">
+        <div class="d-grid gap-2 d-flex justify-content-end mt-3">
             <button type="button" th:if="${#strings.equals(userInfo.membershipCd, 10)}"
                     class="btn btn-lg btn-warning px-4 my-3 float-end fw-bold" onclick="approval()">승인</button>
             <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="goApprovalList()">목록</button>

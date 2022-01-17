@@ -55,13 +55,15 @@
              , USER_ID AS USER_ID
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B LEFT JOIN
-                 (SELECT * FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) C
+                 (SELECT QUIZ_MSTR_INFO_SEQ, USER_ID, DEL_YN
+                    FROM QUIZ_USER_ANS WHERE USER_ID = #{userId}) C
                  ON B.QUIZ_MSTR_INFO_SEQ = C.QUIZ_MSTR_INFO_SEQ
         WHERE A.GRP_DTL_CD = B.SUBJECT_TYPE_CD
           AND A.GRP_CD = '002'
           AND A.DEL_YN = 'N'
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
+          AND C.DEL_YN = 'N'
         GROUP BY B.SUBJECT_TYPE_CD, A.GRP_DTL_NM
         ORDER BY A.SRT_NO
     </select>
