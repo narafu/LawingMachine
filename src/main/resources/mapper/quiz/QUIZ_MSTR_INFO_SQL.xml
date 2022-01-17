@@ -51,7 +51,7 @@
         SELECT
                A.GRP_DTL_NM      AS SUBJECT_TYPE_NM
              , A.GRP_DTL_CD      AS SUBJECT_TYPE_CD
-             , COUNT(DISTINCT B.QUIZ_MSTR_INFO_SEQ) AS QUIZ_TOTAL_CNT
+             , COUNT(B.QUIZ_MSTR_INFO_SEQ) AS QUIZ_TOTAL_CNT
              , USER_ID AS USER_ID
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B LEFT JOIN
@@ -62,7 +62,7 @@
           AND A.DEL_YN = 'N'
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
-        GROUP BY SUBJECT_TYPE_CD, A.GRP_DTL_NM
+        GROUP BY B.SUBJECT_TYPE_CD, A.GRP_DTL_NM
         ORDER BY A.SRT_NO
     </select>
 
