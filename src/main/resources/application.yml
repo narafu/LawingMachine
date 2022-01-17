@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: dev
+    active: was
   thymeleaf:
     cache: false
 
