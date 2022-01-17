@@ -42,6 +42,7 @@
             , ANSWER_CHK = CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
             , USER_CHK_IMPRT = #{userChkImprt}
             , USER_CHK_CNFSD = #{userChkCnfsd}
+            , DEL_YN = 'N'
             , MDFY_TS = CURRENT_TIMESTAMP
     </update>
 
