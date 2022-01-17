@@ -5,13 +5,13 @@
 
     <insert id="mergeUserAnswerDtl">
         INSERT INTO QUIZ_USER_ANS_DTL (
-        QUIZ_USER_ANS_DTL_SEQ
-        , QUIZ_USER_ANS_SEQ
-        , QUIZ_DTL_INFO_SEQ
-        , ERASE_YN
-        , REGIST_ID
-        , REGIST_NM
-        , REG_TS
+            QUIZ_USER_ANS_DTL_SEQ
+            , QUIZ_USER_ANS_SEQ
+            , QUIZ_DTL_INFO_SEQ
+            , ERASE_YN
+            , REGIST_ID
+            , REGIST_NM
+            , REG_TS
         ) VALUES (
         <choose>
             <when test="quizUserAnsDtlSeq != null and quizUserAnsDtlSeq != ''">
@@ -29,13 +29,14 @@
                 , (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) AS QUIZ_USER_ANS_SEQ FROM QUIZ_USER_ANS) X )
             </otherwise>
         </choose>
-        , #{quizDtlInfoSeq}
-        , #{eraseYn}
-        , 'SYSTEM'
-        , 'SYSTEM'
-        , CURRENT_TIMESTAMP
+            , #{quizDtlInfoSeq}
+            , #{eraseYn}
+            , 'SYSTEM'
+            , 'SYSTEM'
+            , CURRENT_TIMESTAMP
         ) ON DUPLICATE KEY UPDATE
         ERASE_YN = #{eraseYn}
+        , DEL_YN = 'N'
         , MDFY_TS = CURRENT_TIMESTAMP
     </insert>
 
