@@ -1,3 +1,8 @@
+@media(min-width: 560px) {
+	.mobile {
+		display: none;
+	}
+}
 
 body, #wrapper {
 	display: flex;

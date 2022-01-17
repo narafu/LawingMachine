@@ -12,7 +12,7 @@
             <input type="hidden" th:field="${quizMstrInfoVO.cmntr}" />
 
             <div class="row mb-5">
-                <div class="col">
+                <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examYear}">
                         <option value="">시험년도 선택</option>
                         <th:block th:each=examYear:${examYearArr}>
@@ -20,7 +20,7 @@
                         </th:block>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examGrpCd}">
                         <option value="">시험구분 선택</option>
                         <th:block th:each=cnmmCd:${examCdList}>
@@ -29,7 +29,7 @@
                         </th:block>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examNo}">
                         <option value="0">시험회차 선택</option>
                         <th:block th:each=examNo:${examNoArr}>
@@ -38,7 +38,7 @@
                         </th:block>
                     </select>
                 </div>
-                <div class="col">
+                <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.subjectTypeCd}">
                         <option value="">시험과목 선택</option>
                         <th:block th:each=cnmmCd:${subjectTypeCdList}>
@@ -89,7 +89,7 @@
                                th:value="|${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].quizDtlInfoSeq}|"/>
                     </div>
                     <div class="ml-5 my-3 d-flex align-items-center justify-content-end">
-                        <button type="button" class="btn btn-primary">보기 해설</button>
+                        <div class="border py-2 px-3" style="background-color: #eee">보기<br/>해설</div>
                         <textarea class="w-75 px-3 py-2 mx-4 border" style="height:100px"
                                   th:name="|quizDtlList[${quizDtlInfoStat.index}].cmntr|"
                                   th:text="${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].cmntr}"></textarea>
@@ -125,10 +125,9 @@
                     <label class="form-check-label" for="answer5">5</label>
                 </div>
             </div>
-
         </form>
 
-        <div class="d-grid gap-2 d-flex justify-content-end">
+        <div class="d-grid gap-2 d-flex justify-content-end mt-3">
             <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.quizMstrInfoSeq)}">
                 <button type="button" class="btn btn-lg btn-secondary px-4 my-3 float-end" onclick="goBoardList()">목록</button>
                 <button type="button" class="btn btn-lg btn-primary px-4 my-3 float-end" onclick="insertBoardInfo()">등록</button>

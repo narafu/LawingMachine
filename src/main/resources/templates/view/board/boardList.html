@@ -38,12 +38,13 @@
             columns: [
                 { header: 'No', name: 'rno', width: 60, align: 'center'}
                 , { header: '과목명', name: 'subjectTypeNm', width: 120, align: 'center'}
-                , { header: '제목', name: 'title', sortable: true,
+                , { header: '제목', name: 'title', sortable: true}
+/*                , { header: '제목', name: 'title', sortable: true,
                     formatter: function(obj) {
                         let rtn = obj.value + ' [' + obj.row.cmntCnt + ']';
                         return rtn;
                     }
-                }
+                }*/
                 , { header: '등록자', name: 'registNm', width: 120, align: 'center'}
                 , { header: '등록일자', name: 'regDt', width: 100, align: 'center'}
                 /*, { header: '공감', name: 'likeTotalCnt', width: 80, align: 'center'}*/
