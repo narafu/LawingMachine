@@ -40,7 +40,7 @@
                 </ul>
             </div>
             <small class="form-text text-danger">* [종합]빌보드는 모든 과목을 제출한 경우만, 등록됩니다.</small>
-            <div class="d-flex" id="billboard">
+            <div class="d-flex" id="billboard" style="min-height: 400px;">
                 <form method="get" id="indexForm">
                     <input type="hidden" name="offset" id="offset" th:value="${#strings.defaultString(param.offset, 0)}" />
                     <input type="hidden" name="pageSize" id="pageSize" th:value="${#strings.defaultString(param.pageSize, 20)}" />
@@ -60,7 +60,7 @@
                     </thead>
                     <tbody class="text-center">
                         <th:block th:each="billBoard:${billBoardArr0}">
-                            <tr>
+                            <tr >
                                 <th scope="row" style="font-family: 'KOTRA_BOLD-Bold'" th:text="${billBoard.RANK}"></th>
                                 <td>
                                     <th:block th:if="${#strings.isEmpty(session.sessionUser)}">
@@ -103,7 +103,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="pagingDiv" class="tui-pagination align-bottom"></div>
+            <div id="pagingDiv" class="tui-pagination align-text-bottom"></div>
         </div>
     </div>
 
