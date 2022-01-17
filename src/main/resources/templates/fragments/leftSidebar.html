@@ -4,10 +4,8 @@
 <!-- [mypageSidebarFragment] 영역 시작 -->
 <div th:fragment="mypageSidebarFragment">
 	<ul class="nav nav-pills flex-column d-grid gap-3">
-		<th:block th:if="${not #strings.equals(userInfo.membershipCd, '10') or #strings.equals(userInfo.role, 'ROLE_ADMIN')}">
-			<li class="nav-item border"><a class="nav-link py-3" href="/mypage/quizResult"
-				th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">진단결과</a></li>
-		</th:block>
+		<li class="nav-item border"><a class="nav-link py-3" href="/mypage/quizResult"
+			th:classappend="${#strings.equals(leftsidebarCd, '10')} ? 'active'">진단결과</a></li>
 		<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
 			<li class="nav-item border"><a class="nav-link py-3" href="/mypage/reviewNote"
 				th:classappend="${#strings.equals(leftsidebarCd, '20')} ? 'active'">오답노트</a></li>
