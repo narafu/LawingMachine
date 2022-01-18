@@ -36,18 +36,18 @@
 											<label class="form-check-label" for="userChkCnfsd">헷갈림</label>
 										</div>
 									</div>
-									<div>
+									<div th:if="${not #strings.isEmpty(quizMstrInfoVO.cmntr)}">
 										<button type="button" class="btn btn-primary mx-2" onclick="toggleCmntr();">문제해설</button>
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="border fs-5 p-4 m-3" th:text="${quizMstrInfoVO.content}"></div>
-
 						<div id="cmntrDiv" class="p-3 fs-5 m-4 border" style="display:none">
 							<div class="mt-2" th:utext="${quizMstrInfoVO.cmntr}"></div>
 						</div>
+
+						<div class="border fs-5 p-4 m-3" th:text="${quizMstrInfoVO.content}"></div>
 
 						<div class="d-grid gap-3 mt-3">
 							<th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
