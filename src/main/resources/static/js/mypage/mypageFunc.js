@@ -81,8 +81,8 @@ function quizResultInfoModal(obj, quizMstrInfoSeq) {
 }
 
 function toggleCmntr() {
-    $('#cmntrDiv').slideToggle();
-    $('html,body').animate({scrollTop: $('#cmntrDiv').offset().top}, 100);
+    $('#cmntrDiv').toggle();
+//    $('html,body').animate({scrollTop: $('#cmntrDiv').offset().top}, 100);
 }
 
 function toggleDtlCmntr(obj) {
