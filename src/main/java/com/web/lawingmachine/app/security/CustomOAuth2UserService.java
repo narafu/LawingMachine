@@ -44,19 +44,15 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 		// OAuth2 로그인 시 키 값이 된다. 구글은 키 값이 "sub"이고, 네이버는 "response"이고, 카카오는 "id"이다. 각각
 		// 다르므로 이렇게 따로 변수로 받아서 넣어줘야함.
-		String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails()
-				.getUserInfoEndpoint().getUserNameAttributeName();
+		String userNameAttributeName = oAuth2UserRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
 		// OAuth2 로그인을 통해 가져온 OAuth2User의 attribute를 담아주는 of 메소드.
-		OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName,
-				oAuth2User.getAttributes());
+		OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
 		UserInfoVO userInfoVO = saveOrUpdate(attributes);
-		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-				.getRequest();
+		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		httpSession = req.getSession();
 		httpSession.setAttribute("sessionUser", new SessionUser(userInfoVO));
-		;
 
 		return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
 				attributes.getAttributes(), attributes.getNameAttributeKey());

@@ -1,6 +1,5 @@
 package com.web.lawingmachine.app.config;
 
-import com.web.lawingmachine.app.security.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -12,16 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
+import com.web.lawingmachine.app.security.CustomOAuth2UserService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // 커스텀한 OAuth2UserService DI.
     @Autowired
+    // 커스텀한 OAuth2UserService DI.
     private CustomOAuth2UserService customOAuth2UserService;
 
-	// encoder를 빈으로 등록.
     @Bean
+    // encoder를 빈으로 등록.
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -40,6 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/", "/index/**", "/login/**", "/reg", "/oauth2/**", "/css/**", "/images/**", "/js/**", "/console/**", "/favicon.ico/**").permitAll()
             .anyRequest().authenticated()
         .and()
+            .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/login/testGuest")
+            .usernameParameter("userId")
+            .passwordParameter("password")
+            .permitAll()
+        .and()
             .oauth2Login()
             .userInfoEndpoint()
             .userService(customOAuth2UserService)
@@ -54,5 +62,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutSuccessUrl("/");
 
     }
-    
+
 }

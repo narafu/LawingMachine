@@ -26,4 +26,8 @@ public interface UserInfoMapper {
     int uploadImage(@Param("examTicketPath") String examTicketPath, @Param("examTicket") String filename, @Param("userId") String userId);
 
 	int updateMembershipCd(UserInfoVO userInfoVO);
+
+	int getGuestInfoSeq();
+
+	UserInfoVO getUserInfoBySeq(int userInfoSeq);
 }

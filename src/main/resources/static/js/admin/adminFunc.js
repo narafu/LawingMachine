@@ -46,11 +46,11 @@ function approval() {
     let userIdArr = [];
     userIdArr.push($('#userId').val());
 
-	common.modal.confirm("승인하시겠습니까?", function() {
+	common_modal_confirm("승인하시겠습니까?", function() {
 	    let url = '/admin/board/approval/infoView';
 	    let data = {'userIdArr': userIdArr};
 		$.post(url, data).done(function(result) {
-			common.modal.alert(result.message);
+			common_modal_alert(result.message);
 		})
 	})
 }
