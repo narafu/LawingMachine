@@ -40,17 +40,15 @@
             <!--             <div class="w-50"> -->
             <!-- <span class="text-primary mx-5">SNS 간편 로그인</span>-->
             <div class="d-grid gap-3 text-center">
-                <a class="btn_social" data-social="naver">
+                <a class="btn_social w-75 m-auto" data-social="naver">
                     <img class="w-75" src="/images/naver.png" alt="">
                 </a>
-                <a class="btn_social" data-social="kakao">
+                <a class="btn_social w-75 m-auto" data-social="kakao">
                     <img class="w-75" src="/images/kakao.png" alt="">
                 </a>
-                <th:block th:if="${not #strings.equals(@environment.getProperty('spring.profiles.active'), 'was')}">
-                    <a class="btn_social" data-social="google">
-                        <img class="w-75" src="/images/google.png" alt="">
-                    </a>
-                </th:block>
+                <a class="btn_social w-75 m-auto" data-social="google">
+                    <img class="w-75" src="/images/google.png" alt="">
+                </a>
             </div>
             <!--                <div class="text-center m-4">-->
             <!--                    <a class="col btn_social m-4" data-social="kakao"><img class="w-25"-->
@@ -73,6 +71,14 @@
             <!--            </div>-->
         </form>
         <p class="text-center my-5">SNS 간편로그인 이후 서비스를 이용할 수 있습니다.</p>
+        <div class="text-center" th:if="${@environment.getProperty('spring.profiles.active') == 'dev'}">
+	        <p class="text-center my-2 text-danger">SNS 로그인 없이 전체 기능 테스트 로그인</p>
+        	<form id="testGuestForm" method="post" action="/login/testGuest">
+        		<input type="hidden" name="userId" value="GUEST"/>
+        		<input type="hidden" name="password" value="GUEST"/>
+        		<button type="submit()" class="btn btn-outline-primary px-4">GUEST</button>
+        	</form>
+        </div>
     </div>
 
 </div>
@@ -84,7 +90,7 @@
             let socialType = this.getAttribute('data-social');
             if ($('#activeEnvir').val() == 'dev') {
                 if(socialType != 'kakao') {
-                    alert('개발서버는 카카오 로그인만 지원합니다.');
+                    common_modal_alert('개발서버는 카카오 로그인 또는 ADMIN 로그인만 지원합니다.');
                     return;
                 }
             }

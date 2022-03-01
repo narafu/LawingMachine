@@ -130,5 +130,36 @@
 		SELECT COUNT(*)
 		FROM USER_INFO
 	</select>
-
+	
+	<select id="getGuestInfoSeq" resultType="int">
+		SELECT NVL(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
+		WHERE USER_ID LIKE '%@GUEST.COM%'
+	</select>
+	
+	<select id="getUserInfoBySeq" resultType="com.web.lawingmachine.app.user.vo.UserInfoVO">
+		SELECT
+			USER_INFO_SEQ
+			, USER_ID
+			, USER_NM
+			, EMAIL
+			, MOBILE
+			, PASSWORD
+			, NICKNAME
+			, EXAM_TICKET
+			, EXAM_TICKET_PATH
+			, EXAM_TICKET_NO
+			, MEMBERSHIP_CD
+			,
+			<include refid="util.getComnCodeNm">
+				<property name="grpCd" value="005"/>
+				<property name="grpDtlCd" value="MEMBERSHIP_CD"/>
+				<property name="grpDtlNm" value="MEMBERSHIP_NM"/>
+			</include>
+			, ROLE
+			, (SELECT MAX(TAKE_REV) + 1 FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) AS TAKE_REV
+		FROM USER_INFO
+		WHERE DEL_YN = 'N'
+			AND USER_INFO_SEQ = #{userInfoSeq}
+	</select>
+	
 </mapper>
