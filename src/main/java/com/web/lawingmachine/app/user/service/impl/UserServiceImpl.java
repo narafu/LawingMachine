@@ -63,28 +63,50 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	 * Spring Security 필수 메소드 구현
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String param) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		int userInfoSeq = userInfoMapper.getGuestInfoSeq();
-		String userId = param + userInfoSeq;
-
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String password = encoder.encode(param);
-		
+		String[] arr = username.split("_");
 		UserInfoVO userInfoVO = new UserInfoVO();
-		userInfoVO.setUserId(userId + "@GUEST.COM");
-		userInfoVO.setPassword(password);
-		userInfoVO.setUserNm(userId);
-		userInfoVO.setEmail(userId + "@GUEST.COM");
-		userInfoVO.setNickname(userId);
-		userInfoVO.setMobile("010-1234-5678");
-		userInfoVO.setMembershipCd("99");
-		userInfoVO.setRole("ROLE_ADMIN");
-		userInfoMapper.insertUserInfo(userInfoVO);
+		
+		if ("new".equals(arr[0])) {
+
+			int userInfoSeq = userInfoMapper.getGuestInfoSeq();
+			String userId = "";
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String password = encoder.encode("GUEST");
+			
+			if ("user".equals(arr[1])) { // mew_user
+				userId = "user_" + userInfoSeq;
+				userInfoVO.setMembershipCd("10");
+				userInfoVO.setRole("ROLE_USER");
+			} else { // new_admin
+				userId = "admin_" + userInfoSeq;
+				userInfoVO.setMembershipCd("99");
+				userInfoVO.setRole("ROLE_ADMIN");
+			}
+
+			userInfoVO.setUserId(userId + "@test.com");
+			userInfoVO.setPassword(password);
+			userInfoVO.setUserNm(userId);
+			userInfoVO.setEmail(userId + "@test.com");
+			userInfoVO.setNickname(userId);
+			userInfoVO.setMobile("010-1234-5678");
+
+			userInfoMapper.insertUserInfo(userInfoVO);
+			
+		} else {
+			
+			if ("user".equals(arr[0])) { // user
+				userInfoVO = userInfoMapper.getUserInfo("TEST_USER@test.com");
+			} else { // admin
+				userInfoVO = userInfoMapper.getUserInfo("TEST_ADMIN@test.com");
+			}
+			
+		}
 		
 		HttpServletRequest req = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		httpSession = req.getSession();
-		httpSession.setAttribute("sessionUser", new SessionUser(userInfoMapper.getUserInfoBySeq(userInfoSeq)));
+		httpSession.setAttribute("sessionUser", new SessionUser(userInfoVO));
 		return userInfoVO;
 	}
 
