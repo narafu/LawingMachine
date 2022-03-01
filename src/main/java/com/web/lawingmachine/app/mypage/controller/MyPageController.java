@@ -55,7 +55,7 @@ public class MyPageController {
 		SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
 		UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
 		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("leftsidebarCd", "30");
+		model.addAttribute("leftsidebarCd", "10");
 		return "view/mypage/myprofile";
 	}
 
@@ -145,7 +145,7 @@ public class MyPageController {
 		// 공통코드(과목코드)
 		List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
 		model.addAttribute("CommLst002", CommLst002);
-		model.addAttribute("leftsidebarCd", "20");
+		model.addAttribute("leftsidebarCd", "30");
 
 		return "view/mypage/reviewNote";
 	}
@@ -169,7 +169,7 @@ public class MyPageController {
 		SessionUser sessionUser = (SessionUser) req.getSession().getAttribute("sessionUser");
 		UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
 		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("leftsidebarCd", "10");
+		model.addAttribute("leftsidebarCd", "20");
 		return "view/mypage/quizResult";
 	}
 
