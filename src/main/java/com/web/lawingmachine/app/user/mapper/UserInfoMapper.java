@@ -29,5 +29,4 @@ public interface UserInfoMapper {
 
 	int getGuestInfoSeq();
 
-	UserInfoVO getUserInfoBySeq(int userInfoSeq);
 }

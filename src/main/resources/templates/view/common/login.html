@@ -72,11 +72,18 @@
         </form>
         <p class="text-center my-5">SNS 간편로그인 이후 서비스를 이용할 수 있습니다.</p>
         <div class="text-center" th:if="${@environment.getProperty('spring.profiles.active') == 'dev'}">
-	        <p class="text-center my-2 text-danger">SNS 로그인 없이 전체 기능 테스트 로그인</p>
+	        <p class="text-center my-2 text-danger fw-bold">SNS 로그인 없이 테스트 로그인 - 사용자(user권한), 관리자(admin권한)</p>
         	<form id="testGuestForm" method="post" action="/login/testGuest">
-        		<input type="hidden" name="userId" value="GUEST"/>
-        		<input type="hidden" name="password" value="GUEST"/>
-        		<button type="submit()" class="btn btn-outline-primary px-4">GUEST</button>
+        		<input type="hidden" name="userId" id="userId" value="GUEST"/>
+        		<input type="hidden" name="password" id="password" value="GUEST"/>
+        		<div>
+	        		<button type="button" class="btn btn-outline-primary px-4 fw-bold" onclick="loginGuest('user')">GUEST(사용자)</button>
+	        		<button type="button" class="btn btn-outline-primary px-4 fw-bold" onclick="loginGuest('new_user')">New GUEST(사용자)</button>
+        		</div>
+        		<div>
+	        		<button type="button" class="btn btn-outline-primary px-4 fw-bold" onclick="loginGuest('admin')">GUEST(관리자)</button>
+	        		<button type="button" class="btn btn-outline-primary px-4 fw-bold" onclick="loginGuest('new_admin')">New GUEST(관리자)</button>
+        		</div>
         	</form>
         </div>
     </div>
@@ -97,6 +104,14 @@
             location.href = "/oauth2/authorization/" + socialType;
         })
     }
+    
+    function loginGuest(obj) {
+		$('#userId').val(obj);
+		let form = $('#testGuestForm');
+		form.attr("action", "/login/testGuest");
+		form.attr("target", "");
+		form.submit();
+	}
 </script>
 
 <!-- footer 영역 시작 -->
