@@ -90,7 +90,7 @@
             let socialType = this.getAttribute('data-social');
             if ($('#activeEnvir').val() == 'dev') {
                 if(socialType != 'kakao') {
-                    common_modal_alert('개발서버는 카카오 로그인 또는 ADMIN 로그인만 지원합니다.');
+                    alert('개발서버는 카카오 로그인 또는 ADMIN 로그인만 지원합니다.');
                     return;
                 }
             }

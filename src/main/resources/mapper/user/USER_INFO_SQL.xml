@@ -106,10 +106,12 @@
 	<select id="selectApprovalList" resultType="com.web.lawingmachine.app.user.vo.UserInfoVO">
 		SELECT
 			ROW_NUMBER () OVER(ORDER BY MDFY_TS DESC) AS RNO
+			, USER_INFO_SEQ
 			, USER_ID
 			, USER_NM
 			, NICKNAME
 			, EMAIL
+			, ROLE
 			, EXAM_TICKET
 			, EXAM_TICKET_PATH
 			, EXAM_TICKET_NO
