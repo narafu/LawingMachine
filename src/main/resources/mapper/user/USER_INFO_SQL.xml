@@ -134,8 +134,8 @@
 	</select>
 	
 	<select id="getGuestInfoSeq" resultType="int">
-		SELECT NVL(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
-		WHERE USER_ID LIKE '%@test.com%'
+		SELECT NVL(COUNT(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
+		WHERE USER_ID LIKE CONCAT(#{flag}, '%test.com')
 	</select>
 	
 </mapper>
