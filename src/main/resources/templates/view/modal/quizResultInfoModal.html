@@ -47,7 +47,17 @@
 							<div class="mt-2" th:utext="${quizMstrInfoVO.cmntr}"></div>
 						</div>
 
-						<div class="border fs-5 p-4 m-3" th:text="${quizMstrInfoVO.content}"></div>
+						<!--<div class="border fs-5 p-4 m-3" th:utext="${quizMstrInfoVO.content}"></div>-->
+						<div class="border p-4 m-3" style="font-size: 0.9em;" id="quizCntntDiv"></div>
+						<input type="hidden" th:field="${quizMstrInfoVO.content}"/>
+                        <script>
+                            let quizCntntDiv = toastui.Editor.factory({
+                                el: document.querySelector('#quizCntntDiv'),
+                                viewer: true,
+                                initialValue: $('#content').val()
+                            })
+                            $('.toastui-editor-contents').css('font-size', '1.15em');
+                        </script>
 
 						<div class="d-grid gap-3 mt-3">
 							<th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
