@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		
 		if ("new".equals(arr[0])) {
 
-			int userInfoSeq = userInfoMapper.getGuestInfoSeq();
+			int userInfoSeq = userInfoMapper.getGuestInfoSeq(arr[1]);
 			String userId = "";
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String password = encoder.encode("GUEST");
