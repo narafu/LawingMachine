@@ -135,7 +135,7 @@
 	
 	<select id="getGuestInfoSeq" resultType="int">
 		SELECT NVL(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
-		WHERE USER_ID LIKE '%@GUEST.COM%'
+		WHERE USER_ID LIKE '%@test.com%'
 	</select>
 	
 </mapper>
