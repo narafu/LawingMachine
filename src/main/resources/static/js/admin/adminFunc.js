@@ -59,18 +59,20 @@ function approval() {
 	    let url = '/admin/board/approval/infoView';
 	    let data = {'userIdArr': userIdArr};
 		$.post(url, data).done(function(result) {
-			common_modal_alert(result.message);
+			common_modal_alert(result.message, function() {
+				location.reload();
+			});
 		})
 	})
 }
 
-function multiApproval(obj) {
-
-    if (!$('input[type=checkbox]:checked').length) {
+function multiApproval() {
+    if (!$('[name=_checked]:checked').length) {
         let message = '승인할 대상을 선택해주세요.';
 		common_modal_alert(message);
 		return;
-    } 
+    } else {
+	}
 }
 
 function insertBoardInfo() {
