@@ -58,7 +58,7 @@
                                 </th:block>
                             </div>
 
-							<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
+							<!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
 	                            <div class="d-flex" style="font-family: 'GongGothicMedium';">
 	                                <div class="form-check mx-3">
 	                                   <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"
@@ -73,18 +73,18 @@
 	                                   <label class="form-check-label" for="userChkCnfsd">헷갈림</label>
 	                                </div>
 	                            </div>
-                            </th:block>
+                            <!--</th:block>-->
                             
                         </div>
-<!--                        <div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>-->
+                        <!--<div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>-->
                         <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
 
                         <div class="my-5 border border-primary px-3 py-2" id="quizCntntDiv"></div>
 
-                        <th:block th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, '70') and #strings.equals(quizMstrInfoVO.srtNo, '36')}">
+                        <!--<th:block th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, '70') and #strings.equals(quizMstrInfoVO.srtNo, '36')}">
                             <div>【참고】 「석유사업법 시행규칙」 [별표 1] 행정처분기준</div>
                             <img style="width:100vh;" src="/images/table_70_36.png" alt="참고">
-                        </th:block>
+                        </th:block>-->
 
                         <script>
                             let quizCntntDiv = toastui.Editor.factory({
@@ -105,9 +105,9 @@
                         <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
                             <div class="my-3 exDiv d-flex text-start">
                             
-	                            <th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
+	                            <!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
 									<i class="fas fa-eraser" onclick="eraser(this);"></i>
-								</th:block>
+								<!--</th:block>-->
 								
                                 <a class="list-group-item list-group-item-action mx-3"
                                    th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
