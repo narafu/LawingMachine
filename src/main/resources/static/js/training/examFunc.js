@@ -49,7 +49,7 @@ function goExamPage() {
 }
 
 function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
-
+	
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
 
     let url = '/training/exam/quiz/ajax';
@@ -70,7 +70,7 @@ function getAjaxQuizMstrInfo(quizMstrInfoSeq) {
 }
 
 function getQuizNavAjax(quizMstrInfoSeq) {
-
+	
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
 
     let url = '/training/exam/quiz/nav/ajax';
@@ -79,18 +79,35 @@ function getQuizNavAjax(quizMstrInfoSeq) {
     $.get(url, data, function (result) {
 
         $('#quizAnswerNavListDiv').replaceWith(result);
+        
+		if (!quizMstrInfoSeq) {
+			quizMstrInfoSeq = $('.sideNavDiv:eq(0) .quizMstrInfoSeq').val();
+		}
 
-        // active 스타일 반영
+        // 사이드바 과목명 active 스타일 반영
         let curSubjectTypeCd = $('#subjectTypeCd').val();
         $('#quizAnswerNavListDiv .quizNavTltDiv').each(function () {
-            let navSubjectTypeCd = $(this).find('.subjectTypeCd').val();
-            if (curSubjectTypeCd == navSubjectTypeCd) {
+            if (curSubjectTypeCd == $(this).find('.subjectTypeCd').val()) {
                 $(this).removeClass('text-primary');
                 $(this).addClass('bg-primary');
                 $(this).addClass('text-light');
             }
             $('html,body').animate({ scrollTop: $('#examMainForm').offset().top }, 100);
         })
+        
+        // 사이드바 문제 active 스타일 반영
+        $('#quizAnswerNavListDiv .sideNavDiv').each(function() {
+			if(quizMstrInfoSeq == $(this).find('.quizMstrInfoSeq').val()) {
+                $(this).addClass('border-primary');
+                $(this).addClass('border-2');
+                $(this).addClass('fw-bold');
+			} else {
+                $(this).removeClass('border-primary');
+                $(this).removeClass('border-2');
+                $(this).removeClass('fw-bold');
+			}
+		})
+
     });
 }
 
