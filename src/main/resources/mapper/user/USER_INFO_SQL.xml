@@ -105,7 +105,7 @@
 
 	<select id="selectApprovalList" resultType="com.web.lawingmachine.app.user.vo.UserInfoVO">
 		SELECT
-			ROW_NUMBER () OVER(ORDER BY MDFY_TS DESC) AS RNO
+			ROW_NUMBER () OVER(ORDER BY USER_INFO_SEQ DESC) AS RNO
 			, USER_INFO_SEQ
 			, USER_ID
 			, USER_NM
