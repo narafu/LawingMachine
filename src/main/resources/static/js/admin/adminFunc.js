@@ -9,19 +9,25 @@ function goBoardList() {
 
 function goBoardForm() {
     let url = '/admin/board/quiz/inputForm';
-    let data = $('#boardForm').serialize();
-    $.get(url, data, function (result) {
-        $('#boardContent').html(result);
-    })
+//    let data = $('#boardForm').serialize();
+//    $.get(url, data, function (result) {
+//        $('#boardContent').replaceWith(result);
+//    })
+	$('#boardForm').attr('action', url);
+	$('#boardForm').attr('target', '');
+	$('#boardForm').submit();
 }
 
 function goBoardInfo(quizMstrInfoSeq) {
     $('#quizMstrInfoSeq').val(quizMstrInfoSeq);
     let url = '/admin/board/quiz/infoView';
-    let data = $('#boardForm').serialize();
-    $.get(url, data, function (result) {
-        $('#boardContent').html(result);
-    })
+//    let data = $('#boardForm').serialize();
+//    $.get(url, data, function (result) {
+//        $('#boardContent').replaceWith(result);
+//    })
+	$('#boardForm').attr('action', url);
+	$('#boardForm').attr('target', '');
+	$('#boardForm').submit();
 }
 
 function goApprovalList() {
@@ -35,10 +41,13 @@ function goApprovalList() {
 function goApprovalInfo(userId) {
     $('#userId').val(userId);
     let url = '/admin/board/approval/infoView';
-    let data = $('#boardForm').serialize();
-    $.get(url, data, function (result) {
-        $('#boardContent').html(result);
-    })
+//    let data = $('#boardForm').serialize();
+//    $.get(url, data, function (result) {
+//        $('#boardContent').replaceWith(result);
+//    })
+	$('#boardForm').attr('action', url);
+	$('#boardForm').attr('target', '');
+	$('#boardForm').submit();
 }
 
 function approval() {

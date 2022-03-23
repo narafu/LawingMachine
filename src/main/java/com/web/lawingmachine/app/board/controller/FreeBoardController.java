@@ -1,23 +1,25 @@
 package com.web.lawingmachine.app.board.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
+
 import com.web.lawingmachine.app.board.service.BoardService;
 import com.web.lawingmachine.app.board.vo.BoardVO;
 import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.security.SessionUser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/board/free")
@@ -70,8 +72,10 @@ public class FreeBoardController {
         }
 
         model.addAttribute("boardVO", boardVO);
-
-        return "view/board/inputForm :: #boardContent";
+        
+//        return "view/board/inputForm :: #boardContent";
+        model.addAttribute("leftsidebarCd", "10");
+        return "view/board/inputForm";
     }
 
     @GetMapping("/infoView")
@@ -90,7 +94,9 @@ public class FreeBoardController {
             resultCnt = boardService.insertBrdViews(param);
         }
 
-        return "view/board/infoView :: #boardContent";
+//        return "view/board/infoView :: #boardContent";
+        model.addAttribute("leftsidebarCd", "10");
+        return "view/board/infoView";
     }
 
     @PostMapping("/infoView/insert")
