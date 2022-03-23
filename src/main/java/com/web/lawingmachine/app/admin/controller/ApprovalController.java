@@ -51,7 +51,9 @@ public class ApprovalController {
     public String myProfile(String userId, Model model) {
         UserInfoVO userInfo = userService.getUserInfo(userId);
         model.addAttribute("userInfo", userInfo);
-        return "view/admin/approval/infoView :: #boardContent";
+//        return "view/admin/approval/infoView :: #boardContent";
+        model.addAttribute("leftsidebarCd", "20");
+        return "view/admin/approval/infoView";
     }
 
     @PostMapping("/infoView")

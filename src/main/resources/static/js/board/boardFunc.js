@@ -9,19 +9,25 @@ function goBoardList() {
 
 function goBoardForm() {
 	let url = '/board/free/inputForm';
-	let data = $('#boardForm').serialize();
-	$.get(url, data, function(result) {
-		$('#boardContent').html(result);
-	})
+//	let data = $('#boardForm').serialize();
+//	$.get(url, data, function(result) {
+//		$('#boardContent').replaceWith(result);
+//	})
+	$('#boardForm').attr('action', url)
+	$('#boardForm').attr('target', '')
+	$('#boardForm').submit();
 }
 
 function goBoardInfo(brdMstrInfoSeq) {
 	$('#brdMstrInfoSeq').val(brdMstrInfoSeq);
 	let url = '/board/free/infoView';
-	let data = $('#boardForm').serialize();
-	$.get(url, data, function(result) {
-		$('#boardContent').html(result);
-	})
+//	let data = $('#boardForm').serialize();
+//	$.get(url, data, function(result) {
+//		$('#boardContent').replaceWith(result);
+//	})
+	$('#boardForm').attr('action', url)
+	$('#boardForm').attr('target', '')
+	$('#boardForm').submit();
 }
 
 function delBoardInfo() {
@@ -37,25 +43,53 @@ function delBoardInfo() {
 }
 
 function insertBoardInfo() {
+	if(validation()) {
+		common_modal_confirm('등록하시겠습니까?', function() {
+			let url = '/board/free/infoView/insert';
+			let data = $('#boardForm').serialize();
+			$.post(url, data).done(function(result) {
+				common_modal_alert(result.message, function() {
+					goBoardList();
+				})
+			})
+		})
+	}
+}
 
+function updateBoardInfo(brdMstrInfoSeq) {
+	if(validation()) {
+		common_modal_confirm('저장하시겠습니까?', function() {
+			let url = '/board/free/infoView/update';
+			let data = $('#boardForm').serialize();
+			$.post(url, data).done(function(result) {
+				common_modal_alert(result.message, function() {
+					goBoardInfo(brdMstrInfoSeq);
+				});
+			})
+		})
+	}
+}
+
+function validation() {
+	
 	let message;
 
 	if (!$('#brdTypeCd').val()) {
 		message = '게시판을 선택해주세요.';
 		common_modal_alert(message);
-		return;
+		return false;
 	}
 
 	if (!$('#subjectTypeCd').val()) {
 		message = '과목을 선택해주세요.';
 		common_modal_alert(message);
-		return;
+		return false;
 	}
 
 	if (!$('#title').val()) {
 		message = '제목을 입력해주세요.';
 		common_modal_alert(message);
-		return;
+		return false;
 	}
 
 	let boardCntntHtml = boardCntnt.getHTML();
@@ -64,41 +98,6 @@ function insertBoardInfo() {
 	} else {
 		$('#content').val(boardCntntHtml);
 	}
-
-	common_modal_confirm('등록하시겠습니까?', function() {
-		let url = '/board/free/infoView/insert';
-		let data = $('#boardForm').serialize();
-		$.post(url, data).done(function(result) {
-			common_modal_alert(result.message, function() {
-				goBoardList();
-			})
-		})
-	})
-}
-
-function updateBoardInfo(brdMstrInfoSeq) {
-
-	let boardCntntHtml = boardCntnt.getHTML();
-
-	if (boardCntntHtml == '<p><br></p>') {
-		$('#content').val('');
-	} else {
-		$('#content').val(boardCntntHtml);
-	}
-
-	if (boardCntntHtml == '<p><br></p>') {
-		$('#content').val('');
-	} else {
-		$('#content').val(boardCntntHtml);
-	}
-
-	common_modal_confirm('저장하시겠습니까?', function() {
-		let url = '/board/free/infoView/update';
-		let data = $('#boardForm').serialize();
-		$.post(url, data).done(function(result) {
-			common_modal_alert(result.message, function() {
-				goBoardInfo(brdMstrInfoSeq);
-			});
-		})
-	})
+	
+	return true;
 }

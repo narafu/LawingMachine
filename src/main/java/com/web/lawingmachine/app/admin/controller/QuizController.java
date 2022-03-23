@@ -1,5 +1,22 @@
 package com.web.lawingmachine.app.admin.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.util.StringUtils;
+
 import com.web.lawingmachine.app.admin.service.AdminService;
 import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
@@ -7,21 +24,6 @@ import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.training.service.QuizService;
 import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/board/quiz")
@@ -109,7 +111,9 @@ public class QuizController {
 
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "view/admin/quiz/inputForm :: #boardContent";
+//        return "view/admin/quiz/inputForm :: #boardContent";
+        model.addAttribute("leftsidebarCd", "10");
+        return "view/admin/quiz/inputForm";
     }
 
     @GetMapping("/infoView")
@@ -119,7 +123,9 @@ public class QuizController {
         quizMstrInfoVO.setQuizDtlList(quizService.selectQuizDtlList(param));
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
-        return "view/admin/quiz/infoView :: #boardContent";
+//        return "view/admin/quiz/infoView :: #boardContent";
+        model.addAttribute("leftsidebarCd", "10");
+        return "view/admin/quiz/infoView";
     }
 
     @PostMapping("/infoView/insert")
