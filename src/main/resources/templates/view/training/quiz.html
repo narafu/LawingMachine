@@ -224,9 +224,11 @@
                 $(this).addClass('fw-bold');
             },
             mouseleave: function () {
-                $(this).removeClass('border-primary');
-                $(this).removeClass('border-2');
-                $(this).removeClass('fw-bold');
+				if ($('#quizMstrInfoSeq').val() != $(this).find('.quizMstrInfoSeq').val()) {
+	                $(this).removeClass('border-primary');
+	                $(this).removeClass('border-2');
+	                $(this).removeClass('fw-bold');
+				}
             }
         }, '.sideNavDiv');
 
