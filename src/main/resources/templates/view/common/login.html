@@ -71,8 +71,8 @@
             <!--            </div>-->
         </form>
         <p class="text-center my-5">SNS 간편로그인 이후 서비스를 이용할 수 있습니다.</p>
-        <div class="text-center" th:if="${@environment.getProperty('spring.profiles.active') == 'dev'}">
-	        <p class="text-center my-2 text-danger fw-bold">SNS 로그인 없이 테스트 로그인 - 사용자(user권한), 관리자(admin권한)</p>
+        <div class="text-center" th:if="${@environment.getProperty('spring.profiles.active') != 'was'}">
+	        <p class="text-center my-2 text-danger fw-bold">테스트 로그인(사용자/관리자)<br>user권한/admin권한</p>
         	<form id="testGuestForm" method="post" action="/login/testGuest">
         		<input type="hidden" name="userId" id="userId" value="GUEST"/>
         		<input type="hidden" name="password" id="password" value="GUEST"/>
