@@ -31,7 +31,7 @@ function goBoardInfo(brdMstrInfoSeq) {
 }
 
 function delBoardInfo() {
-	common_modal_alert('삭제하시겠습니까?', function() {
+	common_modal_confirm('삭제하시겠습니까?', function() {
 		let url = '/board/free/infoView/delete';
 		let data = $('#boardForm').serialize();
 		$.post(url, data).done(function(result) {
