@@ -8,22 +8,19 @@
 	        <div class="col-lg-3">
 	            <a href="/index" style="text-decoration: none;">
 	                <!-- <h1 class="display-5 text-primary">로잉머신</h1> -->
-	                <img src="/images/lawingmachine.png" style="max-width:250px;" class="mb-3"/>
+	                <img src="/images/lawingmachine.png" style="max-width:250px;" class="mb-3 w-100"/>
 	                <!-- <p style="font-family: 'NEXON Lv1 Gothic OTF Light'; letter-spacing: -0.5px;">합격을 위한 단 하나의 기계</p> -->
 	            </a>
 	        </div>
 	        <div class="col-lg">
-	            <ul class="nav nav-pills float-end mt-3">
+	            <ul class="nav nav-pills float-end mt-3 mx-auto">
 					<li class="nav-item mx-4"><a href="https://blog.naver.com/archilawyer/222623584164" target='_blank' class="nav-link">제작배경</a></li>
                     <th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
-	                    <th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
+	                    <!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
 							<li class="nav-item mx-4"><a href="/training/exam/notice" class="nav-link">훈련하기</a></li>
 							<li class="nav-item mx-4"><a href="/board/free/list" class="nav-link">커뮤니티</a></li>
-	                    </th:block>
+	                    <!--</th:block>-->
                     </th:block>
-	                <th:block sec:authorize="isAuthenticated() == false">
-	                    <li class="nav-item mx-4"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
-	                </th:block>
 	                <th:block sec:authorize="isAuthenticated()">
 	                    <li class="nav-item mx-4"><a href="/mypage/myprofile" class="nav-link">마이페이지</a></li>
 	                </th:block>
@@ -32,10 +29,15 @@
 							<li class="nav-item mx-4"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>
 						</th:block>
 					</th:block>
-	                <th:block sec:authorize="isAuthenticated()">
-	                    <li class="nav-item mx-4"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
-	                </th:block>
 	            </ul>
+	        </div>
+	        <div class="col-lg-2 my-auto">
+                <th:block sec:authorize="isAuthenticated() == false">
+                    <a href="/login" class="btn btn-outline-primary px-4">로그인</a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+		            <a href="/logout" class="btn btn-outline-primary px-4 float-end">로그아웃</a>
+                </th:block>
 	        </div>
 	    </div>
     </div>
