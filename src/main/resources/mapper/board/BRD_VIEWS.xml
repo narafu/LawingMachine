@@ -20,12 +20,14 @@
 			, REGIST_ID
 			, REGIST_NM
 			, REG_TS
+			, DEL_YN
 		) VALUES (
 			#{brdViewsSeq}
 			, #{brdMstrInfoSeq}
 			, #{registId}
 			, #{registNm}
 			, CURRENT_TIMESTAMP
+			, 'N'
 		)
 	</insert>
 

@@ -28,8 +28,8 @@
 			, (SELECT COUNT(*) FROM BRD_VIEWS WHERE DEL_YN = 'N' AND BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS VIEW_CNT
             , REGIST_ID
 			, REGIST_NM
-            , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
-            , DATE_FORMAT(REG_TS, '%Y-%m-%d %H:%i:%s') AS REG_TS
+			, FORMATDATETIME(REG_TS, 'yyyy-MM-dd') AS REG_DT
+			, FORMATDATETIME(REG_TS, 'yyyy-MM-dd hh:mm:ss') AS REG_TS
 		FROM BRD_MSTR_INFO A
 		WHERE 1 = 1
 		<include refid="selectBoardList-where"/>
@@ -69,8 +69,8 @@
 			, (SELECT COUNT(*) FROM BRD_VIEWS WHERE DEL_YN = 'N' AND BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS VIEW_CNT
 			, REGIST_ID
 			, REGIST_NM
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d %H:%i:%s') AS REG_TS
+			, FORMATDATETIME(REG_TS, 'yyyy-MM-dd') AS REG_DT
+			, FORMATDATETIME(REG_TS, 'yyyy-MM-dd hh:mm:ss') AS REG_TS
 		FROM BRD_MSTR_INFO A
 		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
 	</select>

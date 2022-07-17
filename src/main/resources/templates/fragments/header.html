@@ -13,12 +13,12 @@
 	        </div>
 	        <div class="col-lg mx-auto text-center">
 	            <ul class="nav nav-pills mt-3 mx-auto row">
-	            	<th:block sec:authorize="isAuthenticated() == false">
-						<li class="nav-item col-sm my-auto"><a href="https://blog.naver.com/archilawyer/222623584164" target='_blank' class="nav-link">제작배경</a></li>
-	            	</th:block>
+<!--	            	<th:block sec:authorize="isAuthenticated() == false">-->
+<!--						<li class="nav-item col-sm my-auto"><a href="https://blog.naver.com/archilawyer/222623584164" target='_blank' class="nav-link">제작배경</a></li>-->
+<!--	            	</th:block>-->
                     <th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
 	                    <!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
-							<li class="nav-item col-sm my-auto"><a href="/training/exam/notice" class="nav-link">훈련하기</a></li>
+							<li class="nav-item col-sm my-auto"><a href="/training/exam/notice" class="nav-link">시험응시</a></li>
 							<li class="nav-item col-sm my-auto"><a href="/board/free/list" class="nav-link">커뮤니티</a></li>
 	                    <!--</th:block>-->
                     </th:block>

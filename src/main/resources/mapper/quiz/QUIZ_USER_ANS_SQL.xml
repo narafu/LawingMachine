@@ -1,49 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.lawingmachine.app.training.mapper.QuizUserAnsMapper">
+<mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizUserAnsMapper">
+
+    <insert id="insertUserAnswer">
+        <selectKey keyProperty="quizUserAnsSeq" resultType="String" order="BEFORE">
+            SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 FROM QUIZ_USER_ANS
+        </selectKey>
+        INSERT INTO QUIZ_USER_ANS (
+        QUIZ_USER_ANS_SEQ
+        , QUIZ_MSTR_INFO_SEQ
+        , USER_ID
+        <if test="userAnswer != null and userAnswer != ''">
+            , USER_ANSWER
+            , ANSWER_CHK
+        </if>
+        , USER_CHK_IMPRT
+        , USER_CHK_CNFSD
+        , TAKE_REV
+        , REGIST_ID
+        , REGIST_NM
+        , REG_TS
+        , MDFY_TS
+        , DEL_YN
+        ) VALUES (
+        #{quizUserAnsSeq}
+        , #{quizMstrInfoSeq}
+        , #{userId}
+        <if test="userAnswer != null and userAnswer != ''">
+            , #{userAnswer}
+            , CASE WHEN (
+            (SELECT COUNT(1) FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq} AND ANSWER =
+            #{userAnswer}) > 0
+            ) THEN 'O' ELSE 'X' END
+        </if>
+        , #{userChkImprt}
+        , #{userChkCnfsd}
+        , #{takeRev}
+        , 'SYSTEM'
+        , 'SYSTEM'
+        , CURRENT_TIMESTAMP
+        , CURRENT_TIMESTAMP
+        , 'N'
+        )
+    </insert>
+
+    <update id="updateUserAnswer">
+        UPDATE QUIZ_USER_ANS SET
+        USER_ANSWER = #{userAnswer}
+        <if test="userAnswer != null and userAnswer != ''">
+            , ANSWER_CHK = CASE WHEN (
+            (SELECT COUNT(1) FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq} AND ANSWER = #{userAnswer}) > 0
+            ) THEN 'O' ELSE 'X' END
+        </if>
+        , USER_CHK_IMPRT = #{userChkImprt}
+        , USER_CHK_CNFSD = #{userChkCnfsd}
+        , DEL_YN = 'N'
+        , MDFY_TS = CURRENT_TIMESTAMP
+        WHERE QUIZ_USER_ANS_SEQ = #{quizUserAnsSeq}
+    </update>
 
     <update id="mergeUserAnswer" useGeneratedKeys="true" keyProperty="quizUserAnsSeq">
         INSERT INTO QUIZ_USER_ANS (
-            QUIZ_USER_ANS_SEQ
-            , QUIZ_MSTR_INFO_SEQ
-            , USER_ID
-            , USER_ANSWER
-            , ANSWER_CHK
-            , USER_CHK_IMPRT
-            , USER_CHK_CNFSD
-            , REGIST_ID
-            , REGIST_NM
-            , REG_TS
-            , MDFY_TS
+        QUIZ_USER_ANS_SEQ
+        , QUIZ_MSTR_INFO_SEQ
+        , USER_ID
+        , USER_ANSWER
+        , ANSWER_CHK
+        , USER_CHK_IMPRT
+        , USER_CHK_CNFSD
+        , REGIST_ID
+        , REGIST_NM
+        , REG_TS
+        , MDFY_TS
+        , DEL_YN
         )
         VALUES (
-            <choose>
-                <when test="quizUserAnsSeq != null and quizUserAnsSeq != ''">
-                    #{quizUserAnsSeq}
-                </when>
-                <otherwise>
-                    (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 AS QUIZ_USER_ANS_SEQ FROM QUIZ_USER_ANS) X )
-                </otherwise>
-            </choose>
-            , #{quizMstrInfoSeq}
-            , #{userId}
-            , #{userAnswer}
-            , CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
-            , #{userChkImprt}
-            , #{userChkCnfsd}
-            , 'SYSTEM'
-            , 'SYSTEM'
-            , CURRENT_TIMESTAMP
-            , CURRENT_TIMESTAMP
+        <choose>
+            <when test="quizUserAnsSeq != null and quizUserAnsSeq != ''">
+                #{quizUserAnsSeq}
+            </when>
+            <otherwise>
+                (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 AS QUIZ_USER_ANS_SEQ FROM
+                QUIZ_USER_ANS) X )
+            </otherwise>
+        </choose>
+        , #{quizMstrInfoSeq}
+        , #{userId}
+        , #{userAnswer}
+        , CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ =
+        #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
+        , #{userChkImprt}
+        , #{userChkCnfsd}
+        , 'SYSTEM'
+        , 'SYSTEM'
+        , CURRENT_TIMESTAMP
+        , CURRENT_TIMESTAMP
+        , 'N'
         ) ON DUPLICATE KEY
         UPDATE
-            USER_ANSWER = #{userAnswer}
-            , ANSWER_CHK = CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
-            , USER_CHK_IMPRT = #{userChkImprt}
-            , USER_CHK_CNFSD = #{userChkCnfsd}
-            , DEL_YN = 'N'
-            , MDFY_TS = CURRENT_TIMESTAMP
+        USER_ANSWER = #{userAnswer}
+        , ANSWER_CHK = CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ =
+        #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
+        , USER_CHK_IMPRT = #{userChkImprt}
+        , USER_CHK_CNFSD = #{userChkCnfsd}
+        , DEL_YN = 'N'
+        , MDFY_TS = CURRENT_TIMESTAMP
     </update>
 
     <sql id="selectQuizResultRatioList-where">
@@ -68,32 +130,40 @@
         </if>
     </sql>
 
-    <select id="selectQuizResultRatioList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
+    <select id="selectQuizResultRatioList" resultType="com.web.lawingmachine.app.exam.dto.QuizResultRatioDto">
         SELECT
             A.QUIZ_MSTR_INFO_SEQ
-             , A.SUBJECT_TYPE_CD
-             , A.EXAM_GRP_CD
-             , A.EXAM_YEAR
-             , A.EXAM_NO
-             , A.CONTENT
-             , A.ANSWER
-             , A.CMNTR
-             , A.QUIZ_NO
-             , A.QUIZ_TRUE_RATIO
-             , B.QUIZ_USER_ANS_SEQ
-             , B.USER_ANSWER
-             , B.ANSWER_CHK
-             , B.USER_CHK_IMPRT
-             , B.USER_CHK_CNFSD
-        FROM
-            (SELECT
+            , A.SUBJECT_TYPE_CD
+            , A.EXAM_GRP_CD
+            , A.EXAM_YEAR
+            , A.EXAM_NO
+            , A.CONTENT
+            , A.ANSWER
+            , A.CMNTR
+            , A.QUIZ_NO
+            , A.QUIZ_TRUE_RATIO
+            , B.QUIZ_USER_ANS_SEQ
+            , B.USER_ANSWER
+            , B.ANSWER_CHK
+            , B.USER_CHK_IMPRT
+            , B.USER_CHK_CNFSD
+            , A.TEMP_QUIZ_TOTAL_COUNT
+            , A.TEMP_QUIZ_TRUE_COUNT
+        FROM (
+            SELECT
                 ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.QUIZ_MSTR_INFO_SEQ) AS QUIZ_NO
                 , A.QUIZ_MSTR_INFO_SEQ, A.SUBJECT_TYPE_CD, A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.CONTENT, A.ANSWER, A.CMNTR
+                , SUM(CASE WHEN B.ANSWER_CHK = 'O' THEN 1 ELSE 0 END) AS TEMP_QUIZ_TRUE_COUNT
+                , COUNT(1) AS TEMP_QUIZ_TOTAL_COUNT
                 , ROUND(SUM(CASE WHEN B.ANSWER_CHK = 'O' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
-             FROM QUIZ_MSTR_INFO A, QUIZ_USER_ANS B
-             WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ AND A.DEL_YN = 'N'
-             GROUP BY A.QUIZ_MSTR_INFO_SEQ) A
-           , (SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER, ANSWER_CHK, USER_CHK_IMPRT, USER_CHK_CNFSD FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
+                FROM QUIZ_MSTR_INFO A, QUIZ_USER_ANS B
+                WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ AND A.DEL_YN = 'N'
+                GROUP BY A.QUIZ_MSTR_INFO_SEQ
+            ) A
+            , (SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER, ANSWER_CHK, USER_CHK_IMPRT, USER_CHK_CNFSD
+                FROM QUIZ_USER_ANS
+                WHERE DEL_YN = 'N' AND USER_ID = #{userId}
+            ) B
         WHERE 1 = 1
         <include refid="selectQuizResultRatioList-where"></include>
         ORDER BY A.QUIZ_MSTR_INFO_SEQ
@@ -101,19 +171,18 @@
 
     <select id="selectSubjectList" resultType="HashMap">
         SELECT
-             A.SUBJECT_TYPE_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="002"/>
-                <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
-                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
-            </include>
+        A.SUBJECT_TYPE_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="002"/>
+            <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
+            <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+        </include>
         FROM QUIZ_MSTR_INFO A
-           , (SELECT * FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
+        , (SELECT * FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
         WHERE 1 = 1
         <include refid="selectQuizResultRatioList-where"></include>
         GROUP BY A.SUBJECT_TYPE_CD
-        ORDER BY A.QUIZ_MSTR_INFO_SEQ
     </select>
 
 </mapper>

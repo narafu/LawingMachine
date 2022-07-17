@@ -1,10 +1,10 @@
 package com.web.lawingmachine.app.admin.service.impl;
 
 import com.web.lawingmachine.app.admin.service.AdminService;
-import com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper;
-import com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper;
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.mapper.QuizDtlInfoMapper;
+import com.web.lawingmachine.app.exam.mapper.QuizMstrInfoMapper;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import com.web.lawingmachine.app.user.mapper.UserInfoMapper;
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;

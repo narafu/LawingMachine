@@ -3,6 +3,11 @@ package com.web.lawingmachine.app.board.vo;
 import com.web.lawingmachine.app.common.vo.BaseVO;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 @Data
 public class BoardVO extends BaseVO {
 

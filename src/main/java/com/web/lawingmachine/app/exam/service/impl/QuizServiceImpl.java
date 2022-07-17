@@ -1,11 +1,15 @@
-package com.web.lawingmachine.app.training.service.impl;
+package com.web.lawingmachine.app.exam.service.impl;
 
-import com.web.lawingmachine.app.training.mapper.*;
-import com.web.lawingmachine.app.training.service.QuizService;
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.dto.QuizResultRatioDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto;
+import com.web.lawingmachine.app.exam.mapper.*;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +40,7 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<Map<String, String>> selectQuizSubjectList() {
+    public List<QuizSubjectDto> selectQuizSubjectList() {
         // 공통코드(과목코드)
         String grpCd = "002";
         return quizMstrInfoMapper.selectQuizSubjectList(grpCd);
@@ -64,13 +68,25 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public int saveUserAnswer(QuizMstrInfoVO param) {
 
-        int resultCnt = quizUserAnsMapper.mergeUserAnswer(param);
+        int resultCnt = 0;
+
+        if (StringUtils.isEmpty(param.getQuizUserAnsSeq())) {
+            resultCnt = quizUserAnsMapper.insertUserAnswer(param);
+        } else {
+            resultCnt = quizUserAnsMapper.updateUserAnswer(param);
+        }
+//        resultCnt = quizUserAnsMapper.mergeUserAnswer(param);
 
         if (resultCnt > 0) {
             List<QuizDtlInfoVO> quizDtlList = param.getQuizDtlList();
             for (QuizDtlInfoVO quizDtlInfoVO : quizDtlList) {
                 quizDtlInfoVO.setQuizUserAnsSeq(param.getQuizUserAnsSeq());
-                quizUserAnsDtlMapper.mergeUserAnswerDtl(quizDtlInfoVO);
+//                quizUserAnsDtlMapper.mergeUserAnswerDtl(quizDtlInfoVO);
+                if (StringUtils.isEmpty(quizDtlInfoVO.getQuizUserAnsDtlSeq())) {
+                    quizUserAnsDtlMapper.insertUserAnswerDtl(quizDtlInfoVO);
+                } else {
+                    quizUserAnsDtlMapper.updateUserAnswerDtl(quizDtlInfoVO);
+                }
             }
         }
         return resultCnt;
@@ -82,8 +98,14 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param) {
-        return quizUserAnsMapper.selectQuizResultRatioList(param);
+    public List<QuizResultRatioDto> selectQuizResultRatioList(QuizMstrInfoVO param) {
+        List<QuizResultRatioDto> quizMstrInfoVOList = quizUserAnsMapper.selectQuizResultRatioList(param);
+        for (QuizResultRatioDto quizResultRatioDto : quizMstrInfoVOList) {
+            float trueRatio = quizResultRatioDto.getTempQuizTrueCount() / quizResultRatioDto.getTempQuizTotalCount() * 100;
+            String formatTrueRatio = String.format("%.2f", trueRatio);
+            quizResultRatioDto.setQuizTrueRatio(Float.valueOf(formatTrueRatio));
+        }
+        return quizMstrInfoVOList;
     }
 
     @Override
@@ -92,14 +114,14 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId) {
+    public List<QuizSubjectUserDto> selectQuizSubjectUserList(String userId) {
         return quizMstrInfoMapper.selectQuizSubjectUserList(userId);
     }
 
     @Override
     public int mergeQuizResultInfo(QuizMstrInfoVO param) {
         int resultCnt = 0;
-        QuizMstrInfoVO quizMstrInfoVO = quizResultInfoMapper.getQuizResultInfo(param);
+        QuizMstrInfoVO quizMstrInfoVO = quizResultInfoMapper.getQuizResultInfoSeq(param);
         if (quizMstrInfoVO == null) {
             resultCnt = quizResultInfoMapper.insertQuizResultInfo(param);
         } else {
@@ -126,8 +148,8 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<Map<String, Object>> getquizResultInfo(String userId) {
-        return quizResultInfoMapper.getquizResultInfo(userId);
+    public List<Map<String, Object>> getQuizResultInfo(String userId) {
+        return quizResultInfoMapper.getQuizResultInfo(userId);
     }
 
     @Override

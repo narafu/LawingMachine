@@ -1,10 +1,13 @@
-package com.web.lawingmachine.app.training.container;
+package com.web.lawingmachine.app.exam.container;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import com.web.lawingmachine.app.common.service.BaseUtilService;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto;
 import com.web.lawingmachine.app.security.SessionUser;
-import com.web.lawingmachine.app.training.service.QuizService;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import com.web.lawingmachine.app.user.service.UserService;
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,7 @@ public class TrainingController {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
 
         // 네비 리스트 (과목)
-        List<QuizMstrInfoVO> quizSubjectNaviUserList = quizService.selectQuizSubjectUserList(userId);
+        List<QuizSubjectUserDto> quizSubjectNaviUserList = quizService.selectQuizSubjectUserList(userId);
         model.addAttribute("quizSubjectNaviUserList", quizSubjectNaviUserList);
 
         return "view/training/notice";
@@ -50,11 +53,11 @@ public class TrainingController {
     public String getQuizMstrInfo(QuizMstrInfoVO param, Model model) {
 
         // 공통코드(시험구분코드)
-        List<Map<String, String>> CommLst001 = baseUtilService.selectCmmnCdList("001");
+        List<CmmnCdDto> CommLst001 = baseUtilService.selectCmmnCdList("001");
         model.addAttribute("CommLst001", CommLst001);
 
         // 공통코드(과목코드)
-        List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
+        List<CmmnCdDto> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
         model.addAttribute("quizMstrInfoVO", param);
 
@@ -85,7 +88,7 @@ public class TrainingController {
         param.setUserId(sessionUser.getUserId());
 
         // 네비 리스트 (과목)
-        List<Map<String, String>> quizSubjectNaviList = quizService.selectQuizSubjectList();
+        List<QuizSubjectDto> quizSubjectNaviList = quizService.selectQuizSubjectList();
         model.addAttribute("quizSubjectNaviList", quizSubjectNaviList);
 
         // 네비 리스트 (문제)
@@ -119,7 +122,7 @@ public class TrainingController {
         int resultCnt = quizService.mergeQuizResultInfo(param);
 
         // 공통코드(과목코드)
-        List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
+        List<CmmnCdDto> CommLst002 = baseUtilService.selectCmmnCdList("002");
         int totalSubjectCnt = CommLst002.size();
         int userSubjectCnt = quizService.getQuizResultUserSubjectCnt(param).size();
 

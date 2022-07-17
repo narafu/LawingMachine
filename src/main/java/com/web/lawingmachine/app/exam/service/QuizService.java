@@ -1,7 +1,10 @@
-package com.web.lawingmachine.app.training.service;
+package com.web.lawingmachine.app.exam.service;
 
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.dto.QuizResultRatioDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +14,7 @@ public interface QuizService {
 
     List<QuizMstrInfoVO> selectAjaxQuizNavList(QuizMstrInfoVO quizMstrInfoVO);
 
-    List<Map<String, String>> selectQuizSubjectList();
+    List<QuizSubjectDto> selectQuizSubjectList();
 
     QuizMstrInfoVO getAjaxQuizMstrInfo(QuizMstrInfoVO param);
 
@@ -19,17 +22,17 @@ public interface QuizService {
 
     List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param);
 
-    List<QuizMstrInfoVO> selectQuizResultRatioList(QuizMstrInfoVO param);
+    List<QuizResultRatioDto> selectQuizResultRatioList(QuizMstrInfoVO param);
 
     List<Map<String, String>> selectSubjectList(QuizMstrInfoVO param);
 
-    List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId);
+    List<QuizSubjectUserDto> selectQuizSubjectUserList(String userId);
 
     List<Map<String, Object>> getQuizResultUserSubjectCnt(QuizMstrInfoVO param);
 
     List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param);
 
-    List<Map<String, Object>> getquizResultInfo(String userId);
+    List<Map<String, Object>> getQuizResultInfo(String userId);
 
 	int getMemberTotalCnt(QuizMstrInfoVO param);
 

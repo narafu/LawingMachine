@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,11 +60,11 @@ public class FreeBoardController {
     public String boardInputForm(BoardVO param, Model model) {
 
         // 공통코드(과목코드)
-        List<Map<String, String>> subjectTypeCdList = baseUtil.selectCmmnCdList("002");
+        List<CmmnCdDto> subjectTypeCdList = baseUtil.selectCmmnCdList("002");
         model.addAttribute("subjectTypeCdList", subjectTypeCdList);
 
         // 공통코드(게시판코드)
-        List<Map<String, String>> brdTypeCdList = baseUtil.selectCmmnCdList("003");
+        List<CmmnCdDto> brdTypeCdList = baseUtil.selectCmmnCdList("003");
         model.addAttribute("brdTypeCdList", brdTypeCdList);
 
         BoardVO boardVO = new BoardVO();

@@ -4,12 +4,18 @@ spring:
   main:
     allow-circular-references: true
   profiles:
-    active: dev
+    active: local
   devtools:
     restart:
       enabled: true
   thymeleaf:
     cache: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: true
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
@@ -44,14 +50,26 @@ spring:
     multipart:
       #      enabled: true # 멀티파트 업로드 지원여부 (default: true)
       #      file-size-threshold: 1MB #  파일이 메모리에 기록되는 임계값 (default: 0B)
-      location: C:/Temp # 업로드된 파일의 임시 저장 공간
+#      location: C:/Temp # 업로드된 파일의 임시 저장 공간
+      location: /Users/narafu/dev/attach # 업로드된 파일의 임시 저장 공간
       max-file-size: 100MB # 파일의 최대 사이즈 (default: 1MB)
       max-request-size: 100MB # 요청의 최대 사이즈 (default: 10MB)
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3308/lawingdb?autoReconnect=true
-    username: lawingdb
-    password: lawingdb
+    #    driver-class-name: org.mariadb.jdbc.Driver
+    #    url: jdbc:mariadb://localhost:3308/lawingdb?autoReconnect=true
+    #    username: lawingdb
+    #    password: lawingdb
+    url: jdbc:h2:tcp://localhost/~/lawingMachine
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    initialization-mode: never
+#    schema: classpath:h2/schema.sql
+    data: classpath:h2/data.sql
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
   security:
     oauth2:
       client:
@@ -105,6 +123,10 @@ spring:
     url: jdbc:mariadb://lawingmachine-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
     username: root
     password: root1234
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   security:
     oauth2:
       client:

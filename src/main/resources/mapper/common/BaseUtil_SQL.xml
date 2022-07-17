@@ -3,10 +3,10 @@
 
 <mapper namespace="com.web.lawingmachine.app.common.mapper.BaseUtilMapper">
 
-	<select id="selectCmmnCdList" resultType="HashMap">
+	<select id="selectCmmnCdList" resultType="com.web.lawingmachine.app.common.dto.CmmnCdDto">
 		SELECT
-			GRP_DTL_CD AS cmmnDtlCd
-			, GRP_DTL_NM AS cmmnDtlNm
+			GRP_DTL_CD
+			, GRP_DTL_NM
 		FROM CMMN_DTL_CD
 		WHERE 1 = 1
 			AND DEL_YN = 'N'

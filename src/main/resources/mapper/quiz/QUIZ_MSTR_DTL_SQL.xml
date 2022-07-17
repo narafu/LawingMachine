@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.lawingmachine.app.training.mapper.QuizDtlInfoMapper">
+<mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizDtlInfoMapper">
 
-	<select id="selectQuizDtlList" resultType="com.web.lawingmachine.app.training.vo.QuizDtlInfoVO">
+	<select id="selectQuizDtlList" resultType="com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO">
 		SELECT
 			ROW_NUMBER() OVER(ORDER BY A.SRT_NO) AS RNO
 			, A.QUIZ_MSTR_INFO_SEQ
@@ -22,8 +22,8 @@
 	</select>
 
 	<insert id="insertQuizDtlInfo">
-		<selectKey keyProperty="quizMstrDtlSeq" resultType="int" order="BEFORE">
-			SELECT IFNULL(MAX(QUIZ_MSTR_DTL_SEQ), 0) + 1 FROM QUIZ_MSTR_DTL
+		<selectKey keyProperty="quizDtlInfoSeq" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(QUIZ_DTL_INFO_SEQ), 0) + 1 FROM QUIZ_DTL_INFO
 		</selectKey>
 		INSERT INTO QUIZ_DTL_INFO (
 			QUIZ_DTL_INFO_SEQ
