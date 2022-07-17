@@ -4,7 +4,9 @@
 <!-- [header] 영역 시작 -->
 <header th:fragment="headerFragment" class="header mt-5">
     <div class="container">
-		<input type="hidden" th:value="${session.sessionUser.userId}" id="sessionUserId"/>
+		<th:block sec:authorize="isAuthenticated()">
+			<input type="hidden" th:value="${session.sessionUser.userId}" id="sessionUserId"/>
+		</th:block>
 	    <div class="row">
 	        <div class="col-lg-3 mx-auto text-center">
 	            <a href="/index" style="text-decoration: none;">
