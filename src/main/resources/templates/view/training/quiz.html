@@ -15,19 +15,15 @@
         <form id="examMainForm" method="get">
             <input type="hidden" name="examGrpCd" th:value="${quizMstrInfoVO.examGrpCd} ?: '10'" id="examGrpCd"/>
             <input type="hidden" name="examYear" th:value="${quizMstrInfoVO.examYear ?: '2022'}" id="examYear"/>
-            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 11 : quizMstrInfoVO.examNo}"
-                   id="examNo"/>
-            <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}"
-                   id="subjectTypeCd"/>
+            <input type="hidden" name="examNo" th:value="${quizMstrInfoVO.examNo == 0 ? 11 : quizMstrInfoVO.examNo}" id="examNo"/>
+            <input type="hidden" name="subjectTypeCd" th:value="${quizMstrInfoVO.subjectTypeCd ?: '10'}" id="subjectTypeCd"/>
 
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
                     <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
-                    <h2 class="mx-2" th:each="Comm001:${CommLst001}" th:if="${Comm001.grpDtlCd} == ${quizMstrInfoVO.examGrpCd}"
-                        th:text="${Comm001.grpDtlNm}"></h2>
-                    <h2 class="mx-2" th:each="Comm002:${CommLst002}" th:if="${Comm002.grpDtlCd} == ${quizMstrInfoVO.subjectTypeCd}"
-                        th:text="${Comm002.grpDtlNm}"></h2>
+                    <h2 class="mx-2" th:each="Comm001:${CommLst001}" th:if="${Comm001.grpDtlCd} == ${quizMstrInfoVO.examGrpCd}" th:text="${Comm001.grpDtlNm}"></h2>
+                    <h2 class="mx-2" th:each="Comm002:${CommLst002}" th:if="${Comm002.grpDtlCd} == ${quizMstrInfoVO.subjectTypeCd}" th:text="${Comm002.grpDtlNm}"></h2>
                 </div>
                 <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                     <h1 class="text-center" id="count-down-timer"></h1>
@@ -35,10 +31,8 @@
             </div>
 
             <div id="quizMstrInfoDiv">
-                <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}"
-                       id="quizMstrInfoSeq"/>
-                <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}"
-                       id="quizUserAnsSeq"/>
+                <input type="hidden" name="quizMstrInfoSeq" th:value="${quizMstrInfoVO.quizMstrInfoSeq}" id="quizMstrInfoSeq"/>
+                <input type="hidden" name="quizUserAnsSeq" th:value="${quizMstrInfoVO.quizUserAnsSeq}" id="quizUserAnsSeq"/>
                 <input type="hidden" name="userAnswer" th:value="${quizMstrInfoVO.userAnswer}" id="userAnswer"/>
 
                 <div class="progress my-5">
@@ -52,8 +46,7 @@
                         <div class="d-flex justify-content-between">
 
                             <div class="fs-5 fw-bold">
-                                <th:block th:each="quiz:${quizAnswerNavList}"
-                                          th:if="${quiz.quizMstrInfoSeq == quizMstrInfoVO.quizMstrInfoSeq}">
+                                <th:block th:each="quiz:${quizAnswerNavList}" th:if="${quiz.quizMstrInfoSeq == quizMstrInfoVO.quizMstrInfoSeq}">
                                     <span th:text="|문 ${#strings.length(quiz.rno) == 1 ? '0' + quiz.rno : quiz.rno}.|"></span>
                                 </th:block>
                             </div>
@@ -61,15 +54,11 @@
 							<!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
 	                            <div class="d-flex" style="font-family: 'GongGothicMedium';">
 	                                <div class="form-check mx-3">
-	                                   <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt"
-	                                          id="userChkImprt"
-	                                          th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">
+	                                   <input class="form-check-input" type="checkbox" value="Y" name="userChkImprt" id="userChkImprt" th:checked="${#strings.equals(quizMstrInfoVO.userChkImprt, 'Y')}">
 	                                   <label class="form-check-label" for="userChkImprt">중요</label>
 	                                </div>
 	                                <div class="form-check mx-3">
-	                                   <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd"
-	                                          id="userChkCnfsd"
-	                                          th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">
+	                                   <input class="form-check-input" type="checkbox" value="Y" name="userChkCnfsd" id="userChkCnfsd" th:checked="${#strings.equals(quizMstrInfoVO.userChkCnfsd, 'Y')}">
 	                                   <label class="form-check-label" for="userChkCnfsd">헷갈림</label>
 	                                </div>
 	                            </div>
@@ -110,8 +99,7 @@
 								<!--</th:block>-->
 
                                 <a class="list-group-item list-group-item-action mx-3"
-                                   th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
-                                   onclick="chkAnswer(this);">
+                                   th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark" onclick="chkAnswer(this);">
                                     <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 1}">&#9312;</span>
                                     <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 2}">&#9313;</span>
                                     <span class="fw-bold mx-1" th:if="${quizDtlInfo.srtNo == 3}">&#9314;</span>
@@ -120,14 +108,10 @@
                                     <span class="exCntnt mx-1" th:text="${quizDtlInfo.content}"
                                           th:classappend="${quizDtlInfo.eraseYn} == 'Y' ? text-decoration-line-through"></span>
                                 </a>
-                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizDtlInfoSeq|"
-                                       th:value="${quizDtlInfo.quizDtlInfoSeq}"/>
-                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|"
-                                       th:value="${quizDtlInfo.srtNo}" class="quizDtlSrtNo"/>
-                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].eraseYn|"
-                                       th:value="${quizDtlInfo.eraseYn}" class="eraseYn"/>
-                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizUserAnsDtlSeq|"
-                                       th:value="${quizDtlInfo.quizUserAnsDtlSeq}"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizDtlInfoSeq|" th:value="${quizDtlInfo.quizDtlInfoSeq}"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|" th:value="${quizDtlInfo.srtNo}" class="quizDtlSrtNo"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].eraseYn|" th:value="${quizDtlInfo.eraseYn}" class="eraseYn"/>
+                                <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].quizUserAnsDtlSeq|" th:value="${quizDtlInfo.quizUserAnsDtlSeq}"/>
                             </div>
                         </th:block>
                     </div>
@@ -144,8 +128,7 @@
             <div>
                 <th:block th:each="subjectNavInfo:${quizSubjectNaviList}">
                     <th:block th:if="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
-                        <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
-                             style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                        <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                             <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
                             <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
                             <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
@@ -153,46 +136,35 @@
                         </div>
                         <div class="text-center mx-3">
                             <div class="row row-cols-5">
-                                <th:block th:each="quizNavInfo:${quizAnswerNavList}"
-                                          th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
-                                    <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
-                                         th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
+                                <th:block th:each="quizNavInfo:${quizAnswerNavList}" th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
+                                    <div class="col border py-1 sideNavDiv" style="min-height: 50px;" th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
                                         <div>
                                             <div th:text="${quizNavInfo.rno}"></div>
-                                            <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}"
-                                                   class="quizMstrInfoSeq">
+                                            <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}" class="quizMstrInfoSeq">
                                         </div>
-                                        <div class="bg-primary text-light"
-                                             th:text="${quizNavInfo.userAnswer}"></div>
+                                        <div class="bg-primary text-light" th:text="${quizNavInfo.userAnswer}"></div>
                                     </div>
                                 </th:block>
                             </div>
                         </div>
                     </th:block>
                     <th:block th:unless="${#strings.isEmpty(quizMstrInfoVO.subjectTypeCd)}">
-                        <th:block
-                                th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, subjectNavInfo.subjectTypeCd)}">
-                            <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary"
-                                 style="font-family: 'NEXON Lv1 Gothic OTF Light';">
+                        <th:block th:if="${#strings.equals(quizMstrInfoVO.subjectTypeCd, subjectNavInfo.subjectTypeCd)}">
+                            <div class="quizNavTltDiv my-2 px-4 py-2 rounded-pill d-flex justify-content-between align-items-center border border-1 border-primary text-primary" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                                 <span class='subjectNm' th:text="${subjectNavInfo.grpDtlNm}"></span>
-                                <span class='subjectCd' style="display: none;"
-                                      th:text="${subjectNavInfo.grpDtlCd}"></span>
+                                <span class='subjectCd' style="display: none;" th:text="${subjectNavInfo.grpDtlCd}"></span>
                                 <span th:text="|총 ${subjectNavInfo.quizCnt}문제|"></span>
                                 <input type="hidden" th:value="${subjectNavInfo.subjectTypeCd}" class="subjectTypeCd">
                             </div>
                             <div class="text-center mx-3">
                                 <div class="row row-cols-5">
-                                    <th:block th:each="quizNavInfo:${quizAnswerNavList}"
-                                              th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
-                                        <div class="col border py-1 sideNavDiv" style="min-height: 50px;"
-                                             th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
+                                    <th:block th:each="quizNavInfo:${quizAnswerNavList}" th:if="${#strings.equals(subjectNavInfo.subjectTypeCd,quizNavInfo.subjectTypeCd)}">
+                                        <div class="col border py-1 sideNavDiv" style="min-height: 50px;" th:onclick="quizAnsSave([[${quizNavInfo.quizMstrInfoSeq}]])">
                                             <div>
                                                 <div th:text="${quizNavInfo.rno}"></div>
-                                                <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}"
-                                                       class="quizMstrInfoSeq">
+                                                <input type="hidden" th:value="${quizNavInfo.quizMstrInfoSeq}" class="quizMstrInfoSeq">
                                             </div>
-                                            <div class="bg-primary text-light"
-                                                 th:text="${quizNavInfo.userAnswer}"></div>
+                                            <div class="bg-primary text-light" th:text="${quizNavInfo.userAnswer}"></div>
                                         </div>
                                     </th:block>
                                 </div>
@@ -235,7 +207,6 @@
         $(function () {
             getAjaxQuizMstrInfo();
         })
-    </script>
     </script>
 </th:block>
 
