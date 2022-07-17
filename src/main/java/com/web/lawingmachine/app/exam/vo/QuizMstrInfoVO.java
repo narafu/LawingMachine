@@ -1,4 +1,4 @@
-package com.web.lawingmachine.app.training.vo;
+package com.web.lawingmachine.app.exam.vo;
 
 import com.web.lawingmachine.app.common.vo.BaseVO;
 import lombok.Data;

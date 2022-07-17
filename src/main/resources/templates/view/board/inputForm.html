@@ -18,8 +18,8 @@
                         <select class="form-select rounded-pill px-4" th:field="${boardVO.brdTypeCd}">
                             <option value="">게시판 선택</option>
                             <th:block th:each=cnmmCd:${brdTypeCdList}>
-                                <option th:value="${cnmmCd.cmmnDtlCd}" th:text="${cnmmCd.cmmnDtlNm}"
-                                        th:selected="${#strings.equals(cnmmCd.cmmnDtlCd, boardVO.brdTypeCd)}"/>
+                                <option th:value="${cnmmCd.grpDtlCd}" th:text="${cnmmCd.grpDtlNm}"
+                                        th:selected="${#strings.equals(cnmmCd.grpDtlCd, boardVO.brdTypeCd)}"/>
                             </th:block>
                         </select>
                     </div>
@@ -27,8 +27,8 @@
                         <select class="form-select rounded-pill px-4" th:field="${boardVO.subjectTypeCd}">
                             <option value="">과목 선택</option>
                             <th:block th:each=cnmmCd:${subjectTypeCdList}>
-                                <option th:value="${cnmmCd.cmmnDtlCd}" th:text="${cnmmCd.cmmnDtlNm}"
-                                        th:selected="${#strings.equals(cnmmCd.cmmnDtlCd, boardVO.subjectTypeCd)}"/>
+                                <option th:value="${cnmmCd.grpDtlCd}" th:text="${cnmmCd.grpDtlNm}"
+                                        th:selected="${#strings.equals(cnmmCd.grpDtlCd, boardVO.subjectTypeCd)}"/>
                             </th:block>
                         </select>
                     </div>

@@ -1,7 +1,7 @@
-package com.web.lawingmachine.app.training.mapper;
+package com.web.lawingmachine.app.exam.mapper;
 
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

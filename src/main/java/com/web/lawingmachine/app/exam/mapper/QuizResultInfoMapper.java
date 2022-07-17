@@ -1,6 +1,6 @@
-package com.web.lawingmachine.app.training.mapper;
+package com.web.lawingmachine.app.exam.mapper;
 
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public interface QuizResultInfoMapper {
 
     List<Map<String, Object>> selectQuizResultList(QuizMstrInfoVO param);
 
-    List<Map<String, Object>> getquizResultInfo(String userId);
+    List<Map<String, Object>> getQuizResultInfo(String userId);
 
 	int getMemberTotalCnt(QuizMstrInfoVO param);
 
     int updateQuizResultInfo(QuizMstrInfoVO param);
 
-    QuizMstrInfoVO getQuizResultInfo(QuizMstrInfoVO param);
+    QuizMstrInfoVO getQuizResultInfoSeq(QuizMstrInfoVO param);
 
     int getQuizResultListCnt(QuizMstrInfoVO param);
 }

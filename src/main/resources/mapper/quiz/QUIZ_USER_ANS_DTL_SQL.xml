@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.lawingmachine.app.training.mapper.QuizUserAnsDtlMapper">
+<mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizUserAnsDtlMapper">
 
     <insert id="mergeUserAnswerDtl">
         INSERT INTO QUIZ_USER_ANS_DTL (
-            QUIZ_USER_ANS_DTL_SEQ
-            , QUIZ_USER_ANS_SEQ
-            , QUIZ_DTL_INFO_SEQ
-            , ERASE_YN
-            , REGIST_ID
-            , REGIST_NM
-            , REG_TS
+        QUIZ_USER_ANS_DTL_SEQ
+        , QUIZ_USER_ANS_SEQ
+        , QUIZ_DTL_INFO_SEQ
+        , ERASE_YN
+        , REGIST_ID
+        , REGIST_NM
+        , REG_TS
+        , DEL_YN
         ) VALUES (
         <choose>
             <when test="quizUserAnsDtlSeq != null and quizUserAnsDtlSeq != ''">
                 #{quizUserAnsDtlSeq}
             </when>
             <otherwise>
-                (SELECT QUIZ_USER_ANS_DTL_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 AS QUIZ_USER_ANS_DTL_SEQ FROM QUIZ_USER_ANS_DTL) X )
+                (SELECT QUIZ_USER_ANS_DTL_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 AS
+                QUIZ_USER_ANS_DTL_SEQ FROM QUIZ_USER_ANS_DTL) X )
             </otherwise>
         </choose>
         <choose>
@@ -26,18 +28,53 @@
                 , #{quizUserAnsSeq}
             </when>
             <otherwise>
-                , (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) AS QUIZ_USER_ANS_SEQ FROM QUIZ_USER_ANS) X )
+                , (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) AS QUIZ_USER_ANS_SEQ FROM
+                QUIZ_USER_ANS) X )
             </otherwise>
         </choose>
-            , #{quizDtlInfoSeq}
-            , #{eraseYn}
-            , 'SYSTEM'
-            , 'SYSTEM'
-            , CURRENT_TIMESTAMP
+        , #{quizDtlInfoSeq}
+        , #{eraseYn}
+        , 'SYSTEM'
+        , 'SYSTEM'
+        , CURRENT_TIMESTAMP
+        , 'N'
         ) ON DUPLICATE KEY UPDATE
         ERASE_YN = #{eraseYn}
         , DEL_YN = 'N'
         , MDFY_TS = CURRENT_TIMESTAMP
     </insert>
+
+    <insert id="insertUserAnswerDtl">
+        <selectKey keyProperty="quizUserAnsDtlSeq" resultType="String" order="BEFORE">
+            SELECT IFNULL(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 FROM QUIZ_USER_ANS_DTL
+        </selectKey>
+        INSERT INTO QUIZ_USER_ANS_DTL (
+        QUIZ_USER_ANS_DTL_SEQ
+        , QUIZ_USER_ANS_SEQ
+        , QUIZ_DTL_INFO_SEQ
+        , ERASE_YN
+        , REGIST_ID
+        , REGIST_NM
+        , REG_TS
+        , DEL_YN
+        ) VALUES (
+        #{quizUserAnsDtlSeq}
+        , #{quizUserAnsSeq}
+        , #{quizDtlInfoSeq}
+        , #{eraseYn}
+        , 'SYSTEM'
+        , 'SYSTEM'
+        , CURRENT_TIMESTAMP
+        , 'N'
+        )
+    </insert>
+
+    <update id="updateUserAnswerDtl">
+        UPDATE QUIZ_USER_ANS_DTL
+        SET ERASE_YN = #{eraseYn}
+          , DEL_YN   = 'N'
+          , MDFY_TS  = CURRENT_TIMESTAMP
+        WHERE QUIZ_USER_ANS_SEQ = #{quizUserAnsDtlSeq}
+    </update>
 
 </mapper>

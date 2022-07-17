@@ -23,9 +23,9 @@
                     </li>
                     <th:block th:each="Comm002:${CommLst002}">
                         <li class="nav-item"
-                            th:onclick="getReviewNoteSubject(this, [[${Comm002.cmmnDtlCd}]])">
-                            <a class="nav-link" href="#" th:text="${Comm002.cmmnDtlNm}"
-                               th:classappend="${Comm002.cmmnDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
+                            th:onclick="getReviewNoteSubject(this, [[${Comm002.grpDtlCd}]])">
+                            <a class="nav-link" href="#" th:text="${Comm002.grpDtlNm}"
+                               th:classappend="${Comm002.grpDtlCd} == ${param.schSubjectTypeCd} ? 'active'"></a>
                         </li>
                     </th:block>
                 </ul>

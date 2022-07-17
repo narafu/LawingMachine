@@ -24,10 +24,10 @@
                 <div class="d-flex">
                     <h2 class="mx-2" th:text="|${quizMstrInfoVO.examYear}년도|"></h2>
                     <h2 class="mx-2" th:text="|${quizMstrInfoVO.examNo}회|"></h2>
-                    <h2 class="mx-2" th:each="Comm001:${CommLst001}" th:if="${Comm001.cmmnDtlCd} == ${quizMstrInfoVO.examGrpCd}"
-                        th:text="${Comm001.cmmnDtlNm}"></h2>
-                    <h2 class="mx-2" th:each="Comm002:${CommLst002}" th:if="${Comm002.cmmnDtlCd} == ${quizMstrInfoVO.subjectTypeCd}"
-                        th:text="${Comm002.cmmnDtlNm}"></h2>
+                    <h2 class="mx-2" th:each="Comm001:${CommLst001}" th:if="${Comm001.grpDtlCd} == ${quizMstrInfoVO.examGrpCd}"
+                        th:text="${Comm001.grpDtlNm}"></h2>
+                    <h2 class="mx-2" th:each="Comm002:${CommLst002}" th:if="${Comm002.grpDtlCd} == ${quizMstrInfoVO.subjectTypeCd}"
+                        th:text="${Comm002.grpDtlNm}"></h2>
                 </div>
                 <div class="fs-1" style="font-family: 'NEXON Lv1 Gothic OTF Light';">
                     <h1 class="text-center" id="count-down-timer"></h1>
@@ -74,7 +74,7 @@
 	                                </div>
 	                            </div>
                             <!--</th:block>-->
-                            
+
                         </div>
                         <!--<div class="fs-5 my-3" th:text="${quizMstrInfoVO.content}"></div>-->
                         <input type="hidden" th:field="${quizMstrInfoVO.content}"/>
@@ -104,11 +104,11 @@
                     <div class="d-grid gap-3">
                         <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
                             <div class="my-3 exDiv d-flex text-start">
-                            
+
 	                            <!--<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">-->
 									<i class="fas fa-eraser" onclick="eraser(this);"></i>
 								<!--</th:block>-->
-								
+
                                 <a class="list-group-item list-group-item-action mx-3"
                                    th:classappend="${quizMstrInfoVO.userAnswer} == ${quizDtlInfo.srtNo} ? list-group-item-dark"
                                    onclick="chkAnswer(this);">

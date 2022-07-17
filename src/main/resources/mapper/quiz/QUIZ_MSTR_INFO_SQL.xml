@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.web.lawingmachine.app.training.mapper.QuizMstrInfoMapper">
+<mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizMstrInfoMapper">
 
-    <select id="selectAjaxQuizNavList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
+    <select id="selectAjaxQuizNavList" resultType="com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO">
         SELECT
-            ROW_NUMBER() OVER(PARTITION BY SUBJECT_TYPE_CD ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS RNO
-            , X.*
+        ROW_NUMBER() OVER(PARTITION BY SUBJECT_TYPE_CD ORDER BY SUBJECT_TYPE_CD, SRT_NO) AS RNO
+        , X.*
         FROM (
-            SELECT
-                 A.QUIZ_MSTR_INFO_SEQ
-                 , B.QUIZ_USER_ANS_SEQ
-                 , A.SUBJECT_TYPE_CD
-                 , A.SRT_NO
-                 , B.USER_ANSWER
-                 , ROW_NUMBER() OVER(PARTITION BY A.QUIZ_MSTR_INFO_SEQ) AS ERR_CHK
-            FROM QUIZ_MSTR_INFO A
-                    LEFT JOIN (
-                        SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER
-                        FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
-                    ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
-            WHERE 1 = 1
-              AND A.DEL_YN = 'N'
-              AND A.EXAM_GRP_CD = #{examGrpCd}
-              AND A.EXAM_YEAR = #{examYear}
-              AND A.EXAM_NO = #{examNo}
-            <if test="subjectTypeCd != null and subjectTypeCd != ''">
-                AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
-            </if>
-            ) X
+        SELECT
+        A.QUIZ_MSTR_INFO_SEQ
+        , B.QUIZ_USER_ANS_SEQ
+        , A.SUBJECT_TYPE_CD
+        , A.SRT_NO
+        , B.USER_ANSWER
+        , ROW_NUMBER() OVER(PARTITION BY A.QUIZ_MSTR_INFO_SEQ) AS ERR_CHK
+        FROM QUIZ_MSTR_INFO A
+        LEFT JOIN (
+        SELECT QUIZ_MSTR_INFO_SEQ, QUIZ_USER_ANS_SEQ, USER_ANSWER
+        FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
+        ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
+        WHERE 1 = 1
+        AND A.DEL_YN = 'N'
+        AND A.EXAM_GRP_CD = #{examGrpCd}
+        AND A.EXAM_YEAR = #{examYear}
+        AND A.EXAM_NO = #{examNo}
+        <if test="subjectTypeCd != null and subjectTypeCd != ''">
+            AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
+        </if>
+        ) X
         WHERE ERR_CHK = 1
         ORDER BY SUBJECT_TYPE_CD, SRT_NO
     </select>
 
-    <select id="selectQuizSubjectList" resultType="HashMap">
-        SELECT B.SUBJECT_TYPE_CD AS subjectTypeCd
-             , A.GRP_DTL_NM      AS grpDtlNm
-             , A.GRP_DTL_CD      AS grpDtlCd
-             , COUNT(*)          AS quizCnt
+    <select id="selectQuizSubjectList" resultType="com.web.lawingmachine.app.exam.dto.QuizSubjectDto">
+        SELECT B.SUBJECT_TYPE_CD AS SUBJECT_TYPE_CD
+             , A.GRP_DTL_NM      AS GRP_DTL_NM
+             , A.GRP_DTL_CD      AS GRP_DTL_CD
+             , COUNT(*)          AS QUIZ_CNT
         FROM CMMN_DTL_CD A,
              QUIZ_MSTR_INFO B
         WHERE A.GRP_DTL_CD = B.SUBJECT_TYPE_CD
@@ -49,23 +49,24 @@
         ORDER BY A.SRT_NO
     </select>
 
-    <select id="selectQuizSubjectUserList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
-        SELECT
-               A.GRP_DTL_NM      AS SUBJECT_TYPE_NM
-             , A.GRP_DTL_CD      AS SUBJECT_TYPE_CD
-             , COUNT(B.QUIZ_MSTR_INFO_SEQ) AS QUIZ_TOTAL_CNT
-             , USER_ID AS USER_ID
-        FROM CMMN_DTL_CD A,
-             QUIZ_MSTR_INFO B LEFT JOIN
-                 (SELECT QUIZ_MSTR_INFO_SEQ, USER_ID, DEL_YN
-                    FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) C
-                 ON B.QUIZ_MSTR_INFO_SEQ = C.QUIZ_MSTR_INFO_SEQ
-        WHERE A.GRP_DTL_CD = B.SUBJECT_TYPE_CD
-          AND A.GRP_CD = '002'
+    <select id="selectQuizSubjectUserList" resultType="com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto">
+        SELECT A.GRP_DTL_NM                                                               AS SUBJECT_TYPE_NM
+             , A.GRP_DTL_CD                                                               AS SUBJECT_TYPE_CD
+             , (SELECT COUNT(1) FROM QUIZ_MSTR_INFO WHERE SUBJECT_TYPE_CD = A.GRP_DTL_CD) AS QUIZ_TOTAL_CNT
+             , CASE
+                   WHEN
+                           (SELECT COUNT(1)
+                            FROM QUIZ_USER_ANS X,
+                                 QUIZ_MSTR_INFO Y
+                            WHERE X.QUIZ_MSTR_INFO_SEQ = Y.QUIZ_MSTR_INFO_SEQ
+                              AND X.USER_ID = #{userId}
+                              AND Y.SUBJECT_TYPE_CD = A.GRP_DTL_CD) > 0
+                       THEN 'Y'
+                   ELSE 'N' END                                                           AS DUPLICATE_YN
+        FROM CMMN_DTL_CD A
+        WHERE A.GRP_CD = '002'
           AND A.DEL_YN = 'N'
           AND A.USE_YN = 'Y'
-          AND B.DEL_YN = 'N'
-        GROUP BY B.SUBJECT_TYPE_CD, A.GRP_DTL_NM
         ORDER BY A.SRT_NO
     </select>
 
@@ -75,13 +76,14 @@
              QUIZ_USER_ANS B
         WHERE 1 = 1
           AND A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
-          AND A.DEL_YN = 'N' AND B.DEL_YN = 'N'
+          AND A.DEL_YN = 'N'
+          AND B.DEL_YN = 'N'
           AND A.EXAM_GRP_CD = #{examGrpCd}
           AND A.EXAM_YEAR = #{examYear}
           AND A.EXAM_NO = #{examNo}
           AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
           AND B.USER_ID = #{userId}
-          AND (B.USER_ANSWER IS NULL OR B.USER_ANSWER != '')
+          AND (B.ANSWER_CHK IS NOT NULL AND B.USER_ANSWER != '')
     </select>
 
     <select id="getQuizTotalCnt" resultType="int">
@@ -91,51 +93,51 @@
           AND SUBJECT_TYPE_CD = #{subjectTypeCd}
     </select>
 
-    <select id="getQuizMstrInfo" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
+    <select id="getQuizMstrInfo" resultType="com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO">
         SELECT
-            A.QUIZ_MSTR_INFO_SEQ
-            , A.EXAM_YEAR
-            , A.EXAM_GRP_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="001"/>
-                <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
-                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
-            </include>
-            , A.SUBJECT_TYPE_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="002"/>
-                <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
-                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
-            </include>
-            , A.EXAM_NO
-            , A.SRT_NO
-            , A.CONTENT
-            , A.ANSWER
-            , A.CMNTR
-            , B.QUIZ_USER_ANS_SEQ
-            , B.USER_ID
-            , B.USER_ANSWER
-            , B.ANSWER_CHK
-            , B.USER_CHK_IMPRT
-            , B.USER_CHK_CNFSD
+        A.QUIZ_MSTR_INFO_SEQ
+        , A.EXAM_YEAR
+        , A.EXAM_GRP_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="001"/>
+            <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
+            <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+        </include>
+        , A.SUBJECT_TYPE_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="002"/>
+            <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
+            <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+        </include>
+        , A.EXAM_NO
+        , A.SRT_NO
+        , A.CONTENT
+        , A.ANSWER
+        , A.CMNTR
+        , B.QUIZ_USER_ANS_SEQ
+        , B.USER_ID
+        , B.USER_ANSWER
+        , B.ANSWER_CHK
+        , B.USER_CHK_IMPRT
+        , B.USER_CHK_CNFSD
         FROM QUIZ_MSTR_INFO A
-            LEFT JOIN (
-                SELECT QUIZ_USER_ANS_SEQ, QUIZ_MSTR_INFO_SEQ, USER_ID, USER_ANSWER, USER_CHK_IMPRT, USER_CHK_CNFSD, ANSWER_CHK
-                FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
-            ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
+        LEFT JOIN (
+        SELECT QUIZ_USER_ANS_SEQ, QUIZ_MSTR_INFO_SEQ, USER_ID, USER_ANSWER, USER_CHK_IMPRT, USER_CHK_CNFSD, ANSWER_CHK
+        FROM QUIZ_USER_ANS WHERE DEL_YN = 'N' AND USER_ID = #{userId}) B
+        ON A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ
         WHERE 1 = 1
         <choose>
             <when test="quizMstrInfoSeq != null and quizMstrInfoSeq != ''">
                 AND A.QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
             </when>
             <otherwise>
-                    AND A.DEL_YN = 'N'
-                    AND A.EXAM_GRP_CD = #{examGrpCd}
-                    AND A.EXAM_YEAR = #{examYear}
-                    AND A.EXAM_NO = #{examNo}
-                    AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
+                AND A.DEL_YN = 'N'
+                AND A.EXAM_GRP_CD = #{examGrpCd}
+                AND A.EXAM_YEAR = #{examYear}
+                AND A.EXAM_NO = #{examNo}
+                AND A.SUBJECT_TYPE_CD = #{subjectTypeCd}
                 ORDER BY A.SRT_NO
                 LIMIT 1
             </otherwise>
@@ -146,32 +148,32 @@
         AND DEL_YN = 'N'
     </sql>
 
-    <select id="selectQuizList" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
+    <select id="selectQuizList" resultType="com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO">
         SELECT
-            ROW_NUMBER() OVER(ORDER BY A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
-            , ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SRT_NO) AS QUIZ_NO
-            , QUIZ_MSTR_INFO_SEQ
-            , EXAM_GRP_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="001"/>
-                <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
-                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
-            </include>
-            , SUBJECT_TYPE_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="002"/>
-                <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
-                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
-            </include>
-            , EXAM_YEAR
-            , EXAM_NO
-            , SRT_NO
-            , CONTENT
-            , ANSWER
-            , CMNTR
-            , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
+        ROW_NUMBER() OVER(ORDER BY A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.SUBJECT_TYPE_CD, A.SRT_NO) AS RNO
+        , ROW_NUMBER() OVER(PARTITION BY A.SUBJECT_TYPE_CD ORDER BY A.SRT_NO) AS QUIZ_NO
+        , QUIZ_MSTR_INFO_SEQ
+        , EXAM_GRP_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="001"/>
+            <property name="grpDtlCd" value="A.EXAM_GRP_CD"/>
+            <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+        </include>
+        , SUBJECT_TYPE_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="002"/>
+            <property name="grpDtlCd" value="A.SUBJECT_TYPE_CD"/>
+            <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+        </include>
+        , EXAM_YEAR
+        , EXAM_NO
+        , SRT_NO
+        , CONTENT
+        , ANSWER
+        , CMNTR
+        , FORMATDATETIME(REG_TS, 'yyyy-MM-dd') AS REG_DT
         FROM QUIZ_MSTR_INFO A
         WHERE 1 = 1
         <include refid="selectQuizList-where"/>
@@ -191,35 +193,35 @@
             SELECT IFNULL(MAX(QUIZ_MSTR_INFO_SEQ), 0) + 1 FROM QUIZ_MSTR_INFO
         </selectKey>
         INSERT INTO QUIZ_MSTR_INFO (
-            QUIZ_MSTR_INFO_SEQ
-            , EXAM_YEAR
-            , EXAM_GRP_CD
-            , EXAM_NO
-            , SUBJECT_TYPE_CD
-            , SRT_NO
-            , CONTENT
-            , ANSWER
-            , CMNTR
-            , DEL_YN
-            , REGIST_ID
-            , REGIST_NM
-            , REG_TS
-            , MDFY_TS
+        QUIZ_MSTR_INFO_SEQ
+        , EXAM_YEAR
+        , EXAM_GRP_CD
+        , EXAM_NO
+        , SUBJECT_TYPE_CD
+        , SRT_NO
+        , CONTENT
+        , ANSWER
+        , CMNTR
+        , DEL_YN
+        , REGIST_ID
+        , REGIST_NM
+        , REG_TS
+        , MDFY_TS
         ) VALUES (
-            #{quizMstrInfoSeq}
-            , #{examYear}
-            , #{examGrpCd}
-            , #{examNo}
-            , #{subjectTypeCd}
-            , (SELECT IFNULL(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
-            , #{content}
-            , #{answer}
-            , #{cmntr}
-            , 'N'
-            , #{registId}
-            , #{registNm}
-            , CURRENT_TIMESTAMP
-            , CURRENT_TIMESTAMP
+        #{quizMstrInfoSeq}
+        , #{examYear}
+        , #{examGrpCd}
+        , #{examNo}
+        , #{subjectTypeCd}
+        , (SELECT IFNULL(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
+        , #{content}
+        , #{answer}
+        , #{cmntr}
+        , 'N'
+        , #{registId}
+        , #{registNm}
+        , CURRENT_TIMESTAMP
+        , CURRENT_TIMESTAMP
         )
     </insert>
 
@@ -240,28 +242,28 @@
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
     </update>
 
-    <select id="getQuizInfo" resultType="com.web.lawingmachine.app.training.vo.QuizMstrInfoVO">
+    <select id="getQuizInfo" resultType="com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO">
         SELECT QUIZ_MSTR_INFO_SEQ
-            , EXAM_GRP_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="001"/>
-                <property name="grpDtlCd" value="EXAM_GRP_CD"/>
-                <property name="grpDtlNm" value="EXAM_GRP_NM"/>
-            </include>
-            , SUBJECT_TYPE_CD
-            ,
-            <include refid="util.getComnCodeNm">
-                <property name="grpCd" value="002"/>
-                <property name="grpDtlCd" value="SUBJECT_TYPE_CD"/>
-                <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
-            </include>
-             , EXAM_YEAR
-             , EXAM_NO
-             , SRT_NO
-             , CONTENT
-             , ANSWER
-             , CMNTR
+        , EXAM_GRP_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="001"/>
+            <property name="grpDtlCd" value="EXAM_GRP_CD"/>
+            <property name="grpDtlNm" value="EXAM_GRP_NM"/>
+        </include>
+        , SUBJECT_TYPE_CD
+        ,
+        <include refid="util.getComnCodeNm">
+            <property name="grpCd" value="002"/>
+            <property name="grpDtlCd" value="SUBJECT_TYPE_CD"/>
+            <property name="grpDtlNm" value="SUBJECT_TYPE_NM"/>
+        </include>
+        , EXAM_YEAR
+        , EXAM_NO
+        , SRT_NO
+        , CONTENT
+        , ANSWER
+        , CMNTR
         FROM QUIZ_MSTR_INFO
         WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
     </select>

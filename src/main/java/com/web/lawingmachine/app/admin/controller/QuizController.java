@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,9 @@ import com.web.lawingmachine.app.admin.service.AdminService;
 import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.security.SessionUser;
-import com.web.lawingmachine.app.training.service.QuizService;
-import com.web.lawingmachine.app.training.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 
 @Controller
 @RequestMapping("/admin/board/quiz")
@@ -74,7 +75,7 @@ public class QuizController {
         model.addAttribute("examYearArr", examYearArr);
 
         // 공통코드(시험구분 코드)
-        List<Map<String, String>> examCdList = baseUtil.selectCmmnCdList("001");
+        List<CmmnCdDto> examCdList = baseUtil.selectCmmnCdList("001");
         model.addAttribute("examCdList", examCdList);
 
         // 시험회차 리스트
@@ -85,11 +86,11 @@ public class QuizController {
         model.addAttribute("examNoArr", examNoArr);
 
         // 공통코드(과목 코드)
-        List<Map<String, String>> subjectTypeCdList = baseUtil.selectCmmnCdList("002");
+        List<CmmnCdDto> subjectTypeCdList = baseUtil.selectCmmnCdList("002");
         model.addAttribute("subjectTypeCdList", subjectTypeCdList);
 
         // 공통코드(관리자게시판 코드)
-        List<Map<String, String>> brdTypeCdList = baseUtil.selectCmmnCdList("004");
+        List<CmmnCdDto> brdTypeCdList = baseUtil.selectCmmnCdList("004");
         model.addAttribute("brdTypeCdList", brdTypeCdList);
 
         QuizMstrInfoVO quizMstrInfoVO;

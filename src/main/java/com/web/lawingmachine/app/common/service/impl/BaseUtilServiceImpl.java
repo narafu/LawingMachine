@@ -1,5 +1,6 @@
 package com.web.lawingmachine.app.common.service.impl;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import com.web.lawingmachine.app.common.mapper.BaseUtilMapper;
 import com.web.lawingmachine.app.common.service.BaseUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class BaseUtilServiceImpl implements BaseUtilService {
 	private BaseUtilMapper baseUtilMapper;
 
 	@Override
-	public List<Map<String, String>> selectCmmnCdList(String grpCd) {
+	public List<CmmnCdDto> selectCmmnCdList(String grpCd) {
 		return baseUtilMapper.selectCmmnCdList(grpCd);
 	}
 

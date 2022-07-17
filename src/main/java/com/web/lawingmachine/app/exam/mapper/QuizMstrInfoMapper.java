@@ -1,6 +1,8 @@
-package com.web.lawingmachine.app.training.mapper;
+package com.web.lawingmachine.app.exam.mapper;
 
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectDto;
+import com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,7 +13,7 @@ public interface QuizMstrInfoMapper {
 
     List<QuizMstrInfoVO> selectAjaxQuizNavList(QuizMstrInfoVO quizMstrInfoVO);
 
-    List<Map<String, String>> selectQuizSubjectList(String grpCd);
+    List<QuizSubjectDto> selectQuizSubjectList(String grpCd);
 
     int getQuizTotalCnt(QuizMstrInfoVO param);
 
@@ -27,7 +29,7 @@ public interface QuizMstrInfoMapper {
 
     int insertQuizMstrInfo(QuizMstrInfoVO quizMstrInfoVO);
 
-    List<QuizMstrInfoVO> selectQuizSubjectUserList(String userId);
+    List<QuizSubjectUserDto> selectQuizSubjectUserList(String userId);
 
     int updateQuizMstrInfo(QuizMstrInfoVO param);
 

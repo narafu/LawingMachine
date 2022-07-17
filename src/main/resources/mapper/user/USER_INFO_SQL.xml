@@ -22,6 +22,7 @@
 			, REGIST_NM
 			, REG_TS
 			, MDFY_TS
+			, DEL_YN
 		) VALUES (
 			#{userInfoSeq}
 			, #{userId}
@@ -35,8 +36,9 @@
 			, #{loginCnt}
 			, 'SYETEM'
 			, 'SYETEM'
-			, current_timestamp()
-			, current_timestamp()
+			, NOW()
+			, NOW()
+			, 'N'
 		)
 	</insert>
 	
@@ -68,7 +70,7 @@
 
 	<update id="updateUserInfo">
 		UPDATE USER_INFO SET
-			MDFY_TS = current_timestamp()
+			MDFY_TS = NOW()
 			 <if test="email != null and email != ''">
 				,EMAIL = #{email}
 			 </if>
@@ -84,13 +86,13 @@
 	<update id="updateMembershipCd">
 		UPDATE USER_INFO SET
 			MEMBERSHIP_CD = #{membershipCd}
-			, MDFY_TS = current_timestamp()
+			, MDFY_TS = NOW()
 		WHERE USER_ID = #{userId}
 	</update>
 
 	<update id="uploadImage">
 		UPDATE USER_INFO SET
-			MDFY_TS = current_timestamp()
+			MDFY_TS = NOW()
 			, EXAM_TICKET = #{examTicket}
 			, EXAM_TICKET_PATH = #{examTicketPath}
 		WHERE USER_ID = #{userId}
@@ -99,7 +101,7 @@
 	<update id="updateLoginUserInfo">
 		UPDATE USER_INFO A SET
 		    LOGIN_CNT = A.LOGIN_CNT + 1
-			, MDFY_TS = current_timestamp()
+			, MDFY_TS = NOW()
 		WHERE USER_ID = #{userId}
 	</update>
 
@@ -115,7 +117,7 @@
 			, EXAM_TICKET
 			, EXAM_TICKET_PATH
 			, EXAM_TICKET_NO
-			, CASE WHEN ISNULL(EXAM_TICKET) THEN 'N' ELSE 'Y' END AS EXAM_TICKET_YN
+			, CASE WHEN EXAM_TICKET IS NULL THEN 'N' ELSE 'Y' END AS EXAM_TICKET_YN
 			, MEMBERSHIP_CD
 			,
 			<include refid="util.getComnCodeNm">

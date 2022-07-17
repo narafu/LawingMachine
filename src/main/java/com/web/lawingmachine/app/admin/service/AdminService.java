@@ -1,6 +1,6 @@
 package com.web.lawingmachine.app.admin.service;
 
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 
 import java.util.List;

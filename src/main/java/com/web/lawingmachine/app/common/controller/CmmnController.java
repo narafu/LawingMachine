@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -15,8 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.web.lawingmachine.app.common.service.BaseUtilService;
-import com.web.lawingmachine.app.training.service.QuizService;
-import com.web.lawingmachine.app.training.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 
 @Controller
 public class CmmnController {
@@ -30,7 +31,7 @@ public class CmmnController {
 	@GetMapping(value = { "/", "/index" })
 	public String index(Model model) {
 		// 공통코드(과목코드)
-		List<Map<String, String>> CommLst002 = baseUtilService.selectCmmnCdList("002");
+		List<CmmnCdDto> CommLst002 = baseUtilService.selectCmmnCdList("002");
 		model.addAttribute("CommLst002", CommLst002);
 		return "view/common/index";
 	}
