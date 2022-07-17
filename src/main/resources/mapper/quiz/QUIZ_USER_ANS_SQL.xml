@@ -117,7 +117,7 @@
             AND A.SUBJECT_TYPE_CD = #{schSubjectTypeCd}
         </if>
         <if test="schQuizCntnt != null and schQuizCntnt != ''">
-            AND A.CONTENT LIKE CONCAT("%", #{schQuizCntnt}, "%")
+            AND A.CONTENT LIKE CONCAT('%', #{schQuizCntnt}, '%')
         </if>
         <if test='schAnswerChk == "Y"'>
             AND B.ANSWER_CHK = 'X'
