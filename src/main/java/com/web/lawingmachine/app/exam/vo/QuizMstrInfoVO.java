@@ -31,8 +31,8 @@ public class QuizMstrInfoVO extends BaseVO {
     private String userId;
     private String userAnswer;
     private String answerChk;
-    private String userChkImprt;
-    private String userChkCnfsd;
+    private String userChkImprt = "N";
+    private String userChkCnfsd = "N";
     private int takeRev;
 
     private int quizTotalCnt;
