@@ -31,7 +31,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     generate-ddl: true
     show-sql: true
     defer-datasource-initialization: true
@@ -39,7 +39,7 @@ spring:
   sql:
     init:
       data-locations: classpath:db/data-mariadb.sql
-      mode: always
+      mode: never
       platform: mariadb
 
   security:
