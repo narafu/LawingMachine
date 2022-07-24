@@ -17,6 +17,25 @@ spring:
     show-sql: true
     defer-datasource-initialization: true
 
+springdoc:
+  api-docs:
+    version: openapi_3_0
+    path: /test
+#    groups:
+#      enabled: true
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    display-request-duration: true
+#    groups-order: DESC
+#    operationsSorter: method
+#    disable-swagger-default-url: true
+#  show-actuator: true
+#  group-configs:
+#    - group: stores
+#      paths-to-match: /store/**
+#    - group: users
+#      packages-to-scan: org.springdoc.demo.app2
+
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.web.lawingMachine.app.**.vo
@@ -50,7 +69,7 @@ spring:
     multipart:
       #      enabled: true # 멀티파트 업로드 지원여부 (default: true)
       #      file-size-threshold: 1MB #  파일이 메모리에 기록되는 임계값 (default: 0B)
-#      location: C:/Temp # 업로드된 파일의 임시 저장 공간
+      #      location: C:/Temp # 업로드된 파일의 임시 저장 공간
       location: /Users/narafu/dev/attach # 업로드된 파일의 임시 저장 공간
       max-file-size: 100MB # 파일의 최대 사이즈 (default: 1MB)
       max-request-size: 100MB # 요청의 최대 사이즈 (default: 10MB)
@@ -64,7 +83,7 @@ spring:
     username: sa
     password:
     initialization-mode: never
-#    schema: classpath:h2/schema.sql
+    #    schema: classpath:h2/schema.sql
     data: classpath:h2/data.sql
     h2:
       console:

@@ -1,14 +1,13 @@
 package com.web.lawingmachine.app.admin.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.web.lawingmachine.app.admin.service.AdminService;
+import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.dto.CmmnCdDto;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.security.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import com.web.lawingmachine.app.admin.service.AdminService;
-import com.web.lawingmachine.app.common.controller.BaseUtil;
-import com.web.lawingmachine.app.common.vo.ResultMessageVO;
-import com.web.lawingmachine.app.security.SessionUser;
-import com.web.lawingmachine.app.exam.service.QuizService;
-import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
-import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/board/quiz")
@@ -141,10 +139,10 @@ public class QuizController {
         int resultCnt = adminService.insertQuizMstrInfo(param);
 
         if (resultCnt > 0) {
-        	result.setResultCode("SUCCESS");
+            result.setResultCode("SUCCESS");
             result.setMessage("등록되었습니다.");
         } else {
-        	result.setResultCode("FAIL");
+            result.setResultCode("FAIL");
             result.setMessage("오류가 발생하였습니다.");
         }
 
