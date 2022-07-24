@@ -14,11 +14,11 @@ public class BrdMstrInfoEntity extends BaseEntity {
     @GeneratedValue
     private int brdMstrInfoSeq;
 
-    @Column(length = 2)
-    private char brdTypeCd;
+    @Column(length = 10)
+    private String brdTypeCd;
 
-    @Column(length = 2)
-    private char subjectTypeCd;
+    @Column(length = 10)
+    private String subjectTypeCd;
 
     private String title;
 

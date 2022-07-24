@@ -17,13 +17,13 @@ public class QuizResultInfoEntity extends BaseEntity {
     @Column(length = 4)
     private int examYear;
 
-    @Column(length = 2)
-    private char examGrpCd;
+    @Column(length = 10)
+    private String examGrpCd;
 
     private int examNo;
 
-    @Column(length = 2)
-    private char subjectTypeCd;
+    @Column(length = 10)
+    private String subjectTypeCd;
 
     private String userId;
 
