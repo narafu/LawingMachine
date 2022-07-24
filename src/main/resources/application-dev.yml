@@ -4,21 +4,32 @@ spring:
   config:
     activate:
       on-profile: dev
+
   servlet:
     multipart:
       location: /home/ec2-user/app/LawingMachine # 업로드된 파일의 임시 저장 공간
       max-file-size: 100MB # 파일의 최대 사이즈 (default: 1MB)
       max-request-size: 100MB # 요청의 최대 사이즈 (default: 10MB)
+
   datasource:
-    url: jdbc:mariadb://lawingmachine-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
-    username: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://lawing-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
+    username: admin
     password: root1234
+
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     generate-ddl: true
     show-sql: true
     defer-datasource-initialization: true
+
+  sql:
+    init:
+      data-locations: classpath:db/data-mariadb.sql
+      mode: never
+      platform: mariadb
+
   security:
     oauth2:
       client:
