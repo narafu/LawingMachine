@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/board/approval")
-public class ApprovalController {
+public class MemberController {
 
     @Autowired
     private AdminService adminService;
