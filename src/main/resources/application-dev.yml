@@ -13,7 +13,7 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://lawing-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
+    url: jdbc:mariadb://lawingmachine-db.cebqhgvwz5ca.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
     username: admin
     password: root1234
 
@@ -39,13 +39,13 @@ spring:
             client-secret: q_k0N99pXC
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: http://13.124.83.80/login/oauth2/code/naver
+            redirect-uri: http://13.124.83.80:8080/login/oauth2/code/naver
           kakao:
             client-id: a29beb7e4322a745cc6623d79102faee
             client-secret: b3cbca2f5e4008b44f5608c21a8de28e
             client-name: kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://13.124.83.80/login/oauth2/code/kakao
+            redirect-uri: http://13.124.83.80:8080/login/oauth2/code/kakao
             client-authentication-method: POST
         provider:
           naver:
