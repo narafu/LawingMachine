@@ -82,7 +82,7 @@
                 , USER_ID
                 , SUM(RESULT_CNT) AS RESULT_CNT
                 , COUNT(*) AS CNT
-                , DATE_FORMAT(REG_TS, 'yyyy-MM-dd') AS REG_DT
+                , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
             FROM QUIZ_RESULT_INFO A
             WHERE DEL_YN = 'N'
                 AND EXAM_GRP_CD = #{examGrpCd}
