@@ -173,7 +173,7 @@
         , CONTENT
         , ANSWER
         , CMNTR
-        , DATE_FORMAT(REG_TS, 'yyyy-MM-dd') AS REG_DT
+        , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
         FROM QUIZ_MSTR_INFO A
         WHERE 1 = 1
         <include refid="selectQuizList-where"/>
