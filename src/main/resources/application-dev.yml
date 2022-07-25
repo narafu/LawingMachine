@@ -13,7 +13,7 @@ spring:
 
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://lawing-db.cakioqitx4ac.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
+    url: jdbc:mariadb://lawingmachine-db.cebqhgvwz5ca.ap-northeast-2.rds.amazonaws.com:3306/lawingdb?autoReconnect=true
     username: admin
     password: root1234
 
