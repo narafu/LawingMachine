@@ -20,6 +20,10 @@
 <!--						<li class="nav-item col-sm my-auto"><a href="https://blog.naver.com/archilawyer/222623584164" target='_blank' class="nav-link">제작배경</a></li>-->
 <!--	            	</th:block>-->
 					<li class="nav-item col-sm my-auto">
+						<a href="https://slash-passbook-e54.notion.site/f2155aec84004f75955dae787d568da7" target="_blank"
+							class="btn btn-outline-primary px-4">Guide</a>
+					</li>
+					<li class="nav-item col-sm my-auto">
 						<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
 							<a href="/training/exam/notice" class="nav-link">시험응시</a>
 						</th:block>
@@ -36,14 +40,20 @@
 					</li>
 					<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
 						<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
-							<li class="nav-item col-sm my-auto"><a href="/admin/board/quiz/list" class="nav-link">관리자</a></li>
+							<li class="nav-item col-sm my-auto">
+								<a href="/admin/board/quiz/list" class="nav-link">관리자</a>
+							</li>
 						</th:block>
 					</th:block>
 					<th:block sec:authorize="isAuthenticated() == false">
-						<li class="nav-item col-md my-3"><a href="/login" class="btn btn-outline-primary px-4">로그인</a></li>
+						<li class="nav-item col-md my-3">
+							<a href="/login" class="btn btn-outline-primary px-4">로그인</a>
+						</li>
 					</th:block>
 	                <th:block sec:authorize="isAuthenticated()">
-						<li class="nav-item col-md my-3"><a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a></li>
+						<li class="nav-item col-md my-3">
+							<a href="/logout" class="btn btn-outline-primary px-4">로그아웃</a>
+						</li>
 					</th:block>
 	            </ul>
 	        </div>
