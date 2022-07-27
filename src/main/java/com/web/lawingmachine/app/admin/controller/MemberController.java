@@ -27,6 +27,7 @@ public class MemberController {
     public String boardList(UserInfoVO userInfoVO, Model model) {
         model.addAttribute("userInfoVO", userInfoVO);
         model.addAttribute("leftsidebarCd", "20");
+        model.addAttribute("headerActiveCode", "40");
         return "view/admin/approval/boardList";
     }
 
@@ -53,6 +54,7 @@ public class MemberController {
         model.addAttribute("userInfo", userInfo);
 //        return "view/admin/approval/infoView :: #boardContent";
         model.addAttribute("leftsidebarCd", "20");
+        model.addAttribute("headerActiveCode", "40");
         return "view/admin/approval/infoView";
     }
 

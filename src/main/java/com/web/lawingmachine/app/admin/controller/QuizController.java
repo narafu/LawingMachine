@@ -41,6 +41,7 @@ public class QuizController {
     public String boardList(QuizMstrInfoVO quizMstrInfoVO, Model model) {
         model.addAttribute("quizMstrInfoVO", quizMstrInfoVO);
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "40");
         return "view/admin/quiz/boardList";
     }
 
@@ -112,6 +113,8 @@ public class QuizController {
 
 //        return "view/admin/quiz/inputForm :: #boardContent";
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "40");
+
         return "view/admin/quiz/inputForm";
     }
 
@@ -124,6 +127,8 @@ public class QuizController {
 
 //        return "view/admin/quiz/infoView :: #boardContent";
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "40");
+
         return "view/admin/quiz/infoView";
     }
 

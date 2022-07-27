@@ -25,23 +25,27 @@
 					</li>
 					<li class="nav-item col-sm my-auto">
 						<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
-							<a href="/training/exam/notice" class="nav-link">시험응시</a>
+							<a href="/training/exam/notice" class="nav-link"
+								th:classappend="${#strings.equals(headerActiveCode, '10')} ? 'header-active'">시험응시</a>
 						</th:block>
 					</li>
 					<li class="nav-item col-sm my-auto">
 						<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
-							<a href="/board/free/list" class="nav-link">커뮤니티</a>
+							<a href="/board/free/list" class="nav-link"
+							   th:classappend="${#strings.equals(headerActiveCode, '20')} ? 'header-active'">커뮤니티</a>
 						</th:block>
 					</li>
 					<li class="nav-item col-sm my-auto">
 						<th:block sec:authorize="isAuthenticated()">
-							<a href="/mypage/myprofile" class="nav-link">마이페이지</a>
+							<a href="/mypage/myprofile" class="nav-link"
+							   th:classappend="${#strings.equals(headerActiveCode, '30')} ? 'header-active'">마이페이지</a>
 						</th:block>
 					</li>
 					<th:block th:if="${not #strings.isEmpty(session.sessionUser)}">
 						<th:block th:if="${#strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
 							<li class="nav-item col-sm my-auto">
-								<a href="/admin/board/quiz/list" class="nav-link">관리자</a>
+								<a href="/admin/board/quiz/list" class="nav-link"
+								   th:classappend="${#strings.equals(headerActiveCode, '40')} ? 'header-active'">관리자</a>
 							</li>
 						</th:block>
 					</th:block>
