@@ -5,9 +5,9 @@ import com.web.lawingmachine.app.common.service.BaseUtilService;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.exam.dto.QuizSubjectDto;
 import com.web.lawingmachine.app.exam.dto.QuizSubjectUserDto;
-import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.exam.service.QuizService;
 import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.security.SessionUser;
 import com.web.lawingmachine.app.user.service.UserService;
 import com.web.lawingmachine.app.user.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/training")
@@ -46,6 +45,8 @@ public class TrainingController {
         List<QuizSubjectUserDto> quizSubjectNaviUserList = quizService.selectQuizSubjectUserList(userId);
         model.addAttribute("quizSubjectNaviUserList", quizSubjectNaviUserList);
 
+        model.addAttribute("headerActiveCode", "10");
+
         return "view/training/notice";
     }
 
@@ -60,6 +61,8 @@ public class TrainingController {
         List<CmmnCdDto> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
         model.addAttribute("quizMstrInfoVO", param);
+
+        model.addAttribute("headerActiveCode", "10");
 
         return "view/training/quiz";
     }
@@ -136,6 +139,4 @@ public class TrainingController {
 
         return result;
     }
-
-
 }

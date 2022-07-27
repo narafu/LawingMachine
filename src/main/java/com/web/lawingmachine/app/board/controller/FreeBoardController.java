@@ -1,12 +1,11 @@
 package com.web.lawingmachine.app.board.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.web.lawingmachine.app.board.service.BoardService;
+import com.web.lawingmachine.app.board.vo.BoardVO;
+import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.dto.CmmnCdDto;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
+import com.web.lawingmachine.app.security.SessionUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import com.web.lawingmachine.app.board.service.BoardService;
-import com.web.lawingmachine.app.board.vo.BoardVO;
-import com.web.lawingmachine.app.common.controller.BaseUtil;
-import com.web.lawingmachine.app.common.vo.ResultMessageVO;
-import com.web.lawingmachine.app.security.SessionUser;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/board/free")
@@ -36,6 +34,7 @@ public class FreeBoardController {
     public String boardList(BoardVO boardVO, Model model) {
         model.addAttribute("boardVO", boardVO);
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "20");
         return "view/board/boardList";
     }
 
@@ -76,6 +75,8 @@ public class FreeBoardController {
         
 //        return "view/board/inputForm :: #boardContent";
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "20");
+
         return "view/board/inputForm";
     }
 
@@ -97,6 +98,8 @@ public class FreeBoardController {
 
 //        return "view/board/infoView :: #boardContent";
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "20");
+
         return "view/board/infoView";
     }
 

@@ -1,220 +1,220 @@
-@media(min-width: 560px) {
-	.mobile {
-		display: none;
-	}
+@media (min-width: 560px) {
+    .mobile {
+        display: none;
+    }
 }
 
 body, #wrapper {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	overflow-y:scroll;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: scroll;
 }
 
 a {
-	color: black;
-	text-decoration: none;
+    color: black;
+    text-decoration: none;
 }
 
 footer {
-	margin-top: auto;
+    margin-top: auto;
 }
 
 body {
-	font-family: 'NEXON Lv1 Gothic OTF Light';
+    font-family: 'NEXON Lv1 Gothic OTF Light';
 }
 
 hr.solid {
-	border-top: 3px solid #086972;
+    border-top: 3px solid #086972;
 }
 
-a:hover
-, li:hover
-, button:hover
-, i:hover
-, input[type=checkbox]:hover
-, .tui-grid-cell-content:hover {
-	cursor: pointer !important;
+a:hover, li:hover, button:hover, i:hover, input[type=checkbox]:hover, .tui-grid-cell-content:hover {
+    cursor: pointer !important;
 }
 
 .nav-link {
-	color: black;
+    color: black;
 }
 
 a.btn-outline-primary:hover {
-	color: white !important;
+    color: white !important;
 }
+
 .border-primary {
-	border-color: #086972 !important;
+    border-color: #086972 !important;
 }
 
 .text-primary {
-	color: #086972 !important;
+    color: #086972 !important;
 }
 
 .bg-primary {
-	background-color: #086972 !important;
+    background-color: #086972 !important;
 }
 
 .btn-outline-primary {
-	color: #086972;
-	border-color: #086972;
+    color: #086972;
+    border-color: #086972;
 }
 
 .btn-outline-primary:hover {
-	color: #fff;
-	background-color: #086972;
-	border-color: #086972;
+    color: #fff;
+    background-color: #086972;
+    border-color: #086972;
 }
 
 .btn-primary {
-	background-color: #086972;
-	border-color: #086972;
-	color: #FFF;
+    background-color: #086972;
+    border-color: #086972;
+    color: #FFF;
 }
 
 .btn-primary:hover, .btn-primary:focus {
-	color: #086972;
-	background-color: #FFF;
-	border-color: #086972;
+    color: #086972;
+    background-color: #FFF;
+    border-color: #086972;
 }
 
 .btn-primary:active, .btn-primary:visited, .btn-primary:active:focus,
-	.btn-primary:active:hover {
-	color: #086972;
-	border-color: #FFF;
-	background-color: #086972;
+.btn-primary:active:hover {
+    color: #086972;
+    border-color: #FFF;
+    background-color: #086972;
 }
 
 .nav-pills .active {
-	background-color: #086972 !important;
-	color: white !important;
+    background-color: #086972 !important;
+    color: white !important;
 }
 
 
 @font-face {
-	font-family: 'NEXON Lv1 Gothic OTF Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-	font-family: 'NEXON Lv1 Gothic OTF';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-	font-family: 'NEXON Lv1 Gothic OTF Light';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'NEXON Lv1 Gothic OTF Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Light.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-	font-family: 'KOTRA_BOLD-Bold';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'KOTRA_BOLD-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-	font-family: 'GongGothicMedium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 h1 {
-	font-family: 'NEXON Lv1 Gothic OTF Bold';
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
 i.active {
-	color: #086972;
+    color: #086972;
 }
 
 i {
-	color: black;
+    color: black;
 }
 
 .quizNumTd {
-	min-width: 85px;
-	font-size: 0.9em;
-	border-radius: 10px;
-	color: white;
+    min-width: 85px;
+    font-size: 0.9em;
+    border-radius: 10px;
+    color: white;
 }
 
 .quizNumTd:hover {
-	background-color: #086972;
-	cursor: pointer;
-	transition: background-color 1s;
+    background-color: #086972;
+    cursor: pointer;
+    transition: background-color 1s;
 }
 
 .quizNumTd:hover div {
-	color: white !important;
+    color: white !important;
 }
 
 #sidebar a:hover:not(.bg-secondary) {
-	color: #086972 !important;
+    color: #086972 !important;
 }
 
 #sidebar .bg-secondary a:hover {
-	color: white !important;
+    color: white !important;
 }
 
 /*******************************************************************/
 
 .sideNavDiv:hover, .quizNavTltDiv:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .quizTrueRatio-1 {
-	background-color: #fff2df;
-	color: black;
+    background-color: #fff2df;
+    color: black;
 }
+
 .quizTrueRatio-2 {
-	background-color: #ffddb0;
-	color: black;
+    background-color: #ffddb0;
+    color: black;
 }
+
 .quizTrueRatio-3 {
-	background-color: #ffc77d;
-	color: black;
+    background-color: #ffc77d;
+    color: black;
 }
+
 .quizTrueRatio-4 {
-	background-color: #ffaf49;
-	color: black;
+    background-color: #ffaf49;
+    color: black;
 }
+
 .quizTrueRatio-5 {
-	background-color: #ff9e22;
+    background-color: #ff9e22;
 }
+
 .quizTrueRatio-6 {
-	background-color: #ff8d00;
+    background-color: #ff8d00;
 }
+
 .quizTrueRatio-7 {
-	background-color: #fa8100;
+    background-color: #fa8100;
 }
+
 .quizTrueRatio-8 {
-	background-color: #f47100;
+    background-color: #f47100;
 }
+
 .quizTrueRatio-9 {
-	background-color: #ee6002;
+    background-color: #ee6002;
 }
+
 .quizTrueRatio-10 {
-	background-color: #e54304;
+    background-color: #e54304;
 }
 
 .disable {
 
+}
+
+.header-active {
+    font-family: GongGothicMedium;
+    font-size: 1.1em;
 }
