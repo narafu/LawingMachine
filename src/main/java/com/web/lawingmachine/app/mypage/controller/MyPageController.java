@@ -1,5 +1,26 @@
 package com.web.lawingmachine.app.mypage.controller;
 
+import com.web.lawingmachine.app.common.dto.CmmnCdDto;
+import com.web.lawingmachine.app.common.service.BaseUtilService;
+import com.web.lawingmachine.app.common.vo.ModalVO;
+import com.web.lawingmachine.app.common.vo.ResultCode;
+import com.web.lawingmachine.app.common.vo.ResultMessageVO;
+import com.web.lawingmachine.app.exam.dto.QuizResultRatioDto;
+import com.web.lawingmachine.app.exam.service.QuizService;
+import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
+import com.web.lawingmachine.app.security.SessionUser;
+import com.web.lawingmachine.app.user.service.UserService;
+import com.web.lawingmachine.app.user.vo.UserInfoVO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -8,34 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.web.lawingmachine.app.common.dto.CmmnCdDto;
-import com.web.lawingmachine.app.exam.dto.QuizResultRatioDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.web.lawingmachine.app.common.service.BaseUtilService;
-import com.web.lawingmachine.app.common.vo.ModalVO;
-import com.web.lawingmachine.app.common.vo.ResultCode;
-import com.web.lawingmachine.app.common.vo.ResultMessageVO;
-import com.web.lawingmachine.app.security.SessionUser;
-import com.web.lawingmachine.app.exam.service.QuizService;
-import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
-import com.web.lawingmachine.app.user.service.UserService;
-import com.web.lawingmachine.app.user.vo.UserInfoVO;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
@@ -58,6 +51,7 @@ public class MyPageController {
         UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("leftsidebarCd", "10");
+        model.addAttribute("headerActiveCode", "30");
         return "view/mypage/myprofile";
     }
 
@@ -148,6 +142,7 @@ public class MyPageController {
         List<CmmnCdDto> CommLst002 = baseUtilService.selectCmmnCdList("002");
         model.addAttribute("CommLst002", CommLst002);
         model.addAttribute("leftsidebarCd", "30");
+        model.addAttribute("headerActiveCode", "30");
 
         return "view/mypage/reviewNote";
     }
@@ -172,6 +167,7 @@ public class MyPageController {
         UserInfoVO userInfo = userService.getUserInfo(sessionUser.getUserId());
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("leftsidebarCd", "20");
+        model.addAttribute("headerActiveCode", "30");
         return "view/mypage/quizResult";
     }
 
