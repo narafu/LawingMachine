@@ -1,4 +1,4 @@
-package com.web.lawingmachine.app.mypage.controller;
+package com.web.lawingmachine.app.user.controller;
 
 import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import com.web.lawingmachine.app.common.service.BaseUtilService;
