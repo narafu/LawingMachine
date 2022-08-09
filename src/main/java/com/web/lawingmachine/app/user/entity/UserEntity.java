@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "USER_INFO")
 @Data
-public class userEntity extends BaseEntity {
+public class UserEntity extends BaseEntity {
     @Id
     @GeneratedValue
     private int userInfoSeq;
