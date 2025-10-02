@@ -1,7 +1,7 @@
 package com.web.lawingmachine.app.user.service.impl;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		
 		if ("new".equals(arr[0])) {
 
-			int userInfoSeq = userInfoMapper.getGuestInfoSeq(arr[1]);
+            Integer userInfoSeq = userInfoMapper.getGuestInfoSeq(arr[1]);
 			String userId = "";
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			String password = encoder.encode("GUEST");

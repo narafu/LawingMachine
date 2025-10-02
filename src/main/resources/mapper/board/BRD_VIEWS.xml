@@ -11,8 +11,8 @@
 	</select>
 
 	<insert id="insertBrdViews">
-		<selectKey keyProperty="brdViewsSeq" resultType="String" order="BEFORE">
-			SELECT IFNULL(MAX(BRD_VIEWS_SEQ), 0) + 1 FROM BRD_VIEWS
+		<selectKey keyProperty="brdViewsSeq" resultType="int" order="BEFORE">
+			SELECT COALESCE(MAX(BRD_VIEWS_SEQ), 0) + 1 FROM BRD_VIEWS
 		</selectKey>
 		INSERT INTO BRD_VIEWS (
 			BRD_VIEWS_SEQ

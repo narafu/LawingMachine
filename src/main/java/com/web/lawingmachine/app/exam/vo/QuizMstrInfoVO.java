@@ -8,13 +8,13 @@ import java.util.List;
 @Data
 public class QuizMstrInfoVO extends BaseVO {
 
-    private String quizMstrInfoSeq;
-    private String quizUserAnsSeq;
-    private String quizResultInfoSeq;
+    private Integer quizMstrInfoSeq;
+    private Integer quizUserAnsSeq;
+    private Integer quizResultInfoSeq;
 
     private String examGrpCd;
     private String examGrpNm;
-    private String examYear;
+    private Integer examYear;
     private int examNo;
 
     private String subjectTypeCd;
@@ -45,6 +45,5 @@ public class QuizMstrInfoVO extends BaseVO {
     private String schSubjectTypeCd;
     private String schUserChkImprt;
     private String schUserChkCnfsd;
-    private String schAnswerChk;
     private String schQuizCntnt;
 }

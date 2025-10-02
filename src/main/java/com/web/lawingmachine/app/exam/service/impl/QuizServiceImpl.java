@@ -70,7 +70,7 @@ public class QuizServiceImpl implements QuizService {
 
         int resultCnt = 0;
 
-        if (StringUtils.isEmpty(param.getQuizUserAnsSeq())) {
+        if (param.getQuizUserAnsSeq() == null) {
             resultCnt = quizUserAnsMapper.insertUserAnswer(param);
         } else {
             resultCnt = quizUserAnsMapper.updateUserAnswer(param);
@@ -82,7 +82,7 @@ public class QuizServiceImpl implements QuizService {
             for (QuizDtlInfoVO quizDtlInfoVO : quizDtlList) {
                 quizDtlInfoVO.setQuizUserAnsSeq(param.getQuizUserAnsSeq());
 //                quizUserAnsDtlMapper.mergeUserAnswerDtl(quizDtlInfoVO);
-                if (StringUtils.isEmpty(quizDtlInfoVO.getQuizUserAnsDtlSeq())) {
+                if (quizDtlInfoVO.getQuizUserAnsDtlSeq() == null) {
                     quizUserAnsDtlMapper.insertUserAnswerDtl(quizDtlInfoVO);
                 } else {
                     quizUserAnsDtlMapper.updateUserAnswerDtl(quizDtlInfoVO);

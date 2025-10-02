@@ -4,13 +4,13 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- [head] 영역 시작 -->
-<head th:replace="fragments/head :: headFragment"></head>
+<head th:replace="~{fragments/head :: headFragment}"></head>
 <!-- [head] 영역 끝 -->
 
 <body class="w-100 h-100">
 
 <!-- header -->
-<header th:replace="fragments/header :: headerFragment"></header>
+<header th:replace="~{fragments/header :: headerFragment}"></header>
 
 	<!-- content -->
 	<div>
@@ -21,7 +21,7 @@
 	<div id="modalDiv"></div>
 
 <!-- footer 영역 시작 -->
-<footer th:replace="fragments/footer :: footerFragment"></footer>
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 
 <!-- JS -->
 <th:block layout:fragment="script"></th:block>

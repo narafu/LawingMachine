@@ -19,7 +19,7 @@
                 #{quizUserAnsDtlSeq}
             </when>
             <otherwise>
-                (SELECT QUIZ_USER_ANS_DTL_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 AS
+                (SELECT QUIZ_USER_ANS_DTL_SEQ FROM (SELECT COALESCE(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 AS
                 QUIZ_USER_ANS_DTL_SEQ FROM QUIZ_USER_ANS_DTL) X )
             </otherwise>
         </choose>
@@ -28,7 +28,7 @@
                 , #{quizUserAnsSeq}
             </when>
             <otherwise>
-                , (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) AS QUIZ_USER_ANS_SEQ FROM
+                , (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT COALESCE(MAX(QUIZ_USER_ANS_SEQ), 0) AS QUIZ_USER_ANS_SEQ FROM
                 QUIZ_USER_ANS) X )
             </otherwise>
         </choose>
@@ -38,15 +38,16 @@
         , 'SYSTEM'
         , CURRENT_TIMESTAMP
         , 'N'
-        ) ON DUPLICATE KEY UPDATE
+        )
+        ON CONFLICT (QUIZ_USER_ANS_DTL_SEQ) DO UPDATE SET
         ERASE_YN = #{eraseYn}
         , DEL_YN = 'N'
         , MDFY_TS = CURRENT_TIMESTAMP
     </insert>
 
     <insert id="insertUserAnswerDtl">
-        <selectKey keyProperty="quizUserAnsDtlSeq" resultType="String" order="BEFORE">
-            SELECT IFNULL(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 FROM QUIZ_USER_ANS_DTL
+        <selectKey keyProperty="quizUserAnsDtlSeq" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(QUIZ_USER_ANS_DTL_SEQ), 0) + 1 FROM QUIZ_USER_ANS_DTL
         </selectKey>
         INSERT INTO QUIZ_USER_ANS_DTL (
         QUIZ_USER_ANS_DTL_SEQ

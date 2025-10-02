@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- [head] 영역 시작 -->
-<head th:replace="fragments/head :: headFragment"></head>
+<head th:replace="~{fragments/head :: headFragment}"></head>
 <!-- [head] 영역 끝 -->
 
 <body class="w-100 h-100">
@@ -15,7 +15,7 @@
 
     <div class="text-center mx-5">
         <a href="/index" class="display-1 text-primary"
-           style="text-decoration: none; font-family: 'NEXON Lv1 Gothic OTF Bold';">
+           style="text-decoration: none; font-family: 'NEXON Lv1 Gothic OTF Bold',serif;">
             <!-- 로잉머신 -->
             <img src="/images/lawingmachine.png" style="max-width:400px;" class="my-5 w-100"/>
         </a>
@@ -94,14 +94,15 @@
     let socials = document.getElementsByClassName("btn_social");
     for (let social of socials) {
         social.addEventListener('click', function () {
-            let socialType = this.getAttribute('data-social');
-            if ($('#activeEnvir').val() == 'dev') {
-                if(socialType != 'kakao') {
-                    alert('개발서버는 카카오 로그인 또는 ADMIN 로그인만 지원합니다.');
-                    return;
-                }
-            }
-            location.href = "/oauth2/authorization/" + socialType;
+            alert('지금은 이용할 수 없습니다.');
+            // let socialType = this.getAttribute('data-social');
+            // if ($('#activeEnvir').val() == 'dev') {
+            //     if(socialType != 'kakao') {
+            //         common_modal_alert('개발서버는 카카오 로그인 또는 ADMIN 로그인만 지원합니다.');
+            //         return;
+            //     }
+            // }
+            // location.href = "/oauth2/authorization/" + socialType;
         })
     }
     
@@ -115,7 +116,7 @@
 </script>
 
 <!-- footer 영역 시작 -->
-<footer th:replace="fragments/footer :: footerFragment"></footer>
+<footer th:replace="~{fragments/footer :: footerFragment}"></footer>
 
 </body>
 

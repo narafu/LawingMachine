@@ -5,7 +5,7 @@
 
     <insert id="insertQuizResultInfo">
         <selectKey keyProperty="quizResultInfoSeq" order="BEFORE" resultType="String">
-            SELECT IFNULL(MAX(QUIZ_RESULT_INFO_SEQ), 0) + 1 AS QUIZ_RESULT_INFO_SEQ FROM QUIZ_RESULT_INFO
+            SELECT COALESCE(MAX(QUIZ_RESULT_INFO_SEQ), 0) + 1 AS QUIZ_RESULT_INFO_SEQ FROM QUIZ_RESULT_INFO
         </selectKey>
         INSERT INTO QUIZ_RESULT_INFO (
             QUIZ_RESULT_INFO_SEQ
@@ -65,7 +65,7 @@
 
     <sql id="selectQuizResultList-where">
         <if test="subjectTypeCd == null or subjectTypeCd == ''">
-            AND CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
+            AND X.CNT::INTEGER = (SELECT COUNT(*)::INTEGER FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
         </if>
     </sql>
 
@@ -82,7 +82,7 @@
                 , USER_ID
                 , SUM(RESULT_CNT) AS RESULT_CNT
                 , COUNT(*) AS CNT
-                , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
+                , TO_CHAR(REG_TS, 'YYYY-MM-DD') AS REG_DT
             FROM QUIZ_RESULT_INFO A
             WHERE DEL_YN = 'N'
                 AND EXAM_GRP_CD = #{examGrpCd}
@@ -132,7 +132,7 @@
 	            AND EXAM_NO = #{examNo}
 	        GROUP BY USER_ID
         ) X
-        WHERE QUIZ_CNT = (SELECT COUNT(*) FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
+        WHERE X.QUIZ_CNT::INTEGER = (SELECT COUNT(*)::INTEGER FROM CMMN_DTL_CD WHERE DEL_YN = 'N' AND USE_YN = 'Y' AND GRP_CD = '002')
     </select>
 
     <select id="getQuizResultInfo" resultType="HashMap">

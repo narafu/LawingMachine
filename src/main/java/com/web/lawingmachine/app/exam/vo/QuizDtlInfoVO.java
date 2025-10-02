@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 public class QuizDtlInfoVO extends BaseVO {
 
-    private String quizMstrInfoSeq;
-    private String quizDtlInfoSeq;
-    private String quizUserAnsSeq;
-    private String quizUserAnsDtlSeq;
+    private Integer quizMstrInfoSeq;
+    private Integer quizDtlInfoSeq;
+    private Integer quizUserAnsSeq;
+    private Integer quizUserAnsDtlSeq;
     private int srtNo;
     private String content;
     private String cmntr;

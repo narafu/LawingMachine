@@ -23,7 +23,7 @@
 
 	<insert id="insertQuizDtlInfo">
 		<selectKey keyProperty="quizDtlInfoSeq" resultType="int" order="BEFORE">
-			SELECT IFNULL(MAX(QUIZ_DTL_INFO_SEQ), 0) + 1 FROM QUIZ_DTL_INFO
+			SELECT COALESCE(MAX(QUIZ_DTL_INFO_SEQ), 0) + 1 FROM QUIZ_DTL_INFO
 		</selectKey>
 		INSERT INTO QUIZ_DTL_INFO (
 			QUIZ_DTL_INFO_SEQ

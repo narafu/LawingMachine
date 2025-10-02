@@ -28,8 +28,8 @@
 			, (SELECT COUNT(*) FROM BRD_VIEWS WHERE DEL_YN = 'N' AND BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS VIEW_CNT
             , REGIST_ID
 			, REGIST_NM
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d %T') AS REG_TS
+			, TO_CHAR(REG_TS, 'YYYY-MM-DD') AS REG_DT
+			, TO_CHAR(REG_TS, 'YYYY-MM-DD HH24:MI:SS') AS REG_TS
 		FROM BRD_MSTR_INFO A
 		WHERE 1 = 1
 		<include refid="selectBoardList-where"/>
@@ -69,15 +69,15 @@
 			, (SELECT COUNT(*) FROM BRD_VIEWS WHERE DEL_YN = 'N' AND BRD_MSTR_INFO_SEQ = A.BRD_MSTR_INFO_SEQ) AS VIEW_CNT
 			, REGIST_ID
 			, REGIST_NM
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
-			, DATE_FORMAT(REG_TS, '%Y-%m-%d %T') AS REG_TS
+			, TO_CHAR(REG_TS, 'YYYY-MM-DD') AS REG_DT
+			, TO_CHAR(REG_TS, 'YYYY-MM-DD HH24:MI:SS') AS REG_TS
 		FROM BRD_MSTR_INFO A
 		WHERE BRD_MSTR_INFO_SEQ = #{brdMstrInfoSeq}
 	</select>
 
 	<insert id="insertBoardInfo">
-		<selectKey keyProperty="brdMstrInfoSeq" resultType="String" order="BEFORE">
-			SELECT IFNULL(MAX(BRD_MSTR_INFO_SEQ), 0) + 1 FROM BRD_MSTR_INFO
+		<selectKey keyProperty="brdMstrInfoSeq" resultType="int" order="BEFORE">
+			SELECT COALESCE(MAX(BRD_MSTR_INFO_SEQ), 0) + 1 FROM BRD_MSTR_INFO
 		</selectKey>
 		INSERT INTO BRD_MSTR_INFO (
 			BRD_MSTR_INFO_SEQ

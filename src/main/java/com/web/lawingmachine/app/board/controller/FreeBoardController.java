@@ -6,6 +6,7 @@ import com.web.lawingmachine.app.common.controller.BaseUtil;
 import com.web.lawingmachine.app.common.dto.CmmnCdDto;
 import com.web.lawingmachine.app.common.vo.ResultMessageVO;
 import com.web.lawingmachine.app.security.SessionUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,12 +67,12 @@ public class FreeBoardController {
         model.addAttribute("brdTypeCdList", brdTypeCdList);
 
         BoardVO boardVO = new BoardVO();
-        if (!StringUtils.isEmpty(param.getBrdMstrInfoSeq())) {
+        if (param.getBrdMstrInfoSeq() != null) {
             boardVO = boardService.getBoardInfo(param);
         }
 
         model.addAttribute("boardVO", boardVO);
-        
+
 //        return "view/board/inputForm :: #boardContent";
         model.addAttribute("leftsidebarCd", "10");
         model.addAttribute("headerActiveCode", "20");

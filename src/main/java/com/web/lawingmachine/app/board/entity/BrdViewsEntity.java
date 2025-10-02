@@ -1,9 +1,8 @@
 package com.web.lawingmachine.app.board.entity;
 
 import com.web.lawingmachine.app.common.entity.BaseEntity;
+import jakarta.persistence.*;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "BRD_VIEWS")
@@ -12,8 +11,8 @@ public class BrdViewsEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    private int brdViewsSeq;
+    private Integer brdViewsSeq;
 
-    private int brdMstrInfoSeq;
+    private Integer brdMstrInfoSeq;
 
 }

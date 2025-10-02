@@ -4,8 +4,8 @@
 <mapper namespace="com.web.lawingmachine.app.user.mapper.UserInfoMapper">
 	
 	<insert id="insertUserInfo">
-		<selectKey keyProperty="userInfoSeq" resultType="String" order="BEFORE">
-			SELECT IFNULL(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
+		<selectKey keyProperty="userInfoSeq" resultType="int" order="BEFORE">
+			SELECT COALESCE(MAX(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
 		</selectKey>
 		INSERT INTO USER_INFO (
 			USER_INFO_SEQ
@@ -36,8 +36,8 @@
 			, #{loginCnt}
 			, 'SYETEM'
 			, 'SYETEM'
-			, NOW()
-			, NOW()
+			, CURRENT_TIMESTAMP
+			, CURRENT_TIMESTAMP
 			, 'N'
 		)
 	</insert>
@@ -70,7 +70,7 @@
 
 	<update id="updateUserInfo">
 		UPDATE USER_INFO SET
-			MDFY_TS = NOW()
+			MDFY_TS = CURRENT_TIMESTAMP
 			 <if test="email != null and email != ''">
 				,EMAIL = #{email}
 			 </if>
@@ -86,13 +86,13 @@
 	<update id="updateMembershipCd">
 		UPDATE USER_INFO SET
 			MEMBERSHIP_CD = #{membershipCd}
-			, MDFY_TS = NOW()
+			, MDFY_TS = CURRENT_TIMESTAMP
 		WHERE USER_ID = #{userId}
 	</update>
 
 	<update id="uploadImage">
 		UPDATE USER_INFO SET
-			MDFY_TS = NOW()
+			MDFY_TS = CURRENT_TIMESTAMP
 			, EXAM_TICKET = #{examTicket}
 			, EXAM_TICKET_PATH = #{examTicketPath}
 		WHERE USER_ID = #{userId}
@@ -101,7 +101,7 @@
 	<update id="updateLoginUserInfo">
 		UPDATE USER_INFO A SET
 		    LOGIN_CNT = A.LOGIN_CNT + 1
-			, MDFY_TS = NOW()
+			, MDFY_TS = CURRENT_TIMESTAMP
 		WHERE USER_ID = #{userId}
 	</update>
 
@@ -136,8 +136,8 @@
 	</select>
 	
 	<select id="getGuestInfoSeq" resultType="int">
-		SELECT NVL(COUNT(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
-		WHERE USER_ID LIKE CONCAT(#{flag}, '%test.com')
+		SELECT COALESCE(COUNT(USER_INFO_SEQ), 0) + 1 FROM USER_INFO
+		WHERE USER_ID LIKE #{flag} || '%test.com'
 	</select>
 	
 </mapper>

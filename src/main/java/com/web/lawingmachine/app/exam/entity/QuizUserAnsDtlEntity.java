@@ -3,7 +3,7 @@ package com.web.lawingmachine.app.exam.entity;
 import com.web.lawingmachine.app.common.entity.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Table(name = "QUIZ_USER_ANS_DTL")
 @Data
@@ -12,11 +12,11 @@ public class QuizUserAnsDtlEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    private int quizUserAnsDtlSeq;
+    private Integer quizUserAnsDtlSeq;
 
-    private int quizUserAnsSeq;
+    private Integer quizUserAnsSeq;
 
-    private int quizDtlInfoSeq;
+    private Integer quizDtlInfoSeq;
 
     @Column(length = 1)
     private char eraseYn;

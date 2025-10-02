@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 public class UserInfoVO extends BaseVO implements UserDetails {
 
-	private String userInfoSeq;
+	private Integer userInfoSeq;
 	private String userId;
 	private String userNm;
 	private String nickname;

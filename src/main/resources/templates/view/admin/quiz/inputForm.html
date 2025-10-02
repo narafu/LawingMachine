@@ -16,7 +16,7 @@
                 <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examYear}">
                         <option value="">시험년도 선택</option>
-                        <th:block th:each=examYear:${examYearArr}>
+                        <th:block th:each="examYear : ${examYearArr}">
                             <option th:value="${examYear}" th:text="${examYear}" th:selected="${#strings.equals(examYear, quizMstrInfoVO.examYear)}"/>
                         </th:block>
                     </select>
@@ -24,7 +24,7 @@
                 <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examGrpCd}">
                         <option value="">시험구분 선택</option>
-                        <th:block th:each=cnmmCd:${examCdList}>
+                        <th:block th:each="cnmmCd : ${examCdList}">
                             <option th:value="${cnmmCd.grpDtlCd}" th:text="${cnmmCd.grpDtlNm}"
                                     th:selected="${#strings.equals(cnmmCd.grpDtlCd, quizMstrInfoVO.examGrpCd)}"/>
                         </th:block>
@@ -33,7 +33,7 @@
                 <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.examNo}">
                         <option value="0">시험회차 선택</option>
-                        <th:block th:each=examNo:${examNoArr}>
+                        <th:block th:each="examNo : ${examNoArr}">
                             <option th:value="${examNo}" th:text="|${examNo}회|"
                                     th:selected="${#strings.equals(examNo,quizMstrInfoVO.examNo)}"/>
                         </th:block>
@@ -42,7 +42,7 @@
                 <div class="col-md m-1">
                     <select class="form-select rounded-pill px-4" th:field="${quizMstrInfoVO.subjectTypeCd}">
                         <option value="">시험과목 선택</option>
-                        <th:block th:each=cnmmCd:${subjectTypeCdList}>
+                        <th:block th:each="cnmmCd : ${subjectTypeCdList}">
                             <option th:value="${cnmmCd.grpDtlCd}" th:text="${cnmmCd.grpDtlNm}"
                                     th:selected="${#strings.equals(cnmmCd.grpDtlCd, quizMstrInfoVO.subjectTypeCd)}"/>
                         </th:block>
@@ -78,13 +78,12 @@
             </div>
 
             <div>
-                <th:block th:each="quizDtlInfo:${quizMstrInfoVO.quizDtlList}">
+                <th:block th:each="quizDtlInfo : ${quizMstrInfoVO.quizDtlList}">
                     <div class="my-3 d-flex align-items-center">
                         <span class="fw-bold mx-1 fs-3" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">&#9312;</span>
                         <input type="hidden" th:name="|quizDtlList[${quizDtlInfoStat.index}].srtNo|" value="1"/>
                         <textarea class="w-100 px-3 py-2 mx-4 border" style="height:110px"
-                                  th:name="|quizDtlList[${quizDtlInfoStat.index}].content|"
-                                  th:text="${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].content}"></textarea>
+                                  th:name="|quizDtlList[${quizDtlInfoStat.index}].content|">[[${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].content}]]</textarea>
                         <input type="hidden" class="quizDtlInfoSeq"
                                th:name="|quizDtlList[${quizDtlInfoStat.index}].quizDtlInfoSeq|"
                                th:value="|${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].quizDtlInfoSeq}|"/>
@@ -92,8 +91,7 @@
                     <div class="ml-5 my-3 d-flex align-items-center justify-content-end">
                         <div class="border py-2 px-3" style="background-color: #eee">보기<br/>해설</div>
                         <textarea class="w-75 px-3 py-2 mx-4 border" style="height:100px"
-                                  th:name="|quizDtlList[${quizDtlInfoStat.index}].cmntr|"
-                                  th:text="${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].cmntr}"></textarea>
+                                  th:name="|quizDtlList[${quizDtlInfoStat.index}].cmntr|">[[${quizMstrInfoVO.quizDtlList[quizDtlInfoStat.index].cmntr}]]</textarea>
                     </div>
                 </th:block>
             </div>

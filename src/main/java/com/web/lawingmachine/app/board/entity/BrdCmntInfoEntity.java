@@ -1,12 +1,11 @@
 package com.web.lawingmachine.app.board.entity;
 
 import com.web.lawingmachine.app.common.entity.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "BRD_CMNT_INFO")
@@ -15,8 +14,8 @@ public class BrdCmntInfoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    private int brdCmntInfoSeq;
+    private Integer brdCmntInfoSeq;
 
-    private int brdMstrInfoSeq;
+    private Integer brdMstrInfoSeq;
 
 }

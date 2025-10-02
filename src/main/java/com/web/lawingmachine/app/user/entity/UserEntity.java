@@ -3,7 +3,7 @@ package com.web.lawingmachine.app.user.entity;
 import com.web.lawingmachine.app.common.entity.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "USER_INFO")
@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class UserEntity extends BaseEntity {
     @Id
     @GeneratedValue
-    private int userInfoSeq;
+    private Integer userInfoSeq;
 
     private String userId;
 

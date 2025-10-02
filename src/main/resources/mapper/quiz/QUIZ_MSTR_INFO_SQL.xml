@@ -45,7 +45,7 @@
           AND A.DEL_YN = 'N'
           AND A.USE_YN = 'Y'
           AND B.DEL_YN = 'N'
-        GROUP BY SUBJECT_TYPE_CD, A.GRP_DTL_NM
+        GROUP BY SUBJECT_TYPE_CD, A.GRP_DTL_NM, A.SRT_NO
         ORDER BY A.SRT_NO
     </select>
 
@@ -173,7 +173,7 @@
         , CONTENT
         , ANSWER
         , CMNTR
-        , DATE_FORMAT(REG_TS, '%Y-%m-%d') AS REG_DT
+        , TO_CHAR(REG_TS, 'YYYY-MM-DD') AS REG_DT
         FROM QUIZ_MSTR_INFO A
         WHERE 1 = 1
         <include refid="selectQuizList-where"/>
@@ -190,7 +190,7 @@
 
     <insert id="insertQuizMstrInfo">
         <selectKey keyProperty="quizMstrInfoSeq" resultType="int" order="BEFORE">
-            SELECT IFNULL(MAX(QUIZ_MSTR_INFO_SEQ), 0) + 1 FROM QUIZ_MSTR_INFO
+            SELECT COALESCE(MAX(QUIZ_MSTR_INFO_SEQ), 0) + 1 FROM QUIZ_MSTR_INFO
         </selectKey>
         INSERT INTO QUIZ_MSTR_INFO (
         QUIZ_MSTR_INFO_SEQ
@@ -213,7 +213,7 @@
         , #{examGrpCd}
         , #{examNo}
         , #{subjectTypeCd}
-        , (SELECT IFNULL(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
+        , (SELECT COALESCE(MAX(SRT_NO), 0) + 1 FROM QUIZ_MSTR_INFO Y WHERE SUBJECT_TYPE_CD = #{subjectTypeCd})
         , #{content}
         , #{answer}
         , #{cmntr}

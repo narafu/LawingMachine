@@ -4,8 +4,8 @@
 <mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizUserAnsMapper">
 
     <insert id="insertUserAnswer">
-        <selectKey keyProperty="quizUserAnsSeq" resultType="String" order="BEFORE">
-            SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 FROM QUIZ_USER_ANS
+        <selectKey keyProperty="quizUserAnsSeq" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 FROM QUIZ_USER_ANS
         </selectKey>
         INSERT INTO QUIZ_USER_ANS (
         QUIZ_USER_ANS_SEQ
@@ -62,50 +62,47 @@
 
     <update id="mergeUserAnswer" useGeneratedKeys="true" keyProperty="quizUserAnsSeq">
         INSERT INTO QUIZ_USER_ANS (
-        QUIZ_USER_ANS_SEQ
-        , QUIZ_MSTR_INFO_SEQ
-        , USER_ID
-        , USER_ANSWER
-        , ANSWER_CHK
-        , USER_CHK_IMPRT
-        , USER_CHK_CNFSD
-        , REGIST_ID
-        , REGIST_NM
-        , REG_TS
-        , MDFY_TS
-        , DEL_YN
+            QUIZ_USER_ANS_SEQ
+            , QUIZ_MSTR_INFO_SEQ
+            , USER_ID
+            , USER_ANSWER
+            , ANSWER_CHK
+            , USER_CHK_IMPRT
+            , USER_CHK_CNFSD
+            , REGIST_ID
+            , REGIST_NM
+            , REG_TS
+            , MDFY_TS
+            , DEL_YN
         )
         VALUES (
-        <choose>
-            <when test="quizUserAnsSeq != null and quizUserAnsSeq != ''">
-                #{quizUserAnsSeq}
-            </when>
-            <otherwise>
-                (SELECT QUIZ_USER_ANS_SEQ FROM (SELECT IFNULL(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 AS QUIZ_USER_ANS_SEQ FROM
-                QUIZ_USER_ANS) X )
-            </otherwise>
-        </choose>
-        , #{quizMstrInfoSeq}
-        , #{userId}
-        , #{userAnswer}
-        , CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ =
-        #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
-        , #{userChkImprt}
-        , #{userChkCnfsd}
-        , 'SYSTEM'
-        , 'SYSTEM'
-        , CURRENT_TIMESTAMP
-        , CURRENT_TIMESTAMP
-        , 'N'
-        ) ON DUPLICATE KEY
-        UPDATE
-        USER_ANSWER = #{userAnswer}
-        , ANSWER_CHK = CASE WHEN (SELECT #{userAnswer} = (SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ =
-        #{quizMstrInfoSeq})) = '1' THEN 'O' ELSE 'X' END
-        , USER_CHK_IMPRT = #{userChkImprt}
-        , USER_CHK_CNFSD = #{userChkCnfsd}
-        , DEL_YN = 'N'
-        , MDFY_TS = CURRENT_TIMESTAMP
+            <choose>
+                <when test="quizUserAnsSeq != null and quizUserAnsSeq != ''">
+                    #{quizUserAnsSeq}
+                </when>
+                <otherwise>
+                    (SELECT COALESCE(MAX(QUIZ_USER_ANS_SEQ), 0) + 1 FROM QUIZ_USER_ANS)
+                </otherwise>
+            </choose>
+            , #{quizMstrInfoSeq}
+            , #{userId}
+            , #{userAnswer}
+            , CASE WHEN ((SELECT ANSWER FROM QUIZ_MSTR_INFO WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}) = #{userAnswer}) THEN 'O' ELSE 'X' END
+            , #{userChkImprt}
+            , #{userChkCnfsd}
+            , 'SYSTEM'
+            , 'SYSTEM'
+            , CURRENT_TIMESTAMP
+            , CURRENT_TIMESTAMP
+            , 'N'
+        )
+        ON CONFLICT (QUIZ_USER_ANS_SEQ) DO UPDATE SET
+            USER_ANSWER = EXCLUDED.USER_ANSWER,
+            ANSWER_CHK = EXCLUDED.ANSWER_CHK,
+            USER_CHK_IMPRT = EXCLUDED.USER_CHK_IMPRT,
+            USER_CHK_CNFSD = EXCLUDED.USER_CHK_CNFSD,
+            DEL_YN = 'N',
+            MDFY_TS = CURRENT_TIMESTAMP
     </update>
 
     <sql id="selectQuizResultRatioList-where">
@@ -117,7 +114,7 @@
             AND A.SUBJECT_TYPE_CD = #{schSubjectTypeCd}
         </if>
         <if test="schQuizCntnt != null and schQuizCntnt != ''">
-            AND A.CONTENT LIKE CONCAT('%', #{schQuizCntnt}, '%')
+            AND A.CONTENT LIKE '%' || #{schQuizCntnt} || '%'
         </if>
         <if test='schAnswerChk == "Y"'>
             AND B.ANSWER_CHK = 'X'
@@ -155,7 +152,7 @@
                 , A.QUIZ_MSTR_INFO_SEQ, A.SUBJECT_TYPE_CD, A.EXAM_GRP_CD, A.EXAM_YEAR, A.EXAM_NO, A.CONTENT, A.ANSWER, A.CMNTR
                 , SUM(CASE WHEN B.ANSWER_CHK = 'O' THEN 1 ELSE 0 END) AS TEMP_QUIZ_TRUE_COUNT
                 , COUNT(1) AS TEMP_QUIZ_TOTAL_COUNT
-                , ROUND(SUM(CASE WHEN B.ANSWER_CHK = 'O' THEN 1 ELSE 0 END) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
+                , ROUND(CAST(SUM(CASE WHEN B.ANSWER_CHK = 'O' THEN 1 ELSE 0 END) AS NUMERIC) / COUNT(*) * 100, 2) AS QUIZ_TRUE_RATIO
                 FROM QUIZ_MSTR_INFO A, QUIZ_USER_ANS B
                 WHERE A.QUIZ_MSTR_INFO_SEQ = B.QUIZ_MSTR_INFO_SEQ AND A.DEL_YN = 'N'
                 GROUP BY A.QUIZ_MSTR_INFO_SEQ

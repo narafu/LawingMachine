@@ -8,6 +8,7 @@ import com.web.lawingmachine.app.exam.service.QuizService;
 import com.web.lawingmachine.app.exam.vo.QuizDtlInfoVO;
 import com.web.lawingmachine.app.exam.vo.QuizMstrInfoVO;
 import com.web.lawingmachine.app.security.SessionUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,19 +93,17 @@ public class QuizController {
         model.addAttribute("brdTypeCdList", brdTypeCdList);
 
         QuizMstrInfoVO quizMstrInfoVO;
-        if (!StringUtils.isEmpty(param.getQuizMstrInfoSeq())) {
+        if (param.getQuizMstrInfoSeq() != null) {
             quizMstrInfoVO = adminService.getQuizInfo(param);
             quizMstrInfoVO.setQuizDtlList(quizService.selectQuizDtlList(param));
         } else {
             quizMstrInfoVO = new QuizMstrInfoVO();
             List<QuizDtlInfoVO> quizDtlList = new ArrayList<>();
-            if (quizDtlList.isEmpty()) {
-                quizDtlList.add(new QuizDtlInfoVO());
-                quizDtlList.add(new QuizDtlInfoVO());
-                quizDtlList.add(new QuizDtlInfoVO());
-                quizDtlList.add(new QuizDtlInfoVO());
-                quizDtlList.add(new QuizDtlInfoVO());
-            }
+            quizDtlList.add(new QuizDtlInfoVO());
+            quizDtlList.add(new QuizDtlInfoVO());
+            quizDtlList.add(new QuizDtlInfoVO());
+            quizDtlList.add(new QuizDtlInfoVO());
+            quizDtlList.add(new QuizDtlInfoVO());
             quizMstrInfoVO.setQuizDtlList(quizDtlList);
         }
 

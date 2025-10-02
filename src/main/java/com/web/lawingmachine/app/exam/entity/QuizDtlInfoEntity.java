@@ -3,7 +3,7 @@ package com.web.lawingmachine.app.exam.entity;
 import com.web.lawingmachine.app.common.entity.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Table(name = "QUIZ_DTL_INFO")
 @Data
@@ -12,9 +12,9 @@ public class QuizDtlInfoEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
-    private int quizDtlInfoSeq;
+    private Integer quizDtlInfoSeq;
 
-    private int quizMstrInfoSeq;
+    private Integer quizMstrInfoSeq;
 
     private int srtNo;
 

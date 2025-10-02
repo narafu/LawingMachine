@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class QuizResultRatioDto {
-    private int quizMstrInfoSeq;
-    private int quizUserAnsSeq;
+    private Integer quizMstrInfoSeq;
+    private Integer quizUserAnsSeq;
     private String subjectTypeCd;
     private String examGrpCd;
-    private String examYear;
+    private Integer examYear;
     private int examNo;
     private String content;
     private String answer;

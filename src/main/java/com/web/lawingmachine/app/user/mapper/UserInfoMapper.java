@@ -27,6 +27,6 @@ public interface UserInfoMapper {
 
 	int updateMembershipCd(UserInfoVO userInfoVO);
 
-	int getGuestInfoSeq(String flag);
+    Integer getGuestInfoSeq(String flag);
 
 }
