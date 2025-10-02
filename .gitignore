@@ -33,3 +33,7 @@ build/
 
 ### VS Code ###
 .vscode/
+.env
+*.lock
+*.bin
+.gradle
