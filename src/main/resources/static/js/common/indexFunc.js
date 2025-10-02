@@ -5,7 +5,6 @@ function getBillboardSubject(obj, subjectTypeCd) {
     $(obj).find('a').css('color', 'white');
 
     $('#subjectTypeCd').val(subjectTypeCd);
-    console.log(subjectTypeCd)
     pageMove(0);
 
     // let url = '/index/billboard';

@@ -4,7 +4,7 @@
 <mapper namespace="com.web.lawingmachine.app.exam.mapper.QuizResultInfoMapper">
 
     <insert id="insertQuizResultInfo">
-        <selectKey keyProperty="quizResultInfoSeq" order="BEFORE" resultType="String">
+        <selectKey keyProperty="quizResultInfoSeq" resultType="int" order="BEFORE">
             SELECT COALESCE(MAX(QUIZ_RESULT_INFO_SEQ), 0) + 1 AS QUIZ_RESULT_INFO_SEQ FROM QUIZ_RESULT_INFO
         </selectKey>
         INSERT INTO QUIZ_RESULT_INFO (
@@ -57,7 +57,7 @@
     </select>
 
     <select id="getQuizResultUserSubjectCnt" resultType="Hashmap">
-        SELECT COUNT(*), USER_ID
+        SELECT COUNT(*), SUBJECT_TYPE_CD
         FROM QUIZ_RESULT_INFO
         WHERE DEL_YN = 'N' AND USER_ID = #{userId}
         GROUP BY SUBJECT_TYPE_CD

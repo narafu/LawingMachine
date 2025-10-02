@@ -6,7 +6,7 @@
 <!-- [content] 영역 시작 -->
 <div layout:fragment="content">
 
-    <form class="d-grid gap-4" id="myprofileForm">
+    <form class="d-grid gap-4" id="myprofileForm" method="POST" enctype="multipart/form-data">
         <input type="hidden" th:field="${userInfo.userId}">
         <div>
             <span class="fs-5" style="font-family: 'GongGothicMedium';" th:text="|${userInfo.userNm}(${userInfo.membershipNm})|"></span>
@@ -66,9 +66,6 @@
 		    <div class="m-3 col-md">
 		        <label for="examTicketNo" class="m-2 text-primary">수험번호</label>
 		        <small class="form-text text-danger">* 수험번호는 관리자의 승인 후 수정할 수 없습니다.</small>
-		        <!--<input type="text" class="form-control" id="examTicketNo" name="examTicketNo"
-		               th:readonly="${#strings.equals(userInfo.membershipCd, '10') ? 'false' : 'true'}"
-		               th:value="${userInfo.examTicketNo}" placeholder="수험번호를 입력해주세요." maxlength="20" >-->
 		        <th:block th:if="${#strings.equals(userInfo.membershipCd, '10') || #strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
 			        <input type="text" class="form-control" id="examTicketNo" name="examTicketNo"
 		               th:value="${userInfo.examTicketNo}" placeholder="수험번호를 입력해주세요." maxlength="20" >
@@ -79,14 +76,14 @@
 		        </th:block>
 		    </div>
 		    <div class="m-3 col-md">
-		        <label for="imageInput" class="m-2 text-primary">수험표</label>
+		        <label class="m-2 text-primary">수험표</label>
 		        <small class="form-text text-danger">* 수험표는 관리자의 승인 후 수정할 수 없습니다.</small>
 		        <th:block th:if="${#strings.equals(userInfo.membershipCd, '10') || #strings.equals(session.sessionUser.role, 'ROLE_ADMIN')}">
-		            <form enctype="multipart/form-data" id="uploadImageForm">
-		                <input type="file" enctype="multipart/form-data" method="POST" class="form-control"
-		                       accept=".jpg, .jpeg, .png, .bmp"
-		                       id="imageInput" name="examTicketFile" th:value="${userInfo.examTicket}">
-		            </form>
+                    <!-- 1. 실제 파일 input: 눈에 보이지 않지만 클릭은 가능한 상태로 숨김 -->
+                    <input type="file" id="imageInput" name="examTicketFile" accept=".jpg, .jpeg, .png, .bmp"
+                           style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+                    <!-- 2. 사용자에게 보여줄 가짜 버튼 -->
+                    <button type="button" id="customUploadButton" class="btn btn-secondary">파일 선택</button>
 		        </th:block>
 		        <img class="w-100 my-3" th:src="${userInfo.examTicketPath}" id="examTicketImg">
 		    </div>
@@ -105,6 +102,12 @@
         var sel_file;
 
         $(document).ready(function() {
+            // "파일 선택" 버튼 클릭 시 숨겨진 input 강제 클릭
+            $("#customUploadButton").on("click", function() {
+                $("#imageInput").click();
+            });
+
+            // 기존의 파일 변경 감지 로직은 그대로 유지
             $("#imageInput").on("change", handleImgFileSelect);
         });
 

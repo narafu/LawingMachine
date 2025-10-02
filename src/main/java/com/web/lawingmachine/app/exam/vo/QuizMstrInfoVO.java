@@ -46,4 +46,5 @@ public class QuizMstrInfoVO extends BaseVO {
     private String schUserChkImprt;
     private String schUserChkCnfsd;
     private String schQuizCntnt;
+    private String schAnswerChk;
 }

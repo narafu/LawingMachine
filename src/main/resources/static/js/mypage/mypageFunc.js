@@ -1,12 +1,25 @@
-function uploadImage() {
+// 프로필 텍스트 정보 업데이트 (파일 업로드 성공 후 호출될 함수)
+function updateProfileTextData() {
+    $.post('/mypage/myprofile', $('#myprofileForm').serialize(), function (result) {
+        common_modal_alert(result.message, function() {
+            location.reload();
+        });
+    }).fail(function(xhr) {
+        common_modal_alert('프로필 업데이트 중 오류가 발생했습니다: ' + xhr.responseText);
+    });
+}
 
+// 이미지 업로드 함수 (콜백 함수를 인자로 받도록 수정)
+function uploadImage(callback) {
+    // 파일이 선택되지 않았으면 콜백을 바로 실행 (프로필 텍스트 정보만 업데이트)
     if (!$("#imageInput").val()) {
+        if (callback) callback();
         return;
     }
 
     let url = '/mypage/myprofile/uploadImage';
     let formData = new FormData();
-    formData.append("examTicketFile", $("#imageInput")[0].files[0]); // input 추가
+    formData.append("examTicketFile", $("#imageInput")[0].files[0]);
 
     $.ajax({
         type: "POST",
@@ -16,28 +29,22 @@ function uploadImage() {
         processData: false,
         contentType: false,
         success: function (result) {
-            let image = result['value'];
-            console.log(image);
-            $("#examTicket").attr("src", image);
+            // 이미지 업로드 성공 시, 콜백 함수 실행 (프로필 텍스트 정보 업데이트)
+            if (callback) callback();
         },
         error: function (result) {
-            alert(result['message']);
+            // 이미지 업로드 실패 시, 오류 메시지 표시 후 중단
+            common_modal_alert('이미지 업로드 중 오류가 발생했습니다.');
         }
     });
 }
 
+// 최종 프로필 수정 함수 (전체 흐름 제어)
 function updateUserInfo() {
-
-    // 이미지 업로드
-    uploadImage();
-    
-    // 프로필 업데이트
     common_modal_confirm('저장하시겠습니까?', function() {
-	    $.post('/mypage/myprofile', $('#myprofileForm').serialize(), function (result) {
-	        common_modal_alert(result.message, function() {
-				location.reload();
-			})
-		})
+        // 항상 이미지 업로드를 먼저 시도하고,
+        // 성공 콜백으로 텍스트 정보 업데이트를 실행
+        uploadImage(updateProfileTextData);
 	});
 }
 

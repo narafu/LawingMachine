@@ -9,11 +9,11 @@ import java.util.List;
 @Mapper
 public interface QuizDtlInfoMapper {
 
-    List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO param);
+    List<QuizDtlInfoVO> selectQuizDtlList(QuizMstrInfoVO quizMstrInfoVO);
 
     int insertQuizDtlInfo(QuizDtlInfoVO quizDtlInfoVO);
 
     int updateQuizDtlInfo(QuizDtlInfoVO quizDtlInfoVO);
 
-    void delQuizDtlInfo(QuizDtlInfoVO quizDtlInfoVO);
+    void delQuizDtlInfo(QuizMstrInfoVO quizMstrInfoVO);
 }

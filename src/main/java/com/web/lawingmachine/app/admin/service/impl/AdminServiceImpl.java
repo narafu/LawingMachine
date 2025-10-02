@@ -66,9 +66,7 @@ public class AdminServiceImpl implements AdminService {
 	public int delQuizMstrInfo(QuizMstrInfoVO param) {
 		int resultCnt = quizMstrInfoMapper.delQuizMstrInfo(param);
 		if (resultCnt > 0) {
-			for (QuizDtlInfoVO quizDtlInfoVO : param.getQuizDtlList()) {
-				quizDtlInfoMapper.delQuizDtlInfo(quizDtlInfoVO);
-			}
+            quizDtlInfoMapper.delQuizDtlInfo(param);
 		}
 		return resultCnt;
 	}

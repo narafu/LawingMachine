@@ -61,17 +61,17 @@
                     <tbody class="text-center">
                         <th:block th:each="billBoard:${billBoardArr0}">
                             <tr >
-                                <th scope="row" style="font-family: 'KOTRA_BOLD-Bold'" th:text="${billBoard.RANK}"></th>
+                                <th scope="row" style="font-family: 'KOTRA_BOLD-Bold'" th:text="${billBoard.rank}"></th>
                                 <td>
                                     <th:block th:if="${#strings.isEmpty(session.sessionUser)}">
-                                        <span th:text="${billBoard.NICKNAME}"></span>
+                                        <span th:text="${billBoard.nickname}"></span>
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(session.sessionUser)}">
-                                        <span th:classappend="${#strings.equals(session.sessionUser.userId, billBoard.USER_ID) ? 'bg-warning' : ''}"
-                                              th:text="${billBoard.NICKNAME}"></span>
+                                        <span th:classappend="${#strings.equals(session.sessionUser.userId, billBoard.user_id) ? 'bg-warning' : ''}"
+                                              th:text="${billBoard.nickname}"></span>
                                     </th:block>
                                 </td>
-                                <td th:text="${billBoard.RESULT_CNT}"></td>
+                                <td th:text="${billBoard.result_cnt}"></td>
                             </tr>
                         </th:block>
                     </tbody>
@@ -90,14 +90,14 @@
                                 <th scope="row" style="font-family: 'KOTRA_BOLD-Bold'" th:text="${billBoard.RANK}"></th>
                                 <td>
                                     <th:block th:if="${#strings.isEmpty(session.sessionUser)}">
-                                        <span th:text="${billBoard.NICKNAME}"></span>
+                                        <span th:text="${billBoard.nickname}"></span>
                                     </th:block>
                                     <th:block th:unless="${#strings.isEmpty(session.sessionUser)}">
-                                        <span th:classappend="${#strings.equals(session.sessionUser.userId, billBoard.USER_ID) ? 'bg-warning' : ''}"
-                                              th:text="${billBoard.NICKNAME}"></span>
+                                        <span th:classappend="${#strings.equals(session.sessionUser.userId, billBoard.user_id) ? 'bg-warning' : ''}"
+                                              th:text="${billBoard.nickname}"></span>
                                     </th:block>
                                 </td>
-                                <td th:text="${billBoard.RESULT_CNT}"></td>
+                                <td th:text="${billBoard.result_cnt}"></td>
                             </tr>
                         </th:block>
                     </tbody>

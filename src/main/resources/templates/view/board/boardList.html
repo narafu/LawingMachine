@@ -79,7 +79,7 @@
 
             $('#offset').val(offset);
 
-            let url = '/board/free/list/ajax/';
+            let url = '/board/free/list/ajax';
             let data = $('#boardForm').serialize();
 
             $.get(url, data, function (result) {

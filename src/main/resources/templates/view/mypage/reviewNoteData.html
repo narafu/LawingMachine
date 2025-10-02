@@ -4,11 +4,11 @@
 <th:block th:each="subjectInfo : ${subjectList}">
     <div class="mx-auto mb-4">
 
-        <div class="fs-5" th:text="${subjectInfo.SUBJECT_TYPE_NM}" style="font-family: 'GongGothicMedium';"></div>
+        <div class="fs-5" th:text="${subjectInfo.subject_type_nm}" style="font-family: 'GongGothicMedium';"></div>
 
         <div class="row row-cols-auto mx-auto text-center mt-1">
 
-            <th:block th:each="result : ${quizResultRatioList}" th:if="${result.subjectTypeCd == subjectInfo.SUBJECT_TYPE_CD}">
+            <th:block th:each="result : ${quizResultRatioList}" th:if="${result.subjectTypeCd == subjectInfo.subject_type_cd}">
 
                 <th:block th:if="${result.quizTrueRatio} < 10">
                     <div class="col border m-1 quizNumTd quizTrueRatio-1" th:onclick="quizResultInfoModal(this, [[${result.quizMstrInfoSeq}]])">

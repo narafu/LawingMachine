@@ -51,8 +51,8 @@
 	</insert>
 
 	<update id="updateQuizDtlInfo">
-		UPDATE QUIZ_DTL_INFO SET
-			CONTENT = #{content}
+		UPDATE QUIZ_DTL_INFO
+		SET CONTENT = #{content}
 		   , CMNTR = #{cmntr}
 		   , MDFY_TS = CURRENT_TIMESTAMP
 		WHERE QUIZ_DTL_INFO_SEQ = #{quizDtlInfoSeq}
@@ -62,7 +62,7 @@
 		UPDATE QUIZ_DTL_INFO
 		SET DEL_YN  = 'Y'
 		  , MDFY_TS = CURRENT_TIMESTAMP
-		WHERE QUIZ_DTL_INFO_SEQ = #{quizDtlInfoSeq}
+		WHERE QUIZ_MSTR_INFO_SEQ = #{quizMstrInfoSeq}
 	</update>
 
 </mapper>

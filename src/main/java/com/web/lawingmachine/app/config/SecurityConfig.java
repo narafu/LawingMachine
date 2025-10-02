@@ -31,7 +31,7 @@ public class SecurityConfig {
                         // 정적 리소스 (css, js, image 등) 에 대해 모두 접근 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // 기타 허용할 경로들
-                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/index/**", "/login/**", "/reg", "/oauth2/**", "/console/**", "/image/**").permitAll()
+                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/index/**", "/login/**", "/reg", "/oauth2/**", "/console/**", "/image/**", "/login/testGuest").permitAll()
                         // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated()
                 )
@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login/testGuest")
                         .usernameParameter("userId")
                         .passwordParameter("password")
+                        // 로그인 성공 시 항상 메인 페이지로 이동하도록 설정
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
