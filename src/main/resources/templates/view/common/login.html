@@ -39,7 +39,7 @@
             <!--            </div>-->
             <!--             <div class="w-50"> -->
             <!-- <span class="text-primary mx-5">SNS 간편 로그인</span>-->
-            <div class="d-grid gap-3 text-center">
+            <!--<div class="d-grid gap-3 text-center">
                 <a class="btn_social w-75 m-auto" data-social="naver">
                     <img class="w-75" src="/images/naver.png" alt="">
                 </a>
@@ -49,7 +49,7 @@
                 <a class="btn_social w-75 m-auto" data-social="google">
                     <img class="w-75" src="/images/google.png" alt="">
                 </a>
-            </div>
+            </div>-->
             <!--                <div class="text-center m-4">-->
             <!--                    <a class="col btn_social m-4" data-social="kakao"><img class="w-25"-->
             <!--                                                                           src="/images/kakao-logo-circle.png"-->
@@ -70,7 +70,7 @@
             <!--                <a href="" class="text-primary">비밀번호 찾기</a>-->
             <!--            </div>-->
         </form>
-        <p class="text-center my-5">SNS 간편로그인 이후 서비스를 이용할 수 있습니다.</p>
+        <!--<p class="text-center my-5">SNS 간편로그인 이후 서비스를 이용할 수 있습니다.</p>-->
         <div class="text-center" th:if="${@environment.getProperty('spring.profiles.active') != 'was'}">
 	        <p class="text-center my-2 text-danger fw-bold">테스트 로그인(사용자/관리자)<br>user권한/admin권한</p>
         	<form id="testGuestForm" method="post" action="/login/testGuest">
