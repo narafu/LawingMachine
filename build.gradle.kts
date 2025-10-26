@@ -42,6 +42,9 @@ dependencies {
     // SpringDoc (Swagger UI)
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 
+    // Spring Boot Actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     // Lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -26,12 +27,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         // 정적 리소스 (css, js, image 등) 에 대해 모두 접근 허용
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // 기타 허용할 경로들
-                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/index/**", "/login/**", "/reg", "/oauth2/**", "/console/**", "/image/**", "/login/testGuest").permitAll()
+                        .requestMatchers("/",
+                                "/actuator/health",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/index/**",
+                                "/login/**",
+                                "/reg",
+                                "/oauth2/**",
+                                "/console/**",
+                                "/image/**",
+                                "/login/testGuest")
+                        .permitAll()
                         // 그 외 모든 요청은 인증 필요
                         .anyRequest().authenticated()
                 )

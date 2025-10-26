@@ -19,14 +19,20 @@ mybatis:
 
 server:
   port: 8080
-  max-http-header-size: 400000
+  max-http-request-header-size: 400000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health" # 외부로 노출할 엔드포인트를 지정합니다.
+  endpoint:
+    health:
+      show-details: "always"
 
 logging:
   pattern:
     console: "%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] %logger[%method:%line] - %msg%n"
-    logback:
-      rollingpolicy:
-        file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}_%i.zip"
   level:
     root: INFO
     com.web.lawingmachine: DEBUG
